@@ -297,6 +297,7 @@ void Table::reindex() {
     size_t current_index = 0;
     while (current_index < fields.size()) {
         string field = fields.substr(current_index, fields.find(' ', current_index) - current_index);
+        if (debug) cout << "reindex() : field = " << field << endl;
         _indices.push_back(MMap<string, long>());
         _field_map.insert(field, _field_names.size());
         _field_names.push_back(field);
@@ -310,9 +311,11 @@ void Table::reindex() {
     int recnum = 0;
     r.read(f, recnum);
     while (!f.eof()) {
-        for (int i = 0; i < r.get_record().size(); i++)
+        if (debug) cout << "reindex() : r.get_record() = " << r.get_record() << endl;
+        for (int i = 0; i < _field_names.size(); i++) {
+            if (debug) cout << "reindex() : inserting into _indices " << r.get_record()[i] << endl;
             _indices[i].insert(r.get_record()[i], recnum);
-
+        }
         r.read(f, ++recnum);
     }
     _record_count = recnum;

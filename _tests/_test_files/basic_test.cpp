@@ -18,16 +18,16 @@ const vector<string> command_list = {
 
     /*00*/     "make table employee fields  last,       first,         dep,      salary, year",
     /*01*/     "insert into employee values Blow,       Joe,           CS,       100000, 2018",
-    /*02*/     //"insert into employee values Blow,       JoAnn,         Physics,  200000, 2016",
-    /*03*/     //"insert into employee values Johnson,    Jack,          HR,       150000, 2014",
-    /*04*/     //"insert into employee values Johnson,    \"Jimmy\",     Chemistry,140000, 2018",
+    /*02*/     "insert into employee values Blow,       JoAnn,         Physics,  200000, 2016",
+    /*03*/     "insert into employee values Johnson,    Jack,          HR,       150000, 2014",
+    /*04*/     "insert into employee values Johnson,    \"Jimmy\",     Chemistry,140000, 2018",
                //
-    /*05*/     //"make table student fields  fname,          lname,    major,    age",
-    /*06*/     //"insert into student values Flo,            Yao, 	Art, 	20",
-    /*07*/     //"insert into student values Bo, 		     Yang, 	CS, 		28",
-    /*08*/     //"insert into student values \"Sammuel L.\", Jackson, 	CS, 		40",
-    /*09*/     //"insert into student values \"Billy\",	     Jackson, 	Math,	27",
-    /*10*/     //"insert into student values \"Mary Ann\",   Davis,	Math,	30",
+    /*05*/     "make table student fields  fname,          lname,    major,    age",
+    /*06*/     "insert into student values Flo,            Yao, 	Art, 	20",
+    /*07*/     "insert into student values Bo, 		     Yang, 	CS, 		28",
+    /*08*/     "insert into student values \"Sammuel L.\", Jackson, 	CS, 		40",
+    /*09*/     "insert into student values \"Billy\",	     Jackson, 	Math,	27",
+    /*10*/     "insert into student values \"Mary Ann\",   Davis,	Math,	30",
                //
     /*11*/     //"select * from employee",
     /*12*/     //"select last, first, age from employee",
@@ -42,7 +42,7 @@ const vector<string> command_list = {
 
 };
 
-const int MAKE_TABLE_COMMANDS = 11;
+const int MAKE_TABLE_COMMANDS = 11; // 11
 const int SELECT_COMMANDS = 20;
 
 bool sql_basic(bool debug = false)
@@ -53,7 +53,7 @@ bool sql_basic(bool debug = false)
     sql.command(command_list[0]);
     cout << "basic_test: table created." << endl << endl;
 
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < MAKE_TABLE_COMMANDS; i++)
     {
         cout << ">" << command_list[i] << endl;
         sql.command(command_list[i]);
