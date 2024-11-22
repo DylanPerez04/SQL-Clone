@@ -2,6 +2,6 @@
 #include <iomanip>
 #include "stub.h"
 
-bool stub(){
-  return true;
+bool stub() {
+    return true;
 }

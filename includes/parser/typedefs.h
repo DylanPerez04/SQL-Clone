@@ -1,0 +1,4 @@
+#ifndef PARSER_TYPEDEFS_H
+#define PARSER_TYPEDEFS_H
+
+#endif // !PARSER_TYPEDEFS_H
