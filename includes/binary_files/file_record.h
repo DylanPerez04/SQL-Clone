@@ -12,7 +12,7 @@
 using namespace std;
 
 struct FileRecord {
-    static const int _num_of_fields = 3;
+    static const int _num_of_fields = 10;
     static const int MAX = 100; // max
     int recno;
     char _record[_num_of_fields][MAX + 1] = {};

@@ -281,7 +281,7 @@ int Table::get_token_type(const string& s) {
 * Call this from ctor!
 */
 void Table::reindex() {
-    const bool debug = false;
+    const bool debug = true;
     // Set fields for Table object via pre-existing _fields.txt file
     fstream f;
     f.open(_name + "_fields.txt", ios::in);
@@ -296,12 +296,11 @@ void Table::reindex() {
 
     size_t current_index = 0;
     while (current_index < fields.size()) {
-        string field = fields.substr(current_index, fields.find(' '));
+        string field = fields.substr(current_index, fields.find(' ', current_index) - current_index);
         _indices.push_back(MMap<string, long>());
         _field_map.insert(field, _field_names.size());
         _field_names.push_back(field);
         current_index += (field.size() + 1);
-        if(debug) cout << "reindex() : field = " << field << " | field.size() = " << field.size() << " | fields = " << fields << endl;
     }
 
     f.close();

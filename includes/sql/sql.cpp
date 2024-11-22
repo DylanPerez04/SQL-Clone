@@ -26,10 +26,9 @@ Table SQL::command(string query) {
         _table = Table(table_name);
         cout << "test1" << endl;
         fields = ptree.get("values");
-        cout << "test2" << endl;
+        if(debug) cout << "command() : cmd == insert | fields = " << fields << endl;
         _table.insert_into(fields);
         cout << "test3" << endl;
-
     }
     else if (cmd == "select") {
         if (!file_exists(file_name.c_str())) return _table;

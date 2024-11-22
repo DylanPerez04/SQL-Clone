@@ -40,7 +40,8 @@ string FileRecord::operator[](int index) const {
 
 streampos FileRecord::read(fstream& file, const int& recno) {
     file.seekp(recno * (_num_of_fields * (MAX + 1)));
-    file.read(*_record, _num_of_fields * (MAX + 1));
+
+    file.read(*_record, static_cast<std::streamsize>(_num_of_fields * (MAX + 1)));
 
     this->recno = recno;
 
