@@ -9,7 +9,8 @@ const char ALFA[] = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const char DIGITS[] = "0123456789";
 const char OPERATORS[] = "><=!+-%&|";
 const char SPACES[] = { ' ', '\t', '\n' };
-const char PUNC[] = "?.,:;'`~!";
+const char PUNC[] = "?.,:;`~!";
+const char QUOTES[] = {'\'', '\"'};
 
 //const int START_DOUBLE = 0; // 1
 //const int START_SPACES = 4;

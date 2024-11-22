@@ -56,14 +56,18 @@ void Parser::make_table(int _table[][MAX_COLUMNS]) {
         mark_cell(22, _table, VALUES, 23);
 
         mark_cell(23, _table, SYMBOL, 24);
-        mark_cell(23, _table, QUOTE, 26);
         mark_cell(24, _table, COMMA, 25);
         mark_cell(25, _table, SYMBOL, 24);
-        mark_cell(25, _table, QUOTE, 26);
-        mark_cell(26, _table, SYMBOL, 27);
-        mark_cell(27, _table, SYMBOL, 27);
-        mark_cell(27, _table, QUOTE, 28);
-        mark_cell(28, _table, COMMA, 25);
+
+        mark_cell(23, _table, TK_STRING, 24);
+        mark_cell(25, _table, TK_STRING, 24);
+
+        //mark_cell(23, _table, QUOTE, 26);
+        //mark_cell(25, _table, SYMBOL, 24);
+        //mark_cell(25, _table, QUOTE, 26);
+        //mark_cell(26, _table, SYMBOL, 27);
+        //mark_cell(27, _table, SYMBOL, 27);
+        //mark_cell(27, _table, QUOTE, 28);
 
         // MAKE
 
@@ -115,10 +119,11 @@ void Parser::make_table(int _table[][MAX_COLUMNS]) {
         mark_cell(11, _table, SYMBOL, 12);
         mark_cell(12, _table, LOGICAL_OPERATOR, 13);
         mark_cell(13, _table, SYMBOL, 10);
-        mark_cell(11, _table, QUOTE, 14);
-        mark_cell(14, _table, SYMBOL, 15);
-        mark_cell(15, _table, SYMBOL, 15);
-        mark_cell(15, _table, QUOTE, 16);
+        mark_cell(11, _table, TK_STRING, 12);
+        //mark_cell(11, _table, QUOTE, 14);
+        //mark_cell(14, _table, SYMBOL, 15);
+        //mark_cell(15, _table, SYMBOL, 15);
+        //mark_cell(15, _table, QUOTE, 16);
         mark_cell(16, _table, LOGICAL_OPERATOR, 13);
     }
 }
@@ -132,7 +137,6 @@ bool Parser::get_parse_tree(Queue<string> q) {
     */
 
     int state = 0;
-    string to_insert; // Used for "these tokens"
     int rparens_needed = 0;
     while (!q.empty() && state != -1) {
         string token = q.pop();
@@ -144,7 +148,13 @@ bool Parser::get_parse_tree(Queue<string> q) {
             continue;
         }
 
-        state = adj_table[state][get_column(token)];
+        Keyword key_type = get_column(token);
+        state = adj_table[state][key_type];
+
+        if (key_type == TK_STRING) {
+            token.pop_back();
+            token.erase(0, 1);
+        }
 
         if (debug) cout << "get_parse_tree() : token = " << token << " | state = " << state << endl;
 
@@ -165,16 +175,16 @@ bool Parser::get_parse_tree(Queue<string> q) {
         case 24: // symbol
             ptree.get("values").push_back(token);
             break;
-        case 27:
-        case 15:
-            if (!to_insert.empty()) to_insert.push_back(' ');
-            to_insert.append(token);
-            if (debug) cout << "get_parse_tree() : to_insert = " << to_insert << endl;
-            break;
-        case 28:
-            ptree.get("values").push_back(to_insert);
-            to_insert.clear();
-            break;
+        //case 27:
+        //case 15:
+        //    if (!to_insert.empty()) to_insert.push_back(' ');
+        //    to_insert.append(token);
+        //    if (debug) cout << "get_parse_tree() : to_insert = " << to_insert << endl;
+        //    break;
+        //case 28:
+        //    ptree.get("values").push_back(to_insert);
+        //    to_insert.clear();
+        //    break;
         case 6:
         case 17:
             ptree.get("fields").push_back(token);
@@ -190,10 +200,10 @@ bool Parser::get_parse_tree(Queue<string> q) {
         case 13:
             ptree.get("condition").push_back(token);
             break;
-        case 16:
-            ptree.get("condition").push_back(to_insert);
-            to_insert.clear();
-            break;
+        //case 16:
+        //    ptree.get("condition").push_back(to_insert);
+        //    to_insert.clear();
+        //    break;
         default:
             break;
         }
@@ -249,6 +259,11 @@ void Parser::set_string(const char* s) {
 }
 
 Keyword Parser::get_column(string token) {
+    assert(!token.empty());
+    if ((token.front() == '\"' && token.back() == '\"')
+        || (token.front() == '\'' && token.back() == '\'')) {
+        return TK_STRING;
+    }
     if (!_keywords.contains(token)) return SYMBOL;
     return static_cast<Keyword>(_keywords.get(token));
 }

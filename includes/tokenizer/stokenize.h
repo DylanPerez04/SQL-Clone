@@ -41,11 +41,12 @@ public:
         int state = 0;
         bool token_retrieved = s.get_token(state, token_str);
         // Very janky method of testing whether a token is a SPACES char without iterating the array
-        while (token_str.find(' ') != -1 || token_str.find('\t') != -1 || token_str.find('\n') != -1) {
+
+        while (token_retrieved && (token_str.front() == ' ' || token_str.front() == '\t' || token_str.front() == '\n')) {
             state = 0;
             token_retrieved = s.get_token(state, token_str);
         }
-        if (token_retrieved)
+        if (token_retrieved)    
             t = token_str;
         return s;
     }
