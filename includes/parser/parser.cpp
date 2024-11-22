@@ -129,7 +129,7 @@ void Parser::make_table(int _table[][MAX_COLUMNS]) {
 }
 
 bool Parser::get_parse_tree(Queue<string> q) {
-    const bool debug = true;
+    const bool debug = false;
     if (debug) cout << "get_parse_tree() q = " << q << endl;
 
     /*
@@ -235,7 +235,7 @@ Parser::Parser(const char* s) : invalid_query(false) {
 }
 
 void Parser::set_string(const char* s) {
-    const bool debug = true;
+    const bool debug = false;
     strncpy(_buffer, s, MAX_BUFFER);
     _buffer[MAX_BUFFER] = '\0';
     input_q.clear();

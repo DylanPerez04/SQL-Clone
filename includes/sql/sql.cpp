@@ -3,7 +3,7 @@
 SQL::SQL() {}
 
 Table SQL::command(string query) {
-    const bool debug = true;
+    const bool debug = false;
     Parser parsed_query(query.c_str());
     MMap<string, string>& ptree = parsed_query.parse_tree();
     if (ptree.empty()) {
@@ -24,11 +24,9 @@ Table SQL::command(string query) {
         if (!file_exists(file_name.c_str())) return _table;
         if (debug) cout << "command() : insert command called." << endl;
         _table = Table(table_name);
-        cout << "test1" << endl;
         fields = ptree.get("values");
         if(debug) cout << "command() : cmd == insert | fields = " << fields << endl;
         _table.insert_into(fields);
-        cout << "test3" << endl;
     }
     else if (cmd == "select") {
         if (!file_exists(file_name.c_str())) return _table;

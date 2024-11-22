@@ -142,6 +142,9 @@ Table Table::select(const vectorstr& fields, const Queue<Token*>& postfix) {
 * @returns A Table containing record numbers for all records the meet #param condition
 */
 Table Table::select(const vectorstr& fields, const vectorstr& condition) {
+    if (condition.size() == 3)
+        return select(fields, condition[0], condition[1], condition[2]);
+
     Queue<Token*> infix;
 
     /// Convert postfix #param condition to infix
@@ -281,7 +284,7 @@ int Table::get_token_type(const string& s) {
 * Call this from ctor!
 */
 void Table::reindex() {
-    const bool debug = true;
+    const bool debug = false;
     // Set fields for Table object via pre-existing _fields.txt file
     fstream f;
     f.open(_name + "_fields.txt", ios::in);
