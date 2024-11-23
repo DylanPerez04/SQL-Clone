@@ -142,8 +142,8 @@ Table Table::select(const vectorstr& fields, const Queue<Token*>& postfix) {
 * @returns A Table containing record numbers for all records the meet #param condition
 */
 Table Table::select(const vectorstr& fields, const vectorstr& condition) {
-    if (condition.size() == 3)
-        return select(fields, condition[0], condition[1], condition[2]);
+    //if (condition.size() == 3)
+    //    return select(fields, condition[0], condition[1], condition[2]);
 
     Queue<Token*> infix;
 
