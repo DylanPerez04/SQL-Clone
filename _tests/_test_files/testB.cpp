@@ -54,7 +54,7 @@ const vector<string> command_list = {
 
 };
 
-const int COMMANDS = 1;
+const int COMMANDS = 11;
 
 bool test_sql_relational(bool debug = false) {
 
@@ -83,6 +83,61 @@ TEST(TEST_SQL_RELATIONAL, TestRelational) {
 
     EXPECT_EQ(1, test_sql_relational(false));
 }
+
+const vector<string> command_list2 = {
+    //****************************************************************************
+    // LOGICAL OPERATORS
+    //****************************************************************************
+    //.................
+    //:AND :
+    //.................
+    "select* from student where fname = \"Flo\" and lname = \"Yao\"",
+    //.................
+    //:OR :
+    //.................
+    "select * from student where fname = Flo or lname = Jackson",
+    //.................
+    //:OR AND :
+    //.................
+    "select * from student where fname = Flo or major = CS and age <= 23",
+    //.................
+    //:AND OR AND :
+    //.................
+    "select * from student where age < 30 and major = CS or major = Physics and lname = Jackson",
+    //.................
+    //:OR AND OR :
+    //.................
+    "select * from student where lname = Yang or major = CS and age < 23 or lname = Jackson"
+};
+
+const int COMMANDS2 = 5;
+bool test_sql_logical(bool debug = false) {
+
+    SQL sql;
+    Table t;
+
+    cout << endl
+        << endl;
+    for (int i = 0; i < COMMANDS2; i++)
+    {
+        cout << "\n>" << command_list2[i] << endl;
+        if (debug)
+            cout << sql.command(command_list2[i]) << endl;
+        else
+            t = sql.command(command_list2[i]);
+        cout << "basic_test: records selected: " << sql.select_recnos() << endl;
+    }
+
+    cout << "----- END TEST --------" << endl;
+
+    return true;
+}
+
+TEST(TEST_SQL_LOGICAL, TestLogical) {
+
+    EXPECT_EQ(1, test_sql_logical(false));
+}
+
 
 //bool test_stub(bool debug = false)
 //{

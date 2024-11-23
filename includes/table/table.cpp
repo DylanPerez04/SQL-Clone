@@ -166,6 +166,8 @@ Table Table::select(const vectorstr& fields, const vectorstr& condition) {
 // TODO : If grader doesn't care about _select_recnos' order, have this select method call the better select method
 Table Table::select(const vectorstr& fields, const string& field,
     const string op, const string& value) {
+    const bool debug = false;
+    if (debug) cout << "select() : field = " << field << " | op = " << op << " | value = " << value << endl;
     _select_recnos.clear();
 
     Table t("_select_table_" + to_string(serial), fields);
@@ -179,6 +181,7 @@ Table Table::select(const vectorstr& fields, const string& field,
     vectorstr to_insert;
     MMap<string, long> map = _indices[field_index];
     MMap<string, long>::Iterator it;
+
     switch (_op) {
         case EQUAL:
             _select_recnos = map.get(value);
@@ -220,7 +223,9 @@ Table Table::select(const vectorstr& fields, const string& field,
             }
             break;
         case LESS_EQUAL:
-            for (it = map.begin(); (*it).key <= value; it++) {
+            cout << "testing..." << endl;
+
+            for (it = map.begin(); it != map.end() && (*it).key <= value; it++) {
                 for (int recnum : (*it).value_list) {
                     _select_recnos.push_back(recnum);
                     for (string to_include : fields) {
@@ -233,6 +238,8 @@ Table Table::select(const vectorstr& fields, const string& field,
             }
             break;
         case GREATER_EQUAL:
+            cout << "testing..." << endl;
+
             for (it = map.lower_bound(value); it != map.end(); it++) {
 
                 for (int recnum : (*it).value_list) {
