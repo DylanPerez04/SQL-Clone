@@ -1,6 +1,8 @@
 #ifndef SQL_H
 #define SQL_H
 
+#include <algorithm>
+
 #include "../table/table.h"
 #include "../parser/parser.h"
 #include "../binary_files/utilities.h"

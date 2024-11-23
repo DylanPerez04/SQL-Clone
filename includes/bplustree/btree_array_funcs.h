@@ -30,7 +30,10 @@ template <class T> int index_of_maximal(T data[], int n) {
 }
 
 /**
-* Insert entry into the sorted array data with length n.
+* Insert entry into the 
+
+
+ed array data with length n.
 * Inserts #param entry regardless of whether #param data already contains the element.
 */
 template <class T> void ordered_insert(T data[], int& n, T entry) {
