@@ -142,6 +142,7 @@ Table Table::select(const vectorstr& fields, const Queue<Token*>& postfix) {
 * @returns A Table containing record numbers for all records the meet #param condition
 */
 Table Table::select(const vectorstr& fields, const vectorstr& condition) {
+    const bool debug = false;
     //if (condition.size() == 3)
     //    return select(fields, condition[0], condition[1], condition[2]);
 
@@ -160,6 +161,7 @@ Table Table::select(const vectorstr& fields, const vectorstr& condition) {
     }
     ShuntingYard sy(infix);
     _select_recnos = cond(sy.postfix());
+    if (debug) cout << "select(fields, condition) : _select_recnos = " << _select_recnos << endl;
     return  vector_to_table(fields, _select_recnos);
 }
 
@@ -195,7 +197,7 @@ Table Table::select(const vectorstr& fields, const string& field,
             }
             break;
         case LESS_THAN:
-            for (it = map.begin(); (*it).key < value; it++) {
+            for (it = map.begin(); it != map.end() && (*it).key < value; it++) {
                 for (int recnum : (*it).value_list) {
                     _select_recnos.push_back(recnum);
                     for (string to_include : fields) {
@@ -223,8 +225,6 @@ Table Table::select(const vectorstr& fields, const string& field,
             }
             break;
         case LESS_EQUAL:
-            cout << "testing..." << endl;
-
             for (it = map.begin(); it != map.end() && (*it).key <= value; it++) {
                 for (int recnum : (*it).value_list) {
                     _select_recnos.push_back(recnum);
@@ -346,6 +346,8 @@ vectorlong Table::cond(const Queue<Token*>& post) {
                  * lhs = output.pop(); // lhs - field (age)
 
             assert(lhs != nullptr && rhs != nullptr);
+
+            if (DEBUG) cout << "cond() : *lhs = " << *lhs << " | *op = " << *op << " | *rhs = " << *rhs << endl;
 
             ResultSet* result = op->eval(_indices[_field_map.get(lhs->token_str())], lhs, rhs);
 

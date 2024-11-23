@@ -88,7 +88,7 @@ struct Relational : public Operator {
             case EQUAL:
                 return new ResultSet(map.get(rhs->token_str()));
             case LESS_THAN:
-                for (MMap<string, long>::Iterator it = map.begin(); (*it).key < rhs->token_str(); it++)
+                for (MMap<string, long>::Iterator it = map.begin(); it != map.end() && (*it).key < rhs->token_str(); it++)
                     result = result->set_union(new ResultSet((*it).value_list));
                 break;
             case GREATER_THAN:
@@ -96,7 +96,7 @@ struct Relational : public Operator {
                     result = result->set_union(new ResultSet((*it).value_list));
                 break;
             case LESS_EQUAL:
-                for (MMap<string, long>::Iterator it = map.begin(); (*it).key <= rhs->token_str(); it++)
+                for (MMap<string, long>::Iterator it = map.begin(); it != map.end() && (*it).key <= rhs->token_str(); it++)
                     result = result->set_union(new ResultSet((*it).value_list));
                 break;
             case GREATER_EQUAL:

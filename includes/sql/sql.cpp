@@ -8,7 +8,7 @@ Table SQL::command(string query) {
     MMap<string, string>& ptree = parsed_query.parse_tree();
     if (ptree.empty()) {
         if (debug) cout << "command() : Invalid query!" << endl;
-        return _table;
+        return _select_table;
     }
 
     string cmd = ptree.get("command").front();
@@ -18,13 +18,14 @@ Table SQL::command(string query) {
     vector<string> fields;
 
     Table to_return;
+
     if (cmd == "make") {
         fields = ptree.get("col");
         if (debug) cout << "command() : make command called. fields = " << fields << endl;
         to_return = Table(table_name, fields);
     }
     else if (cmd == "insert") {
-        if (!file_exists(file_name.c_str())) return _table;
+        if (!file_exists(file_name.c_str())) return to_return;
         if (debug) cout << "command() : insert command called." << endl;
         to_return = Table(table_name);
         fields = ptree.get("values");
@@ -32,22 +33,22 @@ Table SQL::command(string query) {
         to_return.insert_into(fields);
     }
     else if (cmd == "select") {
-        if (!file_exists(file_name.c_str())) return _table;
-        _table = Table(table_name);
+        if (!file_exists(file_name.c_str())) return to_return;
+        _select_table = Table(table_name);
         fields = ptree.get("fields");
         if (debug) cout << "command() : select | fields = " << fields << endl;
         if (!ptree.contains("where")) {
             cout << "There is no condition" << endl;
             if (fields.front() == "*")
-                to_return = _table.select_all(_table.get_fields());
+                to_return = _select_table.select_all(_select_table.get_fields());
             else
-                to_return = _table.select_all(fields);
+                to_return = _select_table.select_all(fields);
         }
         else if(ptree.get("where").front() == "yes") {
             if (fields.front() == "*")
-                to_return = _table.select(_table.get_fields(), ptree.get("condition"));
+                to_return = _select_table.select(_select_table.get_fields(), ptree.get("condition"));
             else
-                to_return = _table.select(fields, ptree.get("condition"));
+                to_return = _select_table.select(fields, ptree.get("condition"));
         }
 
         cout << to_return << endl << endl;
@@ -57,5 +58,5 @@ Table SQL::command(string query) {
 
 vector<long> SQL::select_recnos()
 {
-    return _table.select_recnos();
+    return _select_table.select_recnos();
 }

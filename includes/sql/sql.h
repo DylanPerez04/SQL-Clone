@@ -9,9 +9,11 @@
 
 class SQL {
 private:
-    Table _table;
+    Table _select_table;
 public:
     SQL();
+
+    //~SQL();
 
     Table command(string query);
 
