@@ -2,7 +2,7 @@
 
 SQL::SQL() {}
 
-Table& SQL::command(string query) {
+Table SQL::command(string query) {
     const bool debug = false;
     Parser parsed_query(query.c_str());
     MMap<string, string>& ptree = parsed_query.parse_tree();

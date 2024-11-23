@@ -13,7 +13,7 @@ private:
 public:
     SQL();
 
-    Table& command(string query);
+    Table command(string query);
 
     vector<long> select_recnos();
 
