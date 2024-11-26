@@ -143,8 +143,8 @@ Table Table::select(const vectorstr& fields, const Queue<Token*>& postfix) {
 */
 Table Table::select(const vectorstr& fields, const vectorstr& condition) {
     const bool debug = false;
-    if (condition.size() == 3)
-        return select(fields, condition[0], condition[1], condition[2]);
+    //if (condition.size() == 3)
+    //    return select(fields, condition[0], condition[1], condition[2]);
 
     Queue<Token*> infix;
 
