@@ -174,6 +174,7 @@ bool Parser::get_parse_tree(Queue<string> q) {
                 if (parenth_check.empty()) {
                     // Invalid command if parenthesis are out of whack | ex. ... where )(fname = first)
                     state = -1;
+                    break;
                 }
                 parenth_check.pop_back();
             }
