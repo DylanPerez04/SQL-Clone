@@ -134,57 +134,57 @@ bool Parser::get_parse_tree(Queue<string> q) {
         if (debug) cout << "get_parse_tree() : token = " << token << " | state = " << state << endl;
 
         switch (state) {
-        case 40: // make
-        case 20: // insert
-        case 5: // select
-            ptree.get("command").push_back(token);
-            break;
-        case 42: // symbol
-        case 22:
-        case 8:
-            ptree.get("table_name").push_back(token);
-            break;
-        case 44: // symbol
-            ptree.get("col").push_back(token);
-            break;
-        case 24: // symbol
-            ptree.get("values").push_back(token);
-            break;
-        case 6:
-        case 17:
-            ptree.get("fields").push_back(token);
-            break;
-        case 9: // where
-            ptree.get("where").push_back("yes");
-            break;
-        case 11:
-        case 12:
-        case 13:
-        case 15:
-        case 16:
-        case 19:
-            ptree.get("condition").push_back(token);
-            break;
-        case 10:
-        case 14:
-            ptree.get("condition").push_back(token);
-            if (token == "(")
-                parenth_check.push_back(token.front());
-            else if(token == ")") {
-                if (parenth_check.empty()) {
-                    // Invalid command if parenthesis are out of whack | ex. ... where )(fname = first)
-                    state = -1;
-                    break;
+            case 40: // make
+            case 20: // insert
+            case 5: // select
+                ptree.get("command").push_back(token);
+                break;
+            case 42: // symbol
+            case 22:
+            case 8:
+                ptree.get("table_name").push_back(token);
+                break;
+            case 44: // symbol
+                ptree.get("col").push_back(token);
+                break;
+            case 24: // symbol
+                ptree.get("values").push_back(token);
+                break;
+            case 6:
+            case 17:
+                ptree.get("fields").push_back(token);
+                break;
+            case 9: // where
+                ptree.get("where").push_back("yes");
+                break;
+            case 11:
+            case 12:
+            case 13:
+            case 15:
+            case 16:
+            case 19:
+                ptree.get("condition").push_back(token);
+                break;
+            case 10:
+            case 14:
+                ptree.get("condition").push_back(token);
+                if (token == "(")
+                    parenth_check.push_back(token.front());
+                else if(token == ")") {
+                    if (parenth_check.empty()) {
+                        // Invalid command if parenthesis are out of whack | ex. ... where )(fname = first)
+                        state = -1;
+                        break;
+                    }
+                    parenth_check.pop_back();
                 }
-                parenth_check.pop_back();
-            }
-            break;
-        default:
-            break;
+                break;
+            default:
+                break;
         }
     }
 
-    invalid_query = !is_success(adj_table, state) && parenth_check.size() != 0;
+    invalid_query = parenth_check.size() != 0 || !is_success(adj_table, state);
     if (invalid_query) ptree.clear();
 
     if (debug) cout << "get_parse_tree() : invalid_query = " << boolalpha << invalid_query << endl;

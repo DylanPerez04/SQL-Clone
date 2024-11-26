@@ -20,6 +20,7 @@ void mark_fail(int _table[][MAX_COLUMNS], int state) {
 
 //true if state is a success state
 bool is_success(int _table[][MAX_COLUMNS], int state) {
+    if (state < 0) return false;
     return _table[state][0] == 1;
 }
 
