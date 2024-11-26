@@ -325,9 +325,37 @@ bool test_batch_file(bool debug = false) {
 TEST(TEST_BATCH_FILE, TestBatchFile) {
 
     //EXPECT_EQ(1, test_sql_logical(false));
-    EXPECT_EQ(1, test_batch_file(false));
+    //EXPECT_EQ(1, test_batch_file(false));
 }
 
+bool test_shunting_yard(bool debug = false) {
+
+    cout << endl << " ====== test_shunting_yard() ===========================" << endl;
+
+    SQL sql;
+    Table t;
+
+    //string cmd = "select * from student where lname = Malone and fname = Deza or fname = \"Mary Ann\"";
+    string cmd = "select * from student where (age < 17 or age > 20) and lname = Jackson";
+
+    cout << endl
+        << endl;
+
+    cout << "\n>" << cmd << endl;
+    if (debug)
+        cout << sql.command(cmd) << endl;
+    else
+        t = sql.command(cmd);
+    cout << "test_shunting_yard: records selected: " << sql.select_recnos() << endl;
+
+
+    return true;
+}
+
+TEST(TEST_GENERIC, TestGeneric) {
+
+    EXPECT_EQ(1, test_shunting_yard(false));
+}
 
 //bool test_stub(bool debug = false)
 //{

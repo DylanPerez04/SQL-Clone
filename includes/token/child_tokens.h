@@ -8,15 +8,15 @@
 #include "token.h"
 
 enum OperatorType {
+    OR,
+    AND,
+    NOT,
     EQUAL,
     LESS_THAN,
     GREATER_THAN,
     LESS_EQUAL,
     GREATER_EQUAL,
     NOT_EQUAL,
-    AND,
-    OR,
-    NOT,
     UNKNOWN // custom enum used for return purposes
 };
 
@@ -57,15 +57,18 @@ public:
     // RPN
     virtual ResultSet* eval(MMap<string, long>& map, Token*& lhs, Token*& rhs) = 0;
 
-    OperatorType op_type() {
+    OperatorType op_type() const {
         return _op_type;
     }
 
     static OperatorType get_operator(string op) {
         if (OPERATOR_CODES.empty()) {
-            const string ops[9] = { "=", "<", ">", "<=", ">=", "!=", "and", "or", "not" };
-            for (int op = EQUAL; op != UNKNOWN; op++)
+            const string ops[9] = { "or", "and", "not", "=", "<", ">", "<=", ">=", "!=" };
+            for (int op = OR; op != UNKNOWN; op++)
                 OPERATOR_CODES.insert(ops[op], op);
+
+            OPERATOR_CODES.insert("OR", OR);
+            OPERATOR_CODES.insert("AND", AND);
         }
 
         if (!OPERATOR_CODES.contains(op)) return UNKNOWN;

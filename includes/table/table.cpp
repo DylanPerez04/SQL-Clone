@@ -155,8 +155,8 @@ Table Table::select(const vectorstr& fields, const vectorstr& condition) {
         if (token == "(") infix.push(new LeftParen());
         else if (token == ")") infix.push(new RightParen());
         else if (Operator::get_operator(token) != UNKNOWN) {
-            if (Operator::get_operator(token) < AND) infix.push(new Relational(token));
-            else infix.push(new Logical(token));
+            if (Operator::get_operator(token) < EQUAL) infix.push(new Logical(token));
+            else infix.push(new Relational(token));
         }
         else infix.push(new TokenStr(token));
     }

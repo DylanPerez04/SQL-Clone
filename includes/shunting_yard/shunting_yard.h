@@ -30,7 +30,7 @@ public:
         for (Queue<Token*>::Iterator it = infix.begin(); it != infix.end(); it++) {
             TokenType _type = (*it)->type();
 
-            if (debug) cout << "ShuntingYard() : _token = " << (*it)->token_str() << " | _type = " << _type << endl;
+            if (debug) cout << "ShuntingYard() : _token = " << (*it)->token_str() << " | TokenType _type = " << _type << endl;
 
             switch (_type) {
             case STRING:
@@ -40,12 +40,17 @@ public:
                 op_stack.push(*it);
                 break;
             case LOGIC:
-                if (op_stack.top()->type() >= _type)
+                while (!op_stack.empty() && op_stack.top()->type() >= _type) {
+                    if (Operator::get_operator((*it)->token_str()) > Operator::get_operator(op_stack.top()->token_str())) {
+                        if (debug) cout << "ShuntingYard() : " << (*it)->token_str() << " > " << op_stack.top()->token_str() << endl;
+                        break;
+                    }
                     output_queue.push(op_stack.pop());
+                }
                 op_stack.push(*it);
                 break;
             case RPAREN:
-                if (op_stack.top()->type() >= _type)
+                while (!op_stack.empty() && op_stack.top()->type() >= _type)
                     output_queue.push(op_stack.pop());
                 break;
             default:
@@ -57,7 +62,7 @@ public:
             output_queue.push(op_stack.pop());
 
         if (debug) {
-            cout << "infix_to_postfix() : output_queue = ";
+            cout << "ShuntingYard() : output_queue = ";
             output_queue.print_pointers();
         }
 
