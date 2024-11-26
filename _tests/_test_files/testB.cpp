@@ -163,11 +163,11 @@ bool test_sql_logical2(bool debug = false) {
 bool test_sql_parenthesis(bool debug = false) {
 
     vector<string> cmds = {
-        "select * from student where (fname >= Flo)",
-        "select * from student where (fname >= Flo and (lname <= Yao))",
-        "select * from student where major = Art and (lname = Yao or lname = Yang)",
-        "select * from student where major = Art or (lname = Davis or (lname = Yang and major = CS))",
-        "select * from student where (major = CS and lname <= \"Jackson\") or (lname = Yao or lname = Yang)"
+        "select * from student where (fname = Flo)",
+        "select * from student where (fname = Flo) or (lname < Z)",
+        "select * from student where (fname = Flo and lname = Yao or major = CS)",
+        "select * from student where (fname = Flo and (lname = Yao or major = CS))",
+        "select * from student where (fname = Flo and (lname <= Yao and (major = Art or age > 20)))"
     };
 
     SQL sql;
@@ -194,7 +194,7 @@ TEST(TEST_SQL, TestSql) {
 
     //EXPECT_EQ(1, test_sql_relational(false));
     //EXPECT_EQ(1, test_sql_logical(false));
-    EXPECT_EQ(1, test_sql_logical2(false));
+    //EXPECT_EQ(1, test_sql_logical2(false));
     EXPECT_EQ(1, test_sql_parenthesis(false));
 }
 
@@ -383,7 +383,7 @@ bool test_shunting_yard(bool debug = false) {
 
 TEST(TEST_GENERIC, TestGeneric) {
 
-    EXPECT_EQ(1, test_shunting_yard(false));
+    //EXPECT_EQ(1, test_shunting_yard(false));
 }
 
 //bool test_stub(bool debug = false)

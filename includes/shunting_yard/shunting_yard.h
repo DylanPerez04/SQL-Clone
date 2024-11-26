@@ -42,7 +42,7 @@ public:
             case LOGIC:
                 while (!op_stack.empty() && op_stack.top()->type() >= _type) {
                     /// Utilized for giving AND precedence over OR
-                    if (Operator::get_operator((*it)->token_str()) > Operator::get_operator(op_stack.top()->token_str()))
+                    if (Operator::get_operator((*it)->token_str()) >= Operator::get_operator(op_stack.top()->token_str()))
                         break;
                     
                     output_queue.push(op_stack.pop());
