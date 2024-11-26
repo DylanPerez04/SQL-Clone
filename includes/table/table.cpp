@@ -161,8 +161,9 @@ Table Table::select(const vectorstr& fields, const vectorstr& condition) {
         else infix.push(new TokenStr(token));
     }
     ShuntingYard sy(infix);
-    if (debug) cout << "select(fields, condition) : sy.postfix() = " << sy.postfix() << endl;
-    return select(fields, sy.postfix());
+    _select_recnos = cond(sy.postfix());
+    if (debug) cout << "select(fields, condition) : _select_recnos = " << _select_recnos << endl;
+    return  vector_to_table(fields, _select_recnos);
 }
 
 // TODO : If grader doesn't care about _select_recnos' order, have this select method call the better select method

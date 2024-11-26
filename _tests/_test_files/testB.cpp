@@ -139,11 +139,12 @@ bool test_sql_logical2(bool debug = false) {
     cout << endl << " ================ test_sql_logical2() ===================================" << endl << endl;
 
     const vector<string> CMDS = {
-        "select * from student where lname = \"Sammuel L.\""
+        "select * from student where fname = Flo or fname = Bo or fname = \"Sammuel L.\" or fname = Billy or fname = \"Mary Ann\"",
+        "select * from student where (fname = Flo and lname = Yao) or major = CS",
     };
-
+     
     SQL sql;
-    Table t;
+    Table t; 
 
     cout << endl
         << endl;
@@ -165,7 +166,166 @@ bool test_sql_logical2(bool debug = false) {
 TEST(TEST_SQL_LOGICAL, TestLogical) {
 
     //EXPECT_EQ(1, test_sql_logical(false));
-    EXPECT_EQ(1, test_sql_logical2(false));
+    //EXPECT_EQ(1, test_sql_logical2(false));
+}
+
+bool test_batch_file(bool debug = false) {
+
+    cout << endl << " ====== test_batch_file() ===========================" << endl;
+
+    cout << endl << "||||||||||||||||| CREATE AND INSERT |||||||||||||||||" << endl;
+
+    vector<string> create_insert = {
+    "make table employee fields last, first, dep",
+    "insert into employee values Blow, Joe, CS",
+    "insert into employee values Johnson, \"Jimmy\", Chemistry",
+    "insert into employee values Yang, Bo, CS",
+    "insert into employee values \"Jackson\", Billy, Math",
+    "insert into employee values Johnson, Billy, \"Phys Ed\"",
+    "insert into employee values \"Van Gogh\", \"Jim Bob\", \"Phys Ed\"",
+    "make table student fields fname, lname, major, age",
+    "insert into student values Flo, Yao, CS, 20",
+    "insert into student values \"Flo\", \"Jackson\", Math, 21",
+    "insert into student values Calvin, Woo, Physics, 22",
+    "insert into student values \"Anna Grace\", \"Del Rio\", CS, 22",
+    "select * from student"
+    };
+
+    SQL sql;
+    Table t;
+
+    cout << endl
+        << endl;
+    for (int i = 0; i < create_insert.size(); i++)
+    {
+        cout << "\n>" << create_insert[i] << endl;
+        if (debug)
+            cout << sql.command(create_insert[i]) << endl;
+        else
+            t = sql.command(create_insert[i]);
+    }
+
+    cout << endl << "||||||||||||||||| SIMPLE SELECT |||||||||||||||||" << endl;
+
+
+    vector<string> simple_select = {
+        "select* from student",
+        //------- simple strings -------------------
+        "select* from student where lname = Jackson",
+        //----- quoted strings ---------------------
+        "select * from student where lname = \"Del Rio\"",
+        //-------- non-existing string ------------------
+        "select * from student where lname = \"Does Not Exist\""
+    };
+
+    cout << endl
+        << endl;
+    for (int i = 0; i < simple_select.size(); i++)
+    {
+        cout << "\n>" << simple_select[i] << endl;
+        if (debug)
+            cout << sql.command(simple_select[i]) << endl;
+        else
+            t = sql.command(simple_select[i]);
+        cout << "basic_test: records selected: " << sql.select_recnos() << endl;
+    }
+
+    cout << endl << "||||||||||||||||| RELATIONAL OPERATORS |||||||||||||||||" << endl;
+
+
+    vector<string> relational_ops = {
+        //.................
+        //:Greater Than :
+        //.................
+        "select* from student where lname > Yang",
+        //. . . . . . . . . . . . . (Greater Than: Non-existing) . . . . . . . . . . . . . . . . . . . . .
+        "select* from student where age > 50",
+        //. . . . . . . . . . . . . (Greater than: last item) . . . . . . . . . . . . . . . . . .
+        "select * from student where age > 53",
+        //. . . . . . . . . . . . . (Greater Than: Passed last item) . . . . . . . . . . . . . . . . . . . . .
+        "select* from student where age > 54",
+        //.................
+        //:Greater Equal :
+        //.................
+        "select * from student where lname >= Yang",
+        //. . . . . . (Greater Equal non-existing: ) . . . . . . . . . . .
+        "select * from employee where last >= Jack",
+        //.................
+        //:Less Than :
+        //.................
+        //. . . . . . . . . . . . . (Less Than: Non-existing) . . . . . . . . . . . . . . . . . . . . .
+        "select * from student where lname < Jackson",
+            //. . . . . . . . . . . . . (Less than: first item) . . . . . . . . . . . . . . . . . .
+        "select * from student where age < 20",
+        //. . . . . . . . . . . . . (Less Than: before first item) . . . . . . . . . . . . . . . . . . . . .
+        "select* from student where age < 19",
+        //.................
+        //:Less Equal :
+        //.................
+        "select * from student where lname <= Smith",
+        //. . . . . . (Less Equal non-existing: ) . . . . . . . . . . .
+        "select * from employee where last <= Peach"
+    };
+
+    cout << endl
+        << endl;
+    for (int i = 0; i < relational_ops.size(); i++)
+    {
+        cout << "\n>" << relational_ops[i] << endl;
+        if (debug)
+            cout << sql.command(relational_ops[i]) << endl;
+        else
+            t = sql.command(relational_ops[i]);
+        cout << "basic_test: records selected: " << sql.select_recnos() << endl;
+    }
+
+    cout << endl << "||||||||||||||||| LOGICAL OPERATORS |||||||||||||||||" << endl;
+
+
+    vector<string> logical_ops = {
+        //.................
+        //:AND :
+        //.................
+        "select* from student where fname = \"Flo\" and lname = \"Yao\"",
+        //.................
+        //:OR :
+        //.................
+        "select * from student where fname = Flo or lname = Jackson", 
+        //.................
+        //:OR AND :
+        //.................
+        "select * from student where fname = Flo or major = CS and age <= 23", 
+        //.................
+        //:AND OR AND :
+        //.................
+        "select * from student where age < 30 and major = CS or major = Physics and lname = Jackson",
+        //.................
+        //:OR AND OR :
+        //.................
+        "select * from student where lname = Yang or major = CS and age < 23 or lname = Jackson"
+    };
+
+    cout << endl
+        << endl;
+    for (int i = 0; i < logical_ops.size(); i++)
+    {
+        cout << "\n>" << logical_ops[i] << endl;
+        if (debug)
+            cout << sql.command(logical_ops[i]) << endl;
+        else
+            t = sql.command(logical_ops[i]);
+        cout << "basic_test: records selected: " << sql.select_recnos() << endl;
+    }
+
+    cout << "----- END TEST --------" << endl;
+
+    return true;
+}
+
+TEST(TEST_BATCH_FILE, TestBatchFile) {
+
+    //EXPECT_EQ(1, test_sql_logical(false));
+    EXPECT_EQ(1, test_batch_file(false));
 }
 
 

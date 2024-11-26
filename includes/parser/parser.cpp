@@ -98,17 +98,19 @@ void Parser::make_table(int _table[][MAX_COLUMNS]) {
         mark_cell(6, _table, FROM, 7);
         mark_cell(7, _table, SYMBOL, 8);
         mark_cell(8, _table, WHERE, 9);
+
         mark_cell(9, _table, LPARENT, 10);
         mark_cell(10, _table, SYMBOL, 11);
         mark_cell(11, _table, RELATIONAL_OPERATOR, 12);
         mark_cell(12, _table, SYMBOL, 13);
-        mark_cell(13, _table, LOGICAL_OPERATOR, 19);
+        mark_cell(13, _table, LOGICAL_OPERATOR,19);
         mark_cell(13, _table, RPARENT, 14);
         mark_cell(14, _table, LOGICAL_OPERATOR, 19);
+        mark_cell(14, _table, RPARENT, 14);
         mark_cell(9, _table, SYMBOL, 15);
         mark_cell(15, _table, RELATIONAL_OPERATOR, 16);
         mark_cell(16, _table, SYMBOL, 14);
-        mark_cell(19, _table, RPAREN, 10);
+        mark_cell(19, _table, LPARENT, 10);
         mark_cell(19, _table, SYMBOL, 15);
     }
 }
@@ -126,18 +128,6 @@ bool Parser::get_parse_tree(Queue<string> q) {
 
     while (!q.empty() && state != -1) {
         string token = q.pop();
-
-        if (token == "(" || token == ")") {
-            ptree.get("condition").push_back(token);
-            if (token == "(")
-                parenth_check.push_back(token.front());
-            else {
-                if (parenth_check.empty()) return false; // Invalid command if parenthesis are out of whack | ex. ... where )(fname = first)
-                parenth_check.pop_back();
-            }
-            continue;
-        }
-
         Keyword key_type = get_column(token);
         state = adj_table[state][key_type];
 
@@ -167,15 +157,26 @@ bool Parser::get_parse_tree(Queue<string> q) {
         case 9: // where
             ptree.get("where").push_back("yes");
             break;
-        case 10:
         case 11:
         case 12:
         case 13:
-        case 14:
         case 15:
         case 16:
         case 19:
             ptree.get("condition").push_back(token);
+            break;
+        case 10:
+        case 14:
+            ptree.get("condition").push_back(token);
+            if (token == "(")
+                parenth_check.push_back(token.front());
+            else if(token == ")") {
+                if (parenth_check.empty()) {
+                    // Invalid command if parenthesis are out of whack | ex. ... where )(fname = first)
+                    state = -1;
+                }
+                parenth_check.pop_back();
+            }
             break;
         default:
             break;

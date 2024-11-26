@@ -8,6 +8,7 @@ Table SQL::command(string query) {
     MMap<string, string>& ptree = parsed_query.parse_tree();
     if (ptree.empty()) {
         if (debug) cout << "command() : Invalid query!" << endl;
+        _select_table = Table();
         return _select_table;
     }
 

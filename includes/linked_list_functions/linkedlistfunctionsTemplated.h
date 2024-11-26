@@ -158,7 +158,7 @@ template <typename T> node<T>* _insert_before(node<T>*& head, node<T>* before_th
 
     return _node;
     
-    //bool debug = true;
+    //bool debug = false;
     //if (head == nullptr || before_this == nullptr) return _insert_head(head, insert_this);
 
     //if (debug) cout << "_insert_before() : Pointing to " << *head << endl;
