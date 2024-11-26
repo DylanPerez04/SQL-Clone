@@ -8,8 +8,8 @@ using namespace std;
 
 enum TokenType {
     STRING,
-    LPAREN, // (
     RPAREN, // )
+    LPAREN, // (
     LOGIC,
     RELAT,
     RESULT

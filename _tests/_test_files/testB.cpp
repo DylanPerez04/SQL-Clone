@@ -79,10 +79,6 @@ bool test_sql_relational(bool debug = false) {
     return true;
 }
 
-TEST(TEST_SQL_RELATIONAL, TestRelational) {
-
-    //EXPECT_EQ(1, test_sql_relational(false));
-}
 
 const vector<string> command_list2 = {
     //****************************************************************************
@@ -163,10 +159,43 @@ bool test_sql_logical2(bool debug = false) {
     return true;
 }
 
-TEST(TEST_SQL_LOGICAL, TestLogical) {
 
+bool test_sql_parenthesis(bool debug = false) {
+
+    vector<string> cmds = {
+        "select * from student where (fname >= Flo)",
+        "select * from student where (fname >= Flo and (lname <= Yao))",
+        "select * from student where major = Art and (lname = Yao or lname = Yang)",
+        "select * from student where major = Art or (lname = Davis or (lname = Yang and major = CS))",
+        "select * from student where (major = CS and lname <= \"Jackson\") or (lname = Yao or lname = Yang)"
+    };
+
+    SQL sql;
+    Table t;
+
+    cout << endl
+        << endl;
+    for (int i = 0; i < cmds.size(); i++)
+    {
+        cout << "\n>" << cmds[i] << endl;
+        if (debug)
+            cout << sql.command(cmds[i]) << endl;
+        else
+            t = sql.command(cmds[i]);
+        cout << "basic_test: records selected: " << sql.select_recnos() << endl;
+    }
+
+    cout << "----- END TEST --------" << endl;
+
+    return true;
+}
+
+TEST(TEST_SQL, TestSql) {
+
+    //EXPECT_EQ(1, test_sql_relational(false));
     //EXPECT_EQ(1, test_sql_logical(false));
-    //EXPECT_EQ(1, test_sql_logical2(false));
+    EXPECT_EQ(1, test_sql_logical2(false));
+    EXPECT_EQ(1, test_sql_parenthesis(false));
 }
 
 bool test_batch_file(bool debug = false) {
@@ -255,16 +284,16 @@ bool test_batch_file(bool debug = false) {
         //.................
         //. . . . . . . . . . . . . (Less Than: Non-existing) . . . . . . . . . . . . . . . . . . . . .
         "select * from student where lname < Jackson",
-            //. . . . . . . . . . . . . (Less than: first item) . . . . . . . . . . . . . . . . . .
-        "select * from student where age < 20",
-        //. . . . . . . . . . . . . (Less Than: before first item) . . . . . . . . . . . . . . . . . . . . .
-        "select* from student where age < 19",
-        //.................
-        //:Less Equal :
-        //.................
-        "select * from student where lname <= Smith",
-        //. . . . . . (Less Equal non-existing: ) . . . . . . . . . . .
-        "select * from employee where last <= Peach"
+        //. . . . . . . . . . . . . (Less than: first item) . . . . . . . . . . . . . . . . . .
+    "select * from student where age < 20",
+    //. . . . . . . . . . . . . (Less Than: before first item) . . . . . . . . . . . . . . . . . . . . .
+    "select* from student where age < 19",
+    //.................
+    //:Less Equal :
+    //.................
+    "select * from student where lname <= Smith",
+    //. . . . . . (Less Equal non-existing: ) . . . . . . . . . . .
+    "select * from employee where last <= Peach"
     };
 
     cout << endl
@@ -290,11 +319,11 @@ bool test_batch_file(bool debug = false) {
         //.................
         //:OR :
         //.................
-        "select * from student where fname = Flo or lname = Jackson", 
+        "select * from student where fname = Flo or lname = Jackson",
         //.................
         //:OR AND :
         //.................
-        "select * from student where fname = Flo or major = CS and age <= 23", 
+        "select * from student where fname = Flo or major = CS and age <= 23",
         //.................
         //:AND OR AND :
         //.................

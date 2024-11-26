@@ -41,17 +41,22 @@ public:
                 break;
             case LOGIC:
                 while (!op_stack.empty() && op_stack.top()->type() >= _type) {
-                    if (Operator::get_operator((*it)->token_str()) > Operator::get_operator(op_stack.top()->token_str())) {
-                        if (debug) cout << "ShuntingYard() : " << (*it)->token_str() << " > " << op_stack.top()->token_str() << endl;
+                    /// Utilized for giving AND precedence over OR
+                    if (Operator::get_operator((*it)->token_str()) > Operator::get_operator(op_stack.top()->token_str()))
                         break;
-                    }
+                    
                     output_queue.push(op_stack.pop());
                 }
                 op_stack.push(*it);
                 break;
+            case LPAREN: // TODO : See if I can have this case be next to case RELAT
+                op_stack.push(*it);
+                break;
             case RPAREN:
-                while (!op_stack.empty() && op_stack.top()->type() >= _type)
-                    output_queue.push(op_stack.pop());
+                while (!op_stack.empty() && op_stack.top()->type() >= _type) {
+                    Token* popped = op_stack.pop();
+                    if(popped->type() != LPAREN) output_queue.push(popped); ///< Ensure ( isn't added to output queue
+                }
                 break;
             default:
                 break;
