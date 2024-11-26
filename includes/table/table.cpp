@@ -143,8 +143,8 @@ Table Table::select(const vectorstr& fields, const Queue<Token*>& postfix) {
 */
 Table Table::select(const vectorstr& fields, const vectorstr& condition) {
     const bool debug = false;
-    //if (condition.size() == 3)
-    //    return select(fields, condition[0], condition[1], condition[2]);
+    if (condition.size() == 3)
+        return select(fields, condition[0], condition[1], condition[2]);
 
     Queue<Token*> infix;
 
@@ -162,9 +162,7 @@ Table Table::select(const vectorstr& fields, const vectorstr& condition) {
     }
     ShuntingYard sy(infix);
     if (debug) cout << "select(fields, condition) : sy.postfix() = " << sy.postfix() << endl;
-    _select_recnos = cond(sy.postfix());
-    if (debug) cout << "select(fields, condition) : _select_recnos = " << _select_recnos << endl;
-    return  vector_to_table(fields, _select_recnos);
+    return select(fields, sy.postfix());
 }
 
 // TODO : If grader doesn't care about _select_recnos' order, have this select method call the better select method
@@ -240,8 +238,6 @@ Table Table::select(const vectorstr& fields, const string& field,
             }
             break;
         case GREATER_EQUAL:
-            cout << "testing..." << endl;
-
             for (it = map.lower_bound(value); it != map.end(); it++) {
 
                 for (int recnum : (*it).value_list) {
