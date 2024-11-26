@@ -137,14 +137,20 @@ bool Parser::get_parse_tree(Queue<string> q) {
     */
 
     int state = 0;
-    int rparens_needed = 0;
+    //int rparens_needed = 0;
+    vector<char> parenth_check;
+
     while (!q.empty() && state != -1) {
         string token = q.pop();
 
         if (token == "(" || token == ")") {
             ptree.get("condition").push_back(token);
-            if (token == "(") rparens_needed++;
-            else rparens_needed--;
+            if (token == "(")
+                parenth_check.push_back(token.front());
+            else {
+                if (parenth_check.empty()) return false; // Invalid command if parenthesis are out of whack | ex. ... where )(fname = first)
+                parenth_check.pop_back();
+            }
             continue;
         }
 
@@ -209,7 +215,7 @@ bool Parser::get_parse_tree(Queue<string> q) {
         }
     }
 
-    invalid_query = !is_success(adj_table, state) && rparens_needed != 0;
+    invalid_query = !is_success(adj_table, state) && parenth_check.size() != 0;
     if (invalid_query) ptree.clear();
 
     if (debug) cout << "get_parse_tree() : invalid_query = " << boolalpha << invalid_query << endl;

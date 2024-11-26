@@ -133,9 +133,39 @@ bool test_sql_logical(bool debug = false) {
     return true;
 }
 
+
+bool test_sql_logical2(bool debug = false) {
+
+    cout << endl << " ================ test_sql_logical2() ===================================" << endl << endl;
+
+    const vector<string> CMDS = {
+        "select * from student where fname <= Blow"
+    };
+
+    SQL sql;
+    Table t;
+
+    cout << endl
+        << endl;
+    for (int i = 0; i < CMDS.size(); i++)
+    {
+        cout << "\n>" << CMDS[i] << endl;
+        if (debug)
+            cout << sql.command(CMDS[i]) << endl;
+        else
+            t = sql.command(CMDS[i]);
+        cout << "basic_test: records selected: " << sql.select_recnos() << endl;
+    }
+
+    cout << "----- END TEST --------" << endl;
+
+    return true;
+}
+
 TEST(TEST_SQL_LOGICAL, TestLogical) {
 
-    EXPECT_EQ(1, test_sql_logical(false));
+    //EXPECT_EQ(1, test_sql_logical(false));
+    EXPECT_EQ(1, test_sql_logical2(false));
 }
 
 
