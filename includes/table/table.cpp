@@ -151,6 +151,7 @@ Table Table::select(const vectorstr& fields, const vectorstr& condition) {
     /// Convert postfix #param condition to infix
     for (vectorstr::const_iterator it = condition.cbegin(); it != condition.cend(); it++) {
         string token = *it;
+        if (debug) cout << "select(fields, condition) : token = " << token << endl;
         if (token == "(") infix.push(new LeftParen());
         else if (token == ")") infix.push(new RightParen());
         else if (Operator::get_operator(token) != UNKNOWN) {
@@ -160,6 +161,7 @@ Table Table::select(const vectorstr& fields, const vectorstr& condition) {
         else infix.push(new TokenStr(token));
     }
     ShuntingYard sy(infix);
+    if (debug) cout << "select(fields, condition) : sy.postfix() = " << sy.postfix() << endl;
     _select_recnos = cond(sy.postfix());
     if (debug) cout << "select(fields, condition) : _select_recnos = " << _select_recnos << endl;
     return  vector_to_table(fields, _select_recnos);

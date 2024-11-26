@@ -7,8 +7,6 @@
 #include "constants.h"
 #include "state_machine_functions.h"
 
-// TODO : Tokenize quotes as a single valid token. ex. "Samuel L." is one token 
-
 class STokenizer {
 private:
     //create table for all the tokens we will recognize
@@ -35,17 +33,9 @@ public:
     //---------------
     //extract one token (very similar to the way cin >> works)
     friend STokenizer& operator >> (STokenizer& s, string& t) {
-        /// Discarding SPACES tokens for easy input_q 
-
         string token_str;
         int state = 0;
         bool token_retrieved = s.get_token(state, token_str);
-        // Very janky method of testing whether a token is a SPACES char without iterating the array
-
-        while (token_retrieved && (token_str.front() == ' ' || token_str.front() == '\t' || token_str.front() == '\n')) {
-            state = 0;
-            token_retrieved = s.get_token(state, token_str);
-        }
         if (token_retrieved)    
             t = token_str;
         return s;

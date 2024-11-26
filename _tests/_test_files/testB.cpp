@@ -139,7 +139,7 @@ bool test_sql_logical2(bool debug = false) {
     cout << endl << " ================ test_sql_logical2() ===================================" << endl << endl;
 
     const vector<string> CMDS = {
-        "select * from student where fname <= Blow"
+        "select * from student where lname = \"Sammuel L.\""
     };
 
     SQL sql;

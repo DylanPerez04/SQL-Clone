@@ -22,6 +22,8 @@ void Parser::build_keyword_list() {
             _keywords.insert(l, LOGICAL_OPERATOR);
 
         // custom enums
+        _keywords.insert("(", LPARENT);
+        _keywords.insert(")", RPARENT);
         _keywords.insert("fields", FIELDS);
         _keywords.insert("values", VALUES);
     }
@@ -42,13 +44,8 @@ void Parser::make_table(int _table[][MAX_COLUMNS]) {
         mark_fail(_table, 21);
         mark_fail(_table, 22);
         mark_fail(_table, 23);
-        mark_fail(_table, 25);
-        mark_fail(_table, 26);
-        mark_fail(_table, 27);
 
         mark_success(_table, 24);
-        mark_success(_table, 28);
-
 
         mark_cell(0, _table, INSERT, 20);
         mark_cell(20, _table, INTO, 21);
@@ -56,25 +53,13 @@ void Parser::make_table(int _table[][MAX_COLUMNS]) {
         mark_cell(22, _table, VALUES, 23);
 
         mark_cell(23, _table, SYMBOL, 24);
-        mark_cell(24, _table, COMMA, 25);
-        mark_cell(25, _table, SYMBOL, 24);
-
-        mark_cell(23, _table, TK_STRING, 24);
-        mark_cell(25, _table, TK_STRING, 24);
-
-        //mark_cell(23, _table, QUOTE, 26);
-        //mark_cell(25, _table, SYMBOL, 24);
-        //mark_cell(25, _table, QUOTE, 26);
-        //mark_cell(26, _table, SYMBOL, 27);
-        //mark_cell(27, _table, SYMBOL, 27);
-        //mark_cell(27, _table, QUOTE, 28);
+        mark_cell(24, _table, COMMA, 23);
 
         // MAKE
 
         mark_fail(_table, 40);
         mark_fail(_table, 41);
         mark_fail(_table, 43);
-        mark_fail(_table, 45);
 
         mark_success(_table, 42);
         mark_success(_table, 44);
@@ -84,8 +69,7 @@ void Parser::make_table(int _table[][MAX_COLUMNS]) {
         mark_cell(41, _table, SYMBOL, 42);
         mark_cell(42, _table, FIELDS, 43);
         mark_cell(43, _table, SYMBOL, 44);
-        mark_cell(44, _table, COMMA, 45);
-        mark_cell(45, _table, SYMBOL, 44);
+        mark_cell(44, _table, COMMA, 43);
 
         // SELECT
 
@@ -95,15 +79,15 @@ void Parser::make_table(int _table[][MAX_COLUMNS]) {
         mark_fail(_table, 9);
         mark_fail(_table, 10);
         mark_fail(_table, 11);
+        mark_fail(_table, 12);
         mark_fail(_table, 13);
-        mark_fail(_table, 14);
         mark_fail(_table, 15);
+        mark_fail(_table, 16);
         mark_fail(_table, 17);
         mark_fail(_table, 18);
 
         mark_success(_table, 8);
-        mark_success(_table, 12);
-        mark_success(_table, 16);
+        mark_success(_table, 14);
 
         mark_cell(0, _table, SELECT, 5);
         mark_cell(5, _table, SYMBOL, 17);
@@ -114,17 +98,18 @@ void Parser::make_table(int _table[][MAX_COLUMNS]) {
         mark_cell(6, _table, FROM, 7);
         mark_cell(7, _table, SYMBOL, 8);
         mark_cell(8, _table, WHERE, 9);
-        mark_cell(9, _table, SYMBOL, 10);
-        mark_cell(10, _table, RELATIONAL_OPERATOR, 11);
-        mark_cell(11, _table, SYMBOL, 12);
-        mark_cell(12, _table, LOGICAL_OPERATOR, 13);
-        mark_cell(13, _table, SYMBOL, 10);
-        mark_cell(11, _table, TK_STRING, 12);
-        //mark_cell(11, _table, QUOTE, 14);
-        //mark_cell(14, _table, SYMBOL, 15);
-        //mark_cell(15, _table, SYMBOL, 15);
-        //mark_cell(15, _table, QUOTE, 16);
-        mark_cell(16, _table, LOGICAL_OPERATOR, 13);
+        mark_cell(9, _table, LPARENT, 10);
+        mark_cell(10, _table, SYMBOL, 11);
+        mark_cell(11, _table, RELATIONAL_OPERATOR, 12);
+        mark_cell(12, _table, SYMBOL, 13);
+        mark_cell(13, _table, LOGICAL_OPERATOR, 19);
+        mark_cell(13, _table, RPARENT, 14);
+        mark_cell(14, _table, LOGICAL_OPERATOR, 19);
+        mark_cell(9, _table, SYMBOL, 15);
+        mark_cell(15, _table, RELATIONAL_OPERATOR, 16);
+        mark_cell(16, _table, SYMBOL, 14);
+        mark_cell(19, _table, RPAREN, 10);
+        mark_cell(19, _table, SYMBOL, 15);
     }
 }
 
@@ -137,7 +122,6 @@ bool Parser::get_parse_tree(Queue<string> q) {
     */
 
     int state = 0;
-    //int rparens_needed = 0;
     vector<char> parenth_check;
 
     while (!q.empty() && state != -1) {
@@ -156,11 +140,6 @@ bool Parser::get_parse_tree(Queue<string> q) {
 
         Keyword key_type = get_column(token);
         state = adj_table[state][key_type];
-
-        if (key_type == TK_STRING) {
-            token.pop_back();
-            token.erase(0, 1);
-        }
 
         if (debug) cout << "get_parse_tree() : token = " << token << " | state = " << state << endl;
 
@@ -181,16 +160,6 @@ bool Parser::get_parse_tree(Queue<string> q) {
         case 24: // symbol
             ptree.get("values").push_back(token);
             break;
-        //case 27:
-        //case 15:
-        //    if (!to_insert.empty()) to_insert.push_back(' ');
-        //    to_insert.append(token);
-        //    if (debug) cout << "get_parse_tree() : to_insert = " << to_insert << endl;
-        //    break;
-        //case 28:
-        //    ptree.get("values").push_back(to_insert);
-        //    to_insert.clear();
-        //    break;
         case 6:
         case 17:
             ptree.get("fields").push_back(token);
@@ -198,18 +167,16 @@ bool Parser::get_parse_tree(Queue<string> q) {
         case 9: // where
             ptree.get("where").push_back("yes");
             break;
-        case 10: // symbol
-            ptree.get("condition").push_back(token);
-            break;
+        case 10:
         case 11:
         case 12:
         case 13:
+        case 14:
+        case 15:
+        case 16:
+        case 19:
             ptree.get("condition").push_back(token);
             break;
-        //case 16:
-        //    ptree.get("condition").push_back(to_insert);
-        //    to_insert.clear();
-        //    break;
         default:
             break;
         }
@@ -242,20 +209,40 @@ Parser::Parser(const char* s) : invalid_query(false) {
 
 void Parser::set_string(const char* s) {
     const bool debug = false;
+    /// Init Parser::_buffer
     strncpy(_buffer, s, MAX_BUFFER);
     _buffer[MAX_BUFFER] = '\0';
+
+    /// Reset Parser fields
     input_q.clear();
     ptree.clear();
+    invalid_query = false;
 
     if(debug) cout << "set_string() : _buffer = " << _buffer << endl;
 
     /// Tokenize _buffer into input_q
     STokenizer stk(_buffer);
+    string quote_token;
+    bool quote_flag = false;
+
     string token;
     stk >> token;
     while(stk.more()) {
         if(debug) cout << "set_string() : token = " << token << endl;
-        input_q.push(token);
+        if (token == "\"" || token == "\'") {
+            quote_flag = !quote_flag;
+            if (!quote_flag) {
+                input_q.push(quote_token);
+                quote_token.clear();
+            }
+            stk >> token;
+            continue;
+        }
+
+        if (quote_flag)
+            quote_token.append(token);
+        else
+            if(token.find(' ') == -1 && token.find('\t') == -1 && token.find('\n') == -1) input_q.push(token); ///< Discard SPACES tokens if not quote
         stk >> token;
     }
 
@@ -266,10 +253,6 @@ void Parser::set_string(const char* s) {
 
 Keyword Parser::get_column(string token) {
     assert(!token.empty());
-    if ((token.front() == '\"' && token.back() == '\"')
-        || (token.front() == '\'' && token.back() == '\'')) {
-        return TK_STRING;
-    }
     if (!_keywords.contains(token)) return SYMBOL;
     return static_cast<Keyword>(_keywords.get(token));
 }

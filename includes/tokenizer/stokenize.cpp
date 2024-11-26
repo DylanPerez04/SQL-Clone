@@ -125,39 +125,39 @@ void STokenizer::make_table(int _table[][MAX_COLUMNS]) {
     mark_cells(4, _table, SPACES, 4);
 
     // Quotes ("Samuel L.", 'LBJ Jr King 123')
-    mark_fail(_table, 7);
-    mark_fail(_table, 13);
+    //mark_fail(_table, 7);
+    //mark_fail(_table, 13);
 
-    mark_success(_table, 8);
-    mark_success(_table, 9);
-    mark_success(_table, 14);
-    
-    mark_cell(0, _table, (int)'\"', 7);
-    mark_cells(7, _table, ALFA, 7);
-    mark_cells(7, _table, DIGITS, 7);
-    mark_cells(7, _table, OPERATORS, 7);
-    mark_cells(7, _table, SPACES, 7);
-    mark_cells(7, _table, PUNC, 7);
-    mark_cell(7, _table, (int)'\'', 7);
-    mark_cell(7, _table, (int)'\"', 8);
+    //mark_success(_table, 8);
+    //mark_success(_table, 9);
+    //mark_success(_table, 14);
+    //
+    //mark_cell(0, _table, (int)'\"', 7);
+    //mark_cells(7, _table, ALFA, 7);
+    //mark_cells(7, _table, DIGITS, 7);
+    //mark_cells(7, _table, OPERATORS, 7);
+    //mark_cells(7, _table, SPACES, 7);
+    //mark_cells(7, _table, PUNC, 7);
+    //mark_cell(7, _table, (int)'\'', 7);
+    //mark_cell(7, _table, (int)'\"', 8);
 
-    mark_cell(0, _table, (int)'\'', 9);
-    // 13 and 14 are arbitrary, just available states
-    mark_cells(9, _table, ALFA, 13);
-    mark_cells(9, _table, DIGITS, 13);
-    mark_cells(9, _table, OPERATORS, 13);
-    mark_cells(9, _table, SPACES, 13);
-    mark_cells(9, _table, PUNC, 13);
-    mark_cell(9, _table, (int)'\"', 13);
+    //mark_cell(0, _table, (int)'\'', 9);
+    //// 13 and 14 are arbitrary, just available states
+    //mark_cells(9, _table, ALFA, 13);
+    //mark_cells(9, _table, DIGITS, 13);
+    //mark_cells(9, _table, OPERATORS, 13);
+    //mark_cells(9, _table, SPACES, 13);
+    //mark_cells(9, _table, PUNC, 13);
+    //mark_cell(9, _table, (int)'\"', 13);
 
-    mark_cells(13, _table, ALFA, 13);
-    mark_cells(13, _table, DIGITS, 13);
-    mark_cells(13, _table, OPERATORS, 13);
-    mark_cells(13, _table, SPACES, 13);
-    mark_cells(13, _table, PUNC, 13);
-    mark_cell(13, _table, (int)'\"', 13);
+    //mark_cells(13, _table, ALFA, 13);
+    //mark_cells(13, _table, DIGITS, 13);
+    //mark_cells(13, _table, OPERATORS, 13);
+    //mark_cells(13, _table, SPACES, 13);
+    //mark_cells(13, _table, PUNC, 13);
+    //mark_cell(13, _table, (int)'\"', 13);
 
-    mark_cell(13, _table, (int)'\'', 14);
+    //mark_cell(13, _table, (int)'\'', 14);
 
     //alphas:
     mark_success(_table, 6);

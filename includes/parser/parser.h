@@ -21,10 +21,11 @@ enum Keyword {
     RELATIONAL_OPERATOR, // <, >, <=, >=, etc
     LOGICAL_OPERATOR, // and, or, etc
     SYMBOL,
-    TK_STRING,
     //NUMBER,
     //TK_TABLE,
     /// Custom enums
+    LPARENT,
+    RPARENT,
     FIELDS,
     VALUES
 }; //14
