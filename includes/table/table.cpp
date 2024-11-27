@@ -97,7 +97,7 @@ int Table::field_col_no(string field_name) {
 }
 
 Table Table::select_all(vectorstr fields) {
-
+    _select_recnos.clear();
     Table t("_select_table_" + to_string(++serial), fields);
 
     fstream f;
@@ -120,14 +120,13 @@ Table Table::select_all(vectorstr fields) {
 }
 
 Table Table::select(const vectorstr& fields, const Queue<Token*>& postfix) {
-
-    if (DEBUG) cout << "select(fields, postfix) : " << endl;
+    _select_recnos.clear(); ///< Redundancy for debugging purposes (TODO : Delete)
 
     _select_recnos = cond(postfix);
     
     if (DEBUG) {
         vectorlong::iterator it = _select_recnos.begin();
-        cout << "select(2) : recnums size = " << _select_recnos.size() << " | recnums from cond() : ";
+        cout << "select(fields, postfix) : recnums size = " << _select_recnos.size() << " | recnums from cond() : ";
         while (it != _select_recnos.end())
             cout << *it++ << " ";
         cout << endl;
@@ -143,10 +142,11 @@ Table Table::select(const vectorstr& fields, const Queue<Token*>& postfix) {
 */
 Table Table::select(const vectorstr& fields, const vectorstr& condition) {
     const bool debug = false;
+    _select_recnos.clear(); ///< Redundancy for debugging purposes (TODO : Delete)
 
     Queue<Token*> infix;
 
-    /// Convert postfix #param condition to infix
+    /// Convert infix #param condition to postfix
     for (vectorstr::const_iterator it = condition.cbegin(); it != condition.cend(); it++) {
         string token = *it;
         if (debug) cout << "select(fields, condition) : token = " << token << endl;
@@ -265,9 +265,7 @@ Table Table::select(const vectorstr& fields, const string& field,
                 }
             }
             break;
-        case AND:   
-            break;
-        case OR:
+        default:
             break;
     }
 

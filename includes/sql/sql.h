@@ -9,6 +9,7 @@
 
 /*
 * TODO : Make capital keywords valid
+* TODO : Store names of all tables previously selected to delete all at the end of SQL object's lifespan
 */
 
 class SQL {
