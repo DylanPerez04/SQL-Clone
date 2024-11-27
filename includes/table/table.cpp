@@ -143,8 +143,6 @@ Table Table::select(const vectorstr& fields, const Queue<Token*>& postfix) {
 */
 Table Table::select(const vectorstr& fields, const vectorstr& condition) {
     const bool debug = false;
-    //if (condition.size() == 3)
-    //    return select(fields, condition[0], condition[1], condition[2]);
 
     Queue<Token*> infix;
 
@@ -157,8 +155,7 @@ Table Table::select(const vectorstr& fields, const vectorstr& condition) {
         else if (Operator::get_operator(token) != UNKNOWN) {
             if (Operator::get_operator(token) < EQUAL) infix.push(new Logical(token));
             else infix.push(new Relational(token));
-        }
-        else infix.push(new TokenStr(token));
+        } else infix.push(new TokenStr(token));
     }
     ShuntingYard sy(infix);
     _select_recnos = cond(sy.postfix());
@@ -268,11 +265,9 @@ Table Table::select(const vectorstr& fields, const string& field,
                 }
             }
             break;
-        case AND:
+        case AND:   
             break;
         case OR:
-            break;
-        case NOT:
             break;
     }
 

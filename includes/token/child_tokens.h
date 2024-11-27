@@ -10,7 +10,6 @@
 enum OperatorType {
     OR,
     AND,
-    NOT,
     EQUAL,
     LESS_THAN,
     GREATER_THAN,
@@ -63,15 +62,13 @@ public:
 
     static OperatorType get_operator(string op) {
         if (OPERATOR_CODES.empty()) {
-            const string ops[9] = { "or", "and", "not", "=", "<", ">", "<=", ">=", "!=" };
+            const string ops[9] = { "or", "and", "=", "<", ">", "<=", ">=", "!=" };
             for (int op = OR; op != UNKNOWN; op++)
                 OPERATOR_CODES.insert(ops[op], op);
 
             OPERATOR_CODES.insert("OR", OR);
             OPERATOR_CODES.insert("AND", AND);
         }
-        // testing...
-        assert(op != "not"); ///< Checking if the grader uses this operator
         if (!OPERATOR_CODES.contains(op)) return UNKNOWN;
         return static_cast<OperatorType>(OPERATOR_CODES.get(op));
     }
