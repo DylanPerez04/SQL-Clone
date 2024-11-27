@@ -71,8 +71,11 @@ public:
             }
         }
 
-        while (op_stack.size() > 0)
-            output_queue.push(op_stack.pop());
+        while (op_stack.size() > 0) {
+            Token* popped = op_stack.pop();
+            assert(popped->token_str() != "("); ///< Should be impossible that an invalid infix is passed, but just in case for debugging
+            output_queue.push(popped);
+        }
 
         if (debug) {
             cout << "ShuntingYard() : output_queue = ";
