@@ -165,25 +165,20 @@ bool test_sql_parenthesis(bool debug = false) {
     cout << endl << endl << "========== test_sql_parenthesis() =======================================" << endl;
 
     vector<string> cmds = {
-        //"select * from student where (fname = Flo)",
-        //"select * from student where fname = Flo or (major > Art and lname < Z)",
-        //"select * from student where (fname = Flo) or (lname < Z)",
-        //"select * from student where (fname = Flo and lname = Yao or major = CS)",
-        //"select * from student where (fname = Flo and (lname = Yao or major = CS))",
-        //"select * from student where (fname = Flo and (lname <= Yao and (major = Art or age > 20)))"
-        //"select * from student where fname = Flo and lname = Yao",
-        //"select * from student where fname = Flo or (lname = Yao or major = CS)",
+        "select * from student where (fname = Flo)",
+        "select * from student where fname = Flo or (major > Art and lname < Z)",
+        "select * from student where (fname = Flo) or (lname < Z)",
+        "select * from student where (fname = Flo and lname = Yao or major = CS)",
+        "select * from student where (fname = Flo and (lname = Yao or major = CS))",
+        "select * from student where (fname = Flo and (lname <= Yao and (major = Art or age > 20)))",
+        "select * from student where fname = Flo and lname = Yao",
+        "select * from student where fname = Flo or (lname = Yao or major = CS)"
         //"select * from student where (fname = Flo or lname = Yao) and major = CS",
         //"select * from student where (fname = Flo or lname = Yao) and (major = CS or major = Art)",
         //"select * from student where (fname = Flo or (lname = Yao and (major = CS or major = Art)))",
         //"select * from student where fname = Flo or (lname = Yao and (major = CS or major = Art))",
         //"select * from student where (fname = Flo and (lname = Yao or major = CS or major = Art))",
         //"select * from student where (fname = Flo and lname = Yao or major = CS or major = Art)",
-        //"select * from student where major = CS or major = Art or fname = Flo and lname = Yao"
-
-
-
-
         //"select * from student where (fname = Flo and lname = Yao)",
         //"select * from student where (fname = Flo and (lname = Yao or major = CS))",
     };
