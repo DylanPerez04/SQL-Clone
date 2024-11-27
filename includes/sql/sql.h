@@ -14,11 +14,12 @@
 
 class SQL {
 private:
+    vector<string> _tables_accessed;
     Table _select_table;
 public:
     SQL();
 
-    //~SQL();
+    ~SQL();
 
     Table command(string query);
 

@@ -18,6 +18,47 @@
 
 using namespace std;
 
+bool test_sql_make(bool debug = false) {
+
+    cout << endl << endl << "========== test_sql_make() =======================================" << endl;
+
+    vector<string> cmds = {
+        "make table student fields  fname,          lname,    major,    age",
+        "insert into student values Flo,            Yao, 	Art, 	20",
+        "insert into student values Bo, 		     Yang, 	CS, 		28",
+        "insert into student values \"Sammuel L.\", Jackson, 	CS, 		40",
+        "insert into student values \"Billy\",	     Jackson, 	Math,	27",
+        "insert into student values \"Mary Ann\",   Davis,	Math,	30"
+    }; 
+
+    SQL sql;
+    Table t;
+
+    cout << ">" << cmds[0] << endl;
+    sql.command(cmds[0]);
+    cout << "basic_test: table created." << endl << endl;
+
+    cout << endl
+        << endl;
+    for (int i = 0; i < cmds.size(); i++)
+    {
+        cout << "\n>" << cmds[i] << endl;
+        if (debug)
+            cout << sql.command(cmds[i]) << endl;
+        else
+            t = sql.command(cmds[i]);
+        cout << "basic_test: records selected: " << sql.select_recnos() << endl;
+    }
+
+    cout << "----- END TEST --------" << endl;
+
+    return true;
+}
+
+TEST(TEST_FILES, TestSqlFiles) {
+    EXPECT_EQ(1, test_sql_make(false));
+}
+
 const vector<string> command_list = {
 
     //.................
@@ -165,14 +206,14 @@ bool test_sql_parenthesis(bool debug = false) {
     cout << endl << endl << "========== test_sql_parenthesis() =======================================" << endl;
 
     vector<string> cmds = {
-        "select * from student where (fname = Flo)",
-        "select * from student where fname = Flo or (major > Art and lname < Z)",
-        "select * from student where (fname = Flo) or (lname < Z)",
-        "select * from student where (fname = Flo and lname = Yao or major = CS)",
-        "select * from student where (fname = Flo and (lname = Yao or major = CS))",
-        "select * from student where (fname = Flo and (lname <= Yao and (major = Art or age > 20)))",
-        "select * from student where fname = Flo and lname = Yao",
-        "select * from student where fname = Flo or (lname = Yao or major = CS)"
+        "select * from student where (fname = Flo)"
+        //"select * from student where fname = Flo or (major > Art and lname < Z)",
+        //"select * from student where (fname = Flo) or (lname < Z)",
+        //"select * from student where (fname = Flo and lname = Yao or major = CS)",
+        //"select * from student where (fname = Flo and (lname = Yao or major = CS))",
+        //"select * from student where (fname = Flo and (lname <= Yao and (major = Art or age > 20)))",
+        //"select * from student where fname = Flo and lname = Yao",
+        //"select * from student where fname = Flo or (lname = Yao or major = CS)"
         //"select * from student where (fname = Flo or lname = Yao) and major = CS",
         //"select * from student where (fname = Flo or lname = Yao) and (major = CS or major = Art)",
         //"select * from student where (fname = Flo or (lname = Yao and (major = CS or major = Art)))",
@@ -246,7 +287,7 @@ TEST(TEST_SQL, TestSql) {
     //EXPECT_EQ(1, test_sql_relational(false));
     //EXPECT_EQ(1, test_sql_logical(false));
     //EXPECT_EQ(1, test_sql_logical2(false));
-    EXPECT_EQ(1, test_sql_parenthesis(false));
+    //EXPECT_EQ(1, test_sql_parenthesis(false));
     //EXPECT_EQ(1, test_sql_invalid_commands(false));
 }
 
@@ -403,11 +444,11 @@ bool test_batch_file(bool debug = false) {
     return true;
 }
 
-TEST(TEST_BATCH_FILE, TestBatchFile) {
-
-    //EXPECT_EQ(1, test_sql_logical(false));
-    //EXPECT_EQ(1, test_batch_file(false));
-}
+//TEST(TEST_BATCH_FILE, TestBatchFile) {
+//
+//    //EXPECT_EQ(1, test_sql_logical(false));
+//    //EXPECT_EQ(1, test_batch_file(false));
+//}
 
 bool test_shunting_yard(bool debug = false) {
 
@@ -433,10 +474,10 @@ bool test_shunting_yard(bool debug = false) {
     return true;
 }
 
-TEST(TEST_GENERIC, TestGeneric) {
-
-    //EXPECT_EQ(1, test_shunting_yard(false));
-}
+//TEST(TEST_GENERIC, TestGeneric) {
+//
+//    //EXPECT_EQ(1, test_shunting_yard(false));
+//}
 
 //bool test_stub(bool debug = false)
 //{

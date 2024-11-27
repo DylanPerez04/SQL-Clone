@@ -2,6 +2,16 @@
 
 SQL::SQL() {}
 
+SQL::~SQL() {
+    const bool debug = false;
+    if (debug) cout << "~SQL() : _tables_access = " << _tables_accessed << endl;
+    for (string _name : _tables_accessed) {
+        if (debug) cout << "~SQL() : Deleting file " << _name << "..." << endl;
+        Table t(_name);
+        t.delete_table();
+    }
+}
+
 Table SQL::command(string query) {
     const bool debug = false;
     Parser parsed_query(query.c_str());
@@ -54,6 +64,7 @@ Table SQL::command(string query) {
         }
 
         cout << to_return << endl << endl;
+        _tables_accessed.push_back(to_return.Name());
     }
     return to_return;
 }
