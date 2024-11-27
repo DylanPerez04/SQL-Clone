@@ -37,7 +37,7 @@ public:
         }
 
         friend Iterator operator++(Iterator& it, int dont_use) { //friend operator: it++
-            assert(it != NULL && it._ptr != nullptr);
+            assert(it._ptr != nullptr);
             ++it;
             return it;
         }
@@ -113,10 +113,10 @@ public:
         return outs;
     }
     Iterator begin() const {
-        return static_cast<Iterator>(_top);
+        return Stack<ITEM_TYPE>::Iterator(_top);
     }                   //Iterator to the head node
     Iterator end() const {
-        return nullptr;
+        return Stack<ITEM_TYPE>::Iterator(nullptr);
     }                     //Iterator to NULL
     int size() const { return _size; }
 };

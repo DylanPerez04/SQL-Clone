@@ -38,7 +38,7 @@ void Parser::make_table(int _table[][MAX_COLUMNS]) {
 
         mark_fail(_table, 0);
 
-        // INSERT
+        // INSERT (states 25-29)
 
         mark_fail(_table, 20);
         mark_fail(_table, 21);
@@ -61,7 +61,7 @@ void Parser::make_table(int _table[][MAX_COLUMNS]) {
         mark_fail(_table, 41);
         mark_fail(_table, 43);
 
-        mark_success(_table, 42);
+        mark_success(_table, 42); ///< TODO : Mark fail and see if a command that makes a table with no fields is invalid
         mark_success(_table, 44);
 
         mark_cell(0, _table, MAKE, 40);
@@ -71,8 +71,11 @@ void Parser::make_table(int _table[][MAX_COLUMNS]) {
         mark_cell(43, _table, SYMBOL, 44);
         mark_cell(44, _table, COMMA, 43);
 
-        // SELECT
+        // SELECT (states 1-17)
 
+        mark_fail(_table, 1);
+        mark_fail(_table, 2);
+        mark_fail(_table, 3);
         mark_fail(_table, 5);
         mark_fail(_table, 6);
         mark_fail(_table, 7);
@@ -80,38 +83,45 @@ void Parser::make_table(int _table[][MAX_COLUMNS]) {
         mark_fail(_table, 10);
         mark_fail(_table, 11);
         mark_fail(_table, 12);
-        mark_fail(_table, 13);
+        mark_fail(_table, 14);
         mark_fail(_table, 15);
         mark_fail(_table, 16);
         mark_fail(_table, 17);
-        mark_fail(_table, 18);
 
+        mark_success(_table, 4);
         mark_success(_table, 8);
-        mark_success(_table, 14);
+        mark_success(_table, 13);
 
-        mark_cell(0, _table, SELECT, 5);
-        mark_cell(5, _table, SYMBOL, 17);
-        mark_cell(17, _table, COMMA, 18);
-        mark_cell(18, _table, SYMBOL, 17);
-        mark_cell(17, _table, FROM, 7);
-        mark_cell(5, _table, ASTERIK, 6);
-        mark_cell(6, _table, FROM, 7);
+        mark_cell(0, _table, SELECT, 1);
+        mark_cell(1, _table, SYMBOL, 16);
+        mark_cell(16, _table, COMMA, 17);
+        mark_cell(17, _table, SYMBOL, 16);
+        mark_cell(16, _table, FROM, 3);
+        mark_cell(1, _table, ASTERIK, 2);
+        mark_cell(2, _table, FROM, 3);
+        mark_cell(3, _table, SYMBOL, 4);
+        mark_cell(4, _table, WHERE, 5);
+
+        mark_cell(5, _table, SYMBOL, 6);
+        mark_cell(6, _table, RELATIONAL_OPERATOR, 7);
         mark_cell(7, _table, SYMBOL, 8);
-        mark_cell(8, _table, WHERE, 9);
+        mark_cell(8, _table, LOGICAL_OPERATOR, 14);
+        mark_cell(14, _table, SYMBOL, 6);
+        mark_cell(14, _table, LPARENT, 9);
 
-        mark_cell(9, _table, LPARENT, 10);
-        mark_cell(10, _table, SYMBOL, 11);
-        mark_cell(11, _table, RELATIONAL_OPERATOR, 12);
-        mark_cell(12, _table, SYMBOL, 13);
-        mark_cell(13, _table, LOGICAL_OPERATOR,19);
-        mark_cell(13, _table, RPARENT, 14);
-        mark_cell(14, _table, LOGICAL_OPERATOR, 19);
-        mark_cell(14, _table, RPARENT, 14);
-        mark_cell(9, _table, SYMBOL, 15);
-        mark_cell(15, _table, RELATIONAL_OPERATOR, 16);
-        mark_cell(16, _table, SYMBOL, 14);
-        mark_cell(19, _table, LPARENT, 10);
-        mark_cell(19, _table, SYMBOL, 15);
+
+        mark_cell(5, _table, LPARENT, 9);
+        mark_cell(9, _table, SYMBOL, 10);
+        mark_cell(10, _table, RELATIONAL_OPERATOR, 11);
+        mark_cell(11, _table, SYMBOL, 12);
+        mark_cell(12, _table, RPARENT, 13);
+        mark_cell(13, _table, RPARENT, 13);
+        mark_cell(13, _table, LOGICAL_OPERATOR, 14);
+
+        mark_cell(12, _table, LOGICAL_OPERATOR, 15);
+        mark_cell(15, _table, LPARENT, 9);
+        mark_cell(15, _table, SYMBOL, 10);
+
     }
 }
 
@@ -134,45 +144,48 @@ bool Parser::get_parse_tree(Queue<string> q) {
         if (debug) cout << "get_parse_tree() : token = " << token << " | state = " << state << endl;
 
         switch (state) {
-            case 40: // make
-            case 20: // insert
-            case 5: // select
+            case 40: ///< make
+            case 20: ///< insert
+            case 1: ///< select
                 ptree.get("command").push_back(token);
                 break;
-            case 42: // symbol
-            case 22:
-            case 8:
+            case 42: ///< make table <symbol>
+            case 22: ///< insert into <symbol>
+            case 4: ///< select ... from <symbol>
                 ptree.get("table_name").push_back(token);
                 break;
-            case 44: // symbol
+            case 44: ///< make table ... fields <symbol, ...>
                 ptree.get("col").push_back(token);
                 break;
-            case 24: // symbol
+            case 24: ///< insert into ... values <symbol, ...>
                 ptree.get("values").push_back(token);
                 break;
-            case 6:
-            case 17:
+            case 2: ///< select <*>
+            case 16: ///< select <field, ...>
                 ptree.get("fields").push_back(token);
                 break;
-            case 9: // where
+            case 5: ///< where
                 ptree.get("where").push_back("yes");
                 break;
+            case 6:
+            case 7:
+            case 8:
+            case 10:
             case 11:
             case 12:
-            case 13:
+            case 14:
             case 15:
-            case 16:
-            case 19:
                 ptree.get("condition").push_back(token);
                 break;
-            case 10:
-            case 14:
+            case 9: ///< Handle parenthesis (TODO : See if I can combine these two cases with the previous ones above)
+            case 13:
                 ptree.get("condition").push_back(token);
                 if (token == "(")
                     parenth_check.push_back(token.front());
                 else if(token == ")") {
                     if (parenth_check.empty()) {
-                        // Invalid command if parenthesis are out of whack | ex. ... where )(fname = first)
+                        /// Invalid command if parenthesis are out of whack | ex. ... where )(fname = first)
+                        if (debug) cout << "get_parse_tree() : Invalid number of RPARENS for _buffer = " << _buffer << endl;
                         state = -1;
                         break;
                     }
@@ -185,7 +198,10 @@ bool Parser::get_parse_tree(Queue<string> q) {
     }
 
     invalid_query = parenth_check.size() != 0 || !is_success(adj_table, state);
-    if (invalid_query) ptree.clear();
+    if (invalid_query) {
+        if (debug && parenth_check.size() != 0) cout << "get_parse_tree() : Invalid number of parenthesis for _buffer = " << _buffer << endl;
+        ptree.clear();
+    }
 
     if (debug) cout << "get_parse_tree() : invalid_query = " << boolalpha << invalid_query << endl;
     if (debug) cout << ptree << endl;

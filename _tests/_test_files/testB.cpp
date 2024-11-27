@@ -162,13 +162,30 @@ bool test_sql_logical2(bool debug = false) {
 
 bool test_sql_parenthesis(bool debug = false) {
 
+    cout << endl << endl << "========== test_sql_parenthesis() =======================================" << endl;
+
     vector<string> cmds = {
-        "select * from student where (fname = Flo)",
-        "select * from student where fname = Flo or (major > Art and lname < Z)",
-        "select * from student where (fname = Flo) or (lname < Z)",
-        "select * from student where (fname = Flo and lname = Yao or major = CS)",
-        "select * from student where (fname = Flo and (lname = Yao or major = CS))",
-        "select * from student where (fname = Flo and (lname <= Yao and (major = Art or age > 20)))"
+        //"select * from student where (fname = Flo)",
+        //"select * from student where fname = Flo or (major > Art and lname < Z)",
+        //"select * from student where (fname = Flo) or (lname < Z)",
+        //"select * from student where (fname = Flo and lname = Yao or major = CS)",
+        //"select * from student where (fname = Flo and (lname = Yao or major = CS))",
+        //"select * from student where (fname = Flo and (lname <= Yao and (major = Art or age > 20)))"
+        //"select * from student where fname = Flo and lname = Yao",
+        //"select * from student where fname = Flo or (lname = Yao or major = CS)",
+        //"select * from student where (fname = Flo or lname = Yao) and major = CS",
+        //"select * from student where (fname = Flo or lname = Yao) and (major = CS or major = Art)",
+        //"select * from student where (fname = Flo or (lname = Yao and (major = CS or major = Art)))",
+        //"select * from student where fname = Flo or (lname = Yao and (major = CS or major = Art))",
+        //"select * from student where (fname = Flo and (lname = Yao or major = CS or major = Art))",
+        //"select * from student where (fname = Flo and lname = Yao or major = CS or major = Art)",
+        //"select * from student where major = CS or major = Art or fname = Flo and lname = Yao"
+
+
+
+
+        //"select * from student where (fname = Flo and lname = Yao)",
+        //"select * from student where (fname = Flo and (lname = Yao or major = CS))",
     };
 
     SQL sql;
@@ -191,12 +208,51 @@ bool test_sql_parenthesis(bool debug = false) {
     return true;
 }
 
+bool test_sql_invalid_commands(bool debug = false) {
+
+    cout << endl << endl << "========== test_sql_invalid_commands() =======================================" << endl;
+
+    vector<string> cmds = {
+        "select * from student where (fname = Flo",
+        "select * from student where fname = Flo)",
+        "select * from student where (fname = Flo))",
+        "select * from student where (fname = Flo and (lname = Yao)",
+        "select * from student where (fname = Flo and (lname = Yao)))",
+        "select * from student where fname = Flo and (lname = Yao))",
+        "select * from student where fname = Flo and ((lname = Yao)",
+        "select * from student where fname = Flo and ((lname = Yao))",
+        ""
+    };
+
+    SQL sql;
+    Table t;
+
+    cout << endl
+        << endl;
+    for (int i = 0; i < cmds.size(); i++)
+    {
+        cout << "\n>" << cmds[i] << endl;
+        if (debug)
+            cout << sql.command(cmds[i]) << endl;
+        else
+            t = sql.command(cmds[i]);
+        cout << "basic_test: records selected: " << sql.select_recnos() << endl;
+    }
+
+    cout << "----- END TEST --------" << endl;
+
+    return true;
+
+    return true;
+}
+
 TEST(TEST_SQL, TestSql) {
 
     //EXPECT_EQ(1, test_sql_relational(false));
     //EXPECT_EQ(1, test_sql_logical(false));
     //EXPECT_EQ(1, test_sql_logical2(false));
     EXPECT_EQ(1, test_sql_parenthesis(false));
+    //EXPECT_EQ(1, test_sql_invalid_commands(false));
 }
 
 bool test_batch_file(bool debug = false) {

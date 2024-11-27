@@ -46,7 +46,7 @@ Table SQL::command(string query) {
                 to_return = _select_table.select_all(fields);
         }
         else if(ptree.get("where").front() == "yes") {
-            if (debug) cout << "ptree[\"condition\"] = " << ptree.get("condition") << endl;
+            if (debug) cout << "command() : ptree[\"condition\"] = " << ptree.get("condition") << endl;
             if (fields.front() == "*")
                 to_return = _select_table.select(_select_table.get_fields(), ptree.get("condition"));
             else

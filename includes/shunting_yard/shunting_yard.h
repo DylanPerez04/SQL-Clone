@@ -41,7 +41,7 @@ public:
                 break;
             case LOGIC:
                 while (!op_stack.empty() && op_stack.top()->type() >= _type) {
-                    /// Utilized for giving AND precedence over OR
+                    /// Utilized for giving AND precedence over OR (AND is popped from op_stack if OR would be on top)
                     if (Operator::get_operator((*it)->token_str()) >= Operator::get_operator(op_stack.top()->token_str()))
                         break;
                     
@@ -60,6 +60,14 @@ public:
                 break;
             default:
                 break;
+            }
+            if (debug) {
+                cout << "ShuntingYard() : op_stack = Head-> ";
+                Stack<Token*>::Iterator it = op_stack.begin();
+                while (it != op_stack.end()) {
+                    cout << **it << " ";
+                    it++;
+                } cout << "|||" << endl;
             }
         }
 
