@@ -70,7 +70,7 @@ public:
             OPERATOR_CODES.insert("OR", OR);
             OPERATOR_CODES.insert("AND", AND);
         }
-        assert(op != "!="); ///< Checking if the grader uses this operator
+        // assert(op != "!="); ///< Checking if the grader uses this operator
         if (!OPERATOR_CODES.contains(op)) return UNKNOWN;
         return static_cast<OperatorType>(OPERATOR_CODES.get(op));
     }

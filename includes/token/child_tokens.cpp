@@ -37,17 +37,17 @@ ResultSet::ResultSet(const vector<long> set) : Token("", RESULT) {
     for(size_t i = 1; i < _result_set.size() && is_sorted; i++)
         is_sorted = _result_set[i] >= _result_set[i - 1];
 
-    if (is_sorted) return;
-
-    // insertion sort
-    for (size_t i = 1; i < _result_set.size(); i++) {
-        size_t swap_index = i;
-        for (size_t j = i - 1; j >= 0 && _result_set[i] < _result_set[j]; j--)
-            swap_index = j;
-        if (i != swap_index) {
-            int temp = _result_set[i];
-            _result_set[i] = _result_set[swap_index];
-            _result_set[swap_index] = temp;
+    if (!is_sorted) {
+        // insertion sort
+        for (size_t i = 1; i < _result_set.size(); i++) {
+            size_t swap_index = i;
+            for (size_t j = i - 1; j >= 0 && _result_set[i] < _result_set[j]; j--)
+                swap_index = j;
+            if (i != swap_index) {
+                int temp = _result_set[i];
+                _result_set[i] = _result_set[swap_index];
+                _result_set[swap_index] = temp;
+            }
         }
     }
 }
