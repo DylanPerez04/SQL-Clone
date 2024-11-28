@@ -31,12 +31,12 @@ public:
     /*
     * AND
     */
-    ResultSet* set_intersect(const ResultSet* o);
+    void set_intersect(ResultSet o);
 
     /*
     * OR
     */
-    ResultSet* set_union(const ResultSet* o);
+    void set_union(ResultSet o);
 
     std::vector<long> vector_recnos();
 };
@@ -53,10 +53,10 @@ private:
 public:
     Operator(string _token, TokenType _type);
 
-    ~Operator();
+    virtual ~Operator();
 
     // RPN
-    virtual ResultSet* eval(MMap<string, long>& map, Token*& lhs, Token*& rhs) = 0;
+    virtual ResultSet* eval(MMap<string, long>& map, Token* lhs, Token* rhs) = 0;
 
     OperatorType op_type() const;
 
@@ -79,7 +79,7 @@ struct Relational : public Operator {
     Relational(string _token);
     ~Relational();
 
-    virtual ResultSet* eval(MMap<string, long>& map, Token*& lhs, Token*& rhs) {
+    virtual ResultSet* eval(MMap<string, long>& map, Token* lhs, Token* rhs) {
         const bool debug = false;
 
         if (debug) cout << "Relational::eval() : " << endl;
@@ -92,23 +92,23 @@ struct Relational : public Operator {
                 return new ResultSet(map.get(rhs->token_str()));
             case LESS_THAN:
                 for (MMap<string, long>::Iterator it = map.begin(); it != map.end() && (*it).key < rhs->token_str(); it++)
-                    result = result->set_union(new ResultSet((*it).value_list));
+                    result->set_union(ResultSet((*it).value_list));
                 break;
             case GREATER_THAN:
                 for (MMap<string, long>::Iterator it = map.upper_bound(rhs->token_str()); it != map.end(); it++)
-                    result = result->set_union(new ResultSet((*it).value_list));
+                    result->set_union(ResultSet((*it).value_list));
                 break;
             case LESS_EQUAL:
                 for (MMap<string, long>::Iterator it = map.begin(); it != map.end() && (*it).key <= rhs->token_str(); it++)
-                    result = result->set_union(new ResultSet((*it).value_list));
+                    result->set_union(ResultSet((*it).value_list));
                 break;
             case GREATER_EQUAL:
                 for (MMap<string, long>::Iterator it = map.lower_bound(rhs->token_str()); it != map.end(); it++)
-                    result = result->set_union(new ResultSet((*it).value_list));
+                    result->set_union(ResultSet((*it).value_list));
                 break;
             case NOT_EQUAL:
                 for (MMap<string, long>::Iterator it = map.begin(); it != map.end(); it++)
-                    if ((*it).key != rhs->token_str()) result = result->set_union(new ResultSet((*it).value_list));
+                    if ((*it).key != rhs->token_str()) result->set_union(ResultSet((*it).value_list));
                 break;
             default:
                 break;
@@ -122,18 +122,23 @@ struct Logical : public Operator {
     Logical(string _token);
     ~Logical();
 
-    virtual ResultSet* eval(MMap<string, long>& map, Token*& lhs, Token*& rhs) {
-        ResultSet* lhs_set = static_cast<ResultSet*>(lhs);
+    /*
+    * #param lhs and #param rhs are assumed to be pointers to a ResultSet (child of Token).
+    */
+    virtual ResultSet* eval(MMap<string, long>& map, Token* lhs, Token* rhs) {
+        ResultSet* result = new ResultSet(static_cast<ResultSet*>(lhs)->vector_recnos());
 
         switch (this->op_type()) {
             case AND:
-                return lhs_set->set_intersect(static_cast<ResultSet*>(rhs));
-            case OR:
-                return lhs_set->set_union(static_cast<ResultSet*>(rhs));
-            default: 
+                result->set_intersect(*static_cast<ResultSet*>(rhs));
                 break;
+            case OR:
+                result->set_union(*static_cast<ResultSet*>(rhs));
+                break;
+            default: 
+                return nullptr;
         }
-        return nullptr;
+        return result;
     }
 
 };

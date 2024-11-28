@@ -168,7 +168,7 @@ Table Table::select(const vectorstr& fields, const vectorstr& condition) {
         delete to_delete;
     }
 
-    return  vector_to_table(fields, _select_recnos);
+    return vector_to_table(fields, _select_recnos);
 }
 
 // TODO : If grader doesn't care about _select_recnos' order, have this select method call the better select method
@@ -333,6 +333,7 @@ void Table::reindex() {
 } 
 
 vectorlong Table::cond(const Queue<Token*>& post) {
+    const bool debug = false;
     Stack<Token*> output;
 
     Queue<Token*>::Iterator it;
@@ -351,6 +352,16 @@ vectorlong Table::cond(const Queue<Token*>& post) {
 
             ResultSet* result = op->eval(_indices[_field_map.get(lhs->token_str())], lhs, rhs);
 
+            /// Delete post-evaluated ResultSets
+            if (rhs->type() == RESULT && lhs->type() == RESULT) {
+                if (debug) cout << "cond() : Deleting ResultSet " << "(" << rhs << ") from Heap!" << endl;
+                if (debug) cout << "cond() : Deleting ResultSet " << "(" << lhs << ") from Heap!" << endl;
+                delete rhs, lhs;
+                rhs = nullptr;
+                lhs = nullptr;
+            }
+
+
             if (DEBUG) {
                 cout << "cond() : _result_set = [";
                 vectorlong result_vector = result->vector_recnos();
@@ -368,7 +379,12 @@ vectorlong Table::cond(const Queue<Token*>& post) {
     }
     
     assert(output.size() == 1 && output.top()->type() == RESULT);
-    return static_cast<ResultSet*>(output.pop())->vector_recnos();
+    ResultSet* result_set = static_cast<ResultSet*>(output.pop());
+    vector<long> recnos = result_set->vector_recnos();
+
+    if (debug) cout << "cond() : Deleting ResultSet " << "(" << result_set << ") from Heap!" << endl;
+    delete result_set;
+    return recnos;
 }
 
 Table Table::vector_to_table(const vectorstr& fields, const vectorlong& vector_of_recnos) {

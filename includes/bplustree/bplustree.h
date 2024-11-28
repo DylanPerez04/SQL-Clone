@@ -110,7 +110,7 @@ private:
             return;
         }
 
-        int prior_size = subset[i]->tree_size;
+        int prior_size = (subset[i] == nullptr ? 0 : subset[i]->tree_size);
         subset[i]->loose_insert(entry);
         fix_excess(i);
         tree_size += subset[i]->tree_size - prior_size;
