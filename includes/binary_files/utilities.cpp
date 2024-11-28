@@ -10,7 +10,7 @@ bool file_exists(const char filename[]) {
 void open_fileW(fstream& file, const char filename[]) {
     const bool debug = false;
 
-    file.open(filename, ios::binary | ios::out);
+    file.open(filename, ios::binary | ios::out | ios::trunc);
     if (file.fail()) {
         cout << "open_fileW() : Could not open file " << filename << "!" << endl;
         throw("File failed to open.");
@@ -28,7 +28,7 @@ void open_fileW(fstream& file, const char filename[]) {
 void open_fileRW(fstream& file, const char filename[]) {
 
     if (file_exists(filename)) {
-        file.open(filename, fstream::in | fstream::out | fstream::binary);
+        file.open(filename, fstream::in | fstream::out | fstream::binary | fstream::app);
         if (file.fail()) {
             cout << "open_fileRW() : Could not open file " << filename << " to read!" << endl;
             throw("file RW failed  ");
@@ -36,7 +36,7 @@ void open_fileRW(fstream& file, const char filename[]) {
         return;
     }
 
-    file.open(filename, ios::binary | ios::out);
+    file.open(filename, ios::binary | ios::out | ios::app);
     if (file.fail()) {
         cout << "open_fileRW() : Could not open file " << filename << " to write!" << endl;
         throw("file RW failed  ");
@@ -55,10 +55,19 @@ int write_info(const vector<string>& data, const string bin) {
 void read_info(const string txt, vector<string>& data) {
     assert(data.empty());
     fstream f(txt, fstream::in);
-    string field_name;
-    while (f.eof()) {
-        getline(f, field_name);
-        data.push_back(field_name);
+    if (f.fail()) {
+        cout << "open_fileRW() : Could not open file " << txt << " to read!" << endl;
+        throw("read_info failed  ");
     }
+    string fields;
+    getline(f, fields);
+
+    size_t current_index = 0;
+    while (current_index < fields.size()) {
+        string field = fields.substr(current_index, fields.find(' ', current_index) - current_index);
+        data.push_back(field);
+        current_index += (field.size() + 1);
+    }
+
     f.close();
 }
