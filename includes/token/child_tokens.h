@@ -53,12 +53,12 @@ private:
 public:
     Operator(string _token, TokenType _type);
 
+    ~Operator();
+
     // RPN
     virtual ResultSet* eval(MMap<string, long>& map, Token*& lhs, Token*& rhs) = 0;
 
-    OperatorType op_type() const {
-        return _op_type;
-    }
+    OperatorType op_type() const;
 
     static OperatorType get_operator(string op) {
         if (OPERATOR_CODES.empty()) {
@@ -77,6 +77,7 @@ public:
 // <, >, =, etc
 struct Relational : public Operator {
     Relational(string _token);
+    ~Relational();
 
     virtual ResultSet* eval(MMap<string, long>& map, Token*& lhs, Token*& rhs) {
         const bool debug = false;
@@ -87,6 +88,7 @@ struct Relational : public Operator {
 
         switch (this->op_type()) {
             case EQUAL:
+                delete result; ///< Release unused memory from heap
                 return new ResultSet(map.get(rhs->token_str()));
             case LESS_THAN:
                 for (MMap<string, long>::Iterator it = map.begin(); it != map.end() && (*it).key < rhs->token_str(); it++)
@@ -118,6 +120,7 @@ struct Relational : public Operator {
 // AND, OR, etc
 struct Logical : public Operator {
     Logical(string _token);
+    ~Logical();
 
     virtual ResultSet* eval(MMap<string, long>& map, Token*& lhs, Token*& rhs) {
         ResultSet* lhs_set = static_cast<ResultSet*>(lhs);

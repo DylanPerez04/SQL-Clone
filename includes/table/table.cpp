@@ -160,6 +160,14 @@ Table Table::select(const vectorstr& fields, const vectorstr& condition) {
     ShuntingYard sy(infix);
     _select_recnos = cond(sy.postfix());
     if (debug) cout << "select(fields, condition) : _select_recnos = " << _select_recnos << endl;
+
+    /// Delete infix tokens allocated in Heap after use
+    while (infix.size() > 0) {
+        Token* to_delete = infix.pop();
+        if (debug) cout << "select(fields, condition) : Deleting token " << to_delete->token_str() << "(" << to_delete << ") from Heap!" << endl;
+        delete to_delete;
+    }
+
     return  vector_to_table(fields, _select_recnos);
 }
 

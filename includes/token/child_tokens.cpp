@@ -12,11 +12,19 @@ Operator::Operator(string _token, TokenType _type) : Token(_token, _type) {
     this->_op_type = get_operator(_token);
 }
 
+Operator::~Operator() {}
+
+OperatorType Operator::op_type() const { return _op_type; }
+
 // <, >, =, etc
 Relational::Relational(string _token) : Operator(_token, RELAT) {}
 
+Relational::~Relational() {}
+
 // AND, OR, etc
 Logical::Logical(string _token) : Operator(_token, LOGIC) {}
+
+Logical::~Logical() {}
 
 // LeftParen
 

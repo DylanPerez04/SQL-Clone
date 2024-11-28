@@ -9,3 +9,5 @@ TokenType Token::type() const {
 string Token::token_str() const {
     return _token;
 }
+
+Token::~Token() {}

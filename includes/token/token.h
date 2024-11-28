@@ -26,13 +26,13 @@ public:
     //string type_string();
     string token_str() const;
 
+    virtual ~Token();
+
     friend ostream& operator <<(ostream& outs, const Token& t) {
         outs << "|" << t.token_str() << "|";
         return outs;
     }
 
-    //virtual void set() = 0;
-    //virtual void get() = 0;
 };
 
 #endif
