@@ -106,6 +106,9 @@ void Parser::make_table(int _table[][MAX_COLUMNS]) {
         mark_cell(6, _table, RELATIONAL_OPERATOR, 7);
         mark_cell(7, _table, SYMBOL, 8);
         mark_cell(8, _table, LOGICAL_OPERATOR, 14);
+
+        mark_cell(8, _table, RPARENT, 13); ///< Logically doesn't make sense but I have parenth_check in get_parse_tree()
+
         mark_cell(14, _table, SYMBOL, 6);
         mark_cell(14, _table, LPARENT, 9);
 
@@ -199,7 +202,6 @@ bool Parser::get_parse_tree(Queue<string> q) {
 
     invalid_query = parenth_check.size() != 0 || !is_success(adj_table, state);
     if (invalid_query) {
-        assert(!invalid_query);
         if (debug && parenth_check.size() != 0) cout << "get_parse_tree() : Invalid number of parenthesis for _buffer = " << _buffer << endl;
         ptree.clear();
     }
@@ -227,7 +229,7 @@ Parser::Parser(const char* s) : invalid_query(false) {
 }
 
 void Parser::set_string(const char* s) {
-    const bool debug = true;
+    const bool debug = false;
     /// Init Parser::_buffer
     strncpy(_buffer, s, MAX_BUFFER);
     _buffer[MAX_BUFFER] = '\0';

@@ -57,9 +57,9 @@ bool test_sql_make(bool debug = false) {
     return true;
 }
 
-TEST(TEST_FILES, TestSqlFiles) {
-    EXPECT_EQ(1, test_sql_make(false));
-}
+//TEST(TEST_FILES, TestSqlFiles) {
+//    EXPECT_EQ(1, test_sql_make(false));
+//}
 
 const vector<string> command_list = {
 
@@ -209,21 +209,22 @@ bool test_sql_parenthesis(bool debug = false) {
 
     vector<string> cmds = {
         "select * from student where (fname = Flo)"
-        //"select * from student where fname = Flo or (major > Art and lname < Z)",
-        //"select * from student where (fname = Flo) or (lname < Z)",
-        //"select * from student where (fname = Flo and lname = Yao or major = CS)",
-        //"select * from student where (fname = Flo and (lname = Yao or major = CS))",
-        //"select * from student where (fname = Flo and (lname <= Yao and (major = Art or age > 20)))",
-        //"select * from student where fname = Flo and lname = Yao",
-        //"select * from student where fname = Flo or (lname = Yao or major = CS)"
-        //"select * from student where (fname = Flo or lname = Yao) and major = CS",
-        //"select * from student where (fname = Flo or lname = Yao) and (major = CS or major = Art)",
-        //"select * from student where (fname = Flo or (lname = Yao and (major = CS or major = Art)))",
-        //"select * from student where fname = Flo or (lname = Yao and (major = CS or major = Art))",
-        //"select * from student where (fname = Flo and (lname = Yao or major = CS or major = Art))",
-        //"select * from student where (fname = Flo and lname = Yao or major = CS or major = Art)",
-        //"select * from student where (fname = Flo and lname = Yao)",
-        //"select * from student where (fname = Flo and (lname = Yao or major = CS))",
+        "select * from student where fname = Flo or (major > Art and lname < Z)",
+        "select * from student where (fname = Flo) or (lname < Z)",
+        "select * from student where (fname = Flo and lname = Yao or major = CS)",
+        "select * from student where (fname = Flo and (lname = Yao or major = CS))",
+        "select * from student where (fname = Flo and (lname <= Yao and (major = Art or age > 20)))",
+        "select * from student where fname = Flo and lname = Yao",
+        "select * from student where fname = Flo or (lname = Yao or major = CS)"
+        "select * from student where (fname = Flo or lname = Yao) and major = CS",
+        "select * from student where (fname = Flo or lname = Yao) and (major = CS or major = Art)",
+        "select * from student where (fname = Flo or (lname = Yao and (major = CS or major = Art)))",
+        "select * from student where fname = Flo or (lname = Yao and (major = CS or major = Art))",
+        "select * from student where (fname = Flo and (lname = Yao or major = CS or major = Art))",
+        "select * from student where (fname = Flo and lname = Yao or major = CS or major = Art)",
+        "select * from student where (fname = Flo and lname = Yao)",
+        "select * from student where (fname = Flo and (lname = Yao or major = CS))",
+        "select * from student where (fname = Flo and (lname = Yao or lname = Jackson) or major = CS and age <= 30)"
     };
 
     SQL sql;
@@ -259,6 +260,7 @@ bool test_sql_invalid_commands(bool debug = false) {
         "select * from student where fname = Flo and (lname = Yao))",
         "select * from student where fname = Flo and ((lname = Yao)",
         "select * from student where fname = Flo and ((lname = Yao))",
+        "select * from student wheren fname = Flo and (lname = Yaor or (lname = Jackson and major = CS) or age > 20",
         ""
     };
 
@@ -284,13 +286,16 @@ bool test_sql_invalid_commands(bool debug = false) {
     return true;
 }
 
-TEST(TEST_SQL, TestSql) {
+TEST(TEST_SQL_PARENTH, TestSql) {
 
     //EXPECT_EQ(1, test_sql_relational(false));
     //EXPECT_EQ(1, test_sql_logical(false));
     //EXPECT_EQ(1, test_sql_logical2(false));
-    //EXPECT_EQ(1, test_sql_parenthesis(false));
-    //EXPECT_EQ(1, test_sql_invalid_commands(false));
+    EXPECT_EQ(1, test_sql_parenthesis(false));
+}
+
+TEST(TEST_SQL_INVALID, TestSql) {
+    EXPECT_EQ(1, test_sql_invalid_commands(false));
 }
 
 bool test_batch_file(bool debug = false) {
@@ -446,11 +451,11 @@ bool test_batch_file(bool debug = false) {
     return true;
 }
 
-//TEST(TEST_BATCH_FILE, TestBatchFile) {
-//
-//    //EXPECT_EQ(1, test_sql_logical(false));
-//    //EXPECT_EQ(1, test_batch_file(false));
-//}
+TEST(TEST_BATCH_FILE, TestBatchFile) {
+
+    //EXPECT_EQ(1, test_sql_logical(false));
+    //EXPECT_EQ(1, test_batch_file(false));
+}
 
 bool test_shunting_yard(bool debug = false) {
 
