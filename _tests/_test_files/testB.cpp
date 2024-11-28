@@ -27,8 +27,10 @@ bool test_sql_make(bool debug = false) {
         "insert into student values Flo,            Yao, 	Art, 	20",
         "insert into student values Bo, 		     Yang, 	CS, 		28",
         "insert into student values \"Sammuel L.\", Jackson, 	CS, 		40",
-        "insert into student values \"Billy\",	     Jackson, 	Math,	27",
-        "insert into student values \"Mary Ann\",   Davis,	Math,	30"
+        "insert into student values \'Billy\"s Eyelash\',	     Jackson, 	Math,	27",
+        "insert into student values \"Marry Ann's\",   Davis,	Math,	30",
+        "select * from student",
+        "select * from student where lname = Jackson"
     }; 
 
     SQL sql;

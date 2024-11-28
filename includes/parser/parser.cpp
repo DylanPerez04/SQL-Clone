@@ -226,7 +226,7 @@ Parser::Parser(const char* s) : invalid_query(false) {
 }
 
 void Parser::set_string(const char* s) {
-    const bool debug = false;
+    const bool debug = true;
     /// Init Parser::_buffer
     strncpy(_buffer, s, MAX_BUFFER);
     _buffer[MAX_BUFFER] = '\0';
@@ -240,7 +240,9 @@ void Parser::set_string(const char* s) {
 
     /// Tokenize _buffer into input_q
     STokenizer stk(_buffer);
+
     string quote_token;
+    char* quote_used = nullptr;
     bool quote_flag = false;
 
     string token;
@@ -248,7 +250,13 @@ void Parser::set_string(const char* s) {
     while(stk.more()) {
         if(debug) cout << "set_string() : token = " << token << endl;
         if (token == "\"" || token == "\'") {
-            quote_flag = !quote_flag;
+            if (quote_used == nullptr) quote_used = new char(token.front());
+            if (debug) cout << "*quote_used = " << (*quote_used) << endl;
+            if (token.front() == *quote_used)
+                quote_flag = !quote_flag;
+            else
+                quote_token.append(token);
+
             if (!quote_flag) {
                 input_q.push(quote_token);
                 quote_token.clear();
