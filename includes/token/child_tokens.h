@@ -56,7 +56,7 @@ public:
     virtual ~Operator();
 
     // RPN
-    virtual ResultSet* eval(MMap<string, long>& map, Token* lhs, Token* rhs) = 0;
+    virtual ResultSet* eval(MMap<string, long>& map, Token*& lhs, Token*& rhs) = 0;
 
     OperatorType op_type() const;
 
@@ -79,7 +79,7 @@ struct Relational : public Operator {
     Relational(string _token);
     ~Relational();
 
-    virtual ResultSet* eval(MMap<string, long>& map, Token* lhs, Token* rhs) {
+    virtual ResultSet* eval(MMap<string, long>& map, Token*& lhs, Token*& rhs) {
         const bool debug = false;
 
         if (debug) cout << "Relational::eval() : " << endl;
@@ -125,7 +125,7 @@ struct Logical : public Operator {
     /*
     * #param lhs and #param rhs are assumed to be pointers to a ResultSet (child of Token).
     */
-    virtual ResultSet* eval(MMap<string, long>& map, Token* lhs, Token* rhs) {
+    virtual ResultSet* eval(MMap<string, long>& map, Token*& lhs, Token*& rhs) {
         ResultSet* result = new ResultSet(static_cast<ResultSet*>(lhs)->vector_recnos());
 
         switch (this->op_type()) {

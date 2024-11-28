@@ -17,7 +17,7 @@ void Parser::build_keyword_list() {
         for (string r : relational)
             _keywords.insert(r, RELATIONAL_OPERATOR);
 
-        string logical[] = { "and", "or" };
+        string logical[] = { "and", "or", "AND", "OR"};
         for (string l : logical)
             _keywords.insert(l, LOGICAL_OPERATOR);
 
