@@ -60,7 +60,7 @@ public:
 
     OperatorType op_type() const;
 
-    static OperatorType get_operator(string op) {
+    static OperatorType get_operator(string token) {
         if (OPERATOR_CODES.empty()) {
             const string ops[9] = { "or", "and", "=", "<", ">", "<=", ">=", "!=" };
             for (int op = OR; op != UNKNOWN; op++)
@@ -69,8 +69,8 @@ public:
             OPERATOR_CODES.insert("OR", OR);
             OPERATOR_CODES.insert("AND", AND);
         }
-        if (!OPERATOR_CODES.contains(op)) return UNKNOWN;
-        return static_cast<OperatorType>(OPERATOR_CODES.get(op));
+        if (!OPERATOR_CODES.contains(token)) return UNKNOWN;
+        return static_cast<OperatorType>(OPERATOR_CODES.get(token));
     }
 };
 
