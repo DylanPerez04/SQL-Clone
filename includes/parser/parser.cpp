@@ -188,6 +188,7 @@ bool Parser::get_parse_tree(Queue<string> q) {
                 else if(token == ")") {
                     if (parenth_check.empty()) {
                         assert(!parenth_check.empty());
+
                         /// Invalid command if parenthesis are out of whack | ex. ... where )(fname = first)
                         if (debug) cout << "get_parse_tree() : Invalid number of RPARENS for _buffer = " << _buffer << endl;
                         state = -1;
@@ -231,7 +232,7 @@ Parser::Parser(const char* s) : invalid_query(false) {
 }
 
 void Parser::set_string(const char* s) {
-    const bool debug = false;
+    const bool debug = true;
     /// Init Parser::_buffer
     strncpy(_buffer, s, MAX_BUFFER);
     _buffer[MAX_BUFFER] = '\0';
