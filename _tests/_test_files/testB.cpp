@@ -208,7 +208,7 @@ bool test_sql_parenthesis(bool debug = false) {
     cout << endl << endl << "========== test_sql_parenthesis() =======================================" << endl;
 
     vector<string> cmds = {
-        "select * from student where (fname = Flo)",
+        "select * from student where (fname=Flo)",
         "select * from student where fname = Flo or (major > Art and lname < Z)",
         "select * from student where (fname = Flo) or (lname < Z)",
         "select * from student where (fname = Flo and lname = Yao or major = CS)",
