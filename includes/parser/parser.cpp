@@ -144,6 +144,9 @@ bool Parser::get_parse_tree(Queue<string> q) {
         Keyword key_type = get_column(token);
         state = adj_table[state][key_type];
 
+        if (state == -1)
+            assert(key_type != SYMBOL);
+
         if (debug) cout << "get_parse_tree() : token = " << token << " | state = " << state << endl;
 
         switch (state) {
@@ -202,7 +205,6 @@ bool Parser::get_parse_tree(Queue<string> q) {
 
     invalid_query = parenth_check.size() != 0 || !is_success(adj_table, state);
     if (invalid_query) {
-        cout << "query failed at state " << state << endl; 
         assert(state != -1);
 
         if (debug && parenth_check.size() != 0) cout << "get_parse_tree() : Invalid number of parenthesis for _buffer = " << _buffer << endl;
