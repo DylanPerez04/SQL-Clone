@@ -17,7 +17,7 @@ private:
     //     one of the acceptable token types
     bool get_token(int& start_state, string& token);
     //---------------------------------
-    unsigned char _buffer[MAX_BUFFER];       //input string
+    unsigned char _buffer[MAX_BUFFER + 1];       //input string
     int _pos;                       //current position in the string
     static int _table[MAX_ROWS][MAX_COLUMNS];
 
