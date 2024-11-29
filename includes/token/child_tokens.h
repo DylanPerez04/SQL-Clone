@@ -89,7 +89,8 @@ struct Relational : public Operator {
         switch (this->op_type()) {
             case EQUAL:
                 delete result; ///< Release unused memory from heap
-                return new ResultSet(map.get(rhs->token_str()));
+                /// Mutates map (TODO : Make condition that checks if map.contains(), if not, return result, else return this vvv)
+                return new ResultSet(map.get(rhs->token_str())); 
             case LESS_THAN:
                 for (MMap<string, long>::Iterator it = map.begin(); it != map.end() && (*it).key < rhs->token_str(); it++)
                     result->set_union(ResultSet((*it).value_list));

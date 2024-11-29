@@ -223,6 +223,9 @@ template <typename T> T _delete_node(node<T>*& head, node<T>* delete_this) {
     if (head == delete_this)
         head = delete_this->_next;
 
+    delete_this->_prev = nullptr;
+    delete_this->_next = nullptr;
+
     delete delete_this;
     delete_this = nullptr; // probably unnecessary but not sure
 

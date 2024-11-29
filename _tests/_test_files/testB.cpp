@@ -224,7 +224,8 @@ bool test_sql_parenthesis(bool debug = false) {
         "select * from student where (fname = Flo and lname = Yao or major = CS or major = Art)",
         "select * from student where (fname = Flo and lname = Yao)",
         "select * from student where (fname = Flo and (lname = Yao or major = CS))",
-        "select * from student where (fname = Flo and (lname = Yao or lname = Jackson) or major = CS and age <= 30)"
+        "select * from student where (fname = Flo and (lname = Yao or lname = Jackson) or major = CS and age <= 30)",
+        "select * from student where ((fname = Flo and lname = Yao) or lname = Jackson) or major = CS and age <= 30"
     };
 
     SQL sql;

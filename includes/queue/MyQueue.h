@@ -103,10 +103,10 @@ public:
     }
 
     Iterator begin() const {
-        return static_cast<Iterator>(_front);
+        return Queue<T>::Iterator(_front);
     }                                     //Iterator to the head node
     Iterator end() const {
-        return nullptr;
+        return Queue<T>::Iterator(nullptr);
     }                                       //Iterator to NULL
     void print_pointers() {
         cout << "Queue: Head->";
