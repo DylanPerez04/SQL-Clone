@@ -43,7 +43,7 @@ void STokenizer::set_string(char str[]) {
     // i <= strlen(str) so that '\0' is writtein into _buffer
     for (int i = 0; i <= strlen(str) && i < MAX_BUFFER; i++)
         _buffer[i] = str[i];
-    _buffer[MAX_BUFFER] = '\0';
+    _buffer[MAX_BUFFER] = '\0'; 
 }
 
 /**
