@@ -41,8 +41,8 @@ public:
                 break;
             case LOGIC:
                 while (!op_stack.empty() && op_stack.top()->type() >= _type) {
-                    /// Utilized for giving AND precedence over OR (AND is popped from op_stack if OR would be on top)
-                    if (Operator::get_operator((*it)->token_str()) >= Operator::get_operator(op_stack.top()->token_str()))
+                    /// Utilized for giving AND precedence over OR (AND is popped from op_stack if OR would be on top, but not vice versa)
+                    if (Operator::get_operator((*it)->token_str()) > Operator::get_operator(op_stack.top()->token_str()))
                         break;
                     
                     output_queue.push(op_stack.pop());

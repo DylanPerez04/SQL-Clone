@@ -129,7 +129,7 @@ void Parser::make_table(int _table[][MAX_COLUMNS]) {
 }
 
 bool Parser::get_parse_tree(Queue<string> q) {
-    const bool debug = true;
+    const bool debug = false;
     if (debug) cout << "get_parse_tree() q = " << q << endl;
 
     int state = 0;
