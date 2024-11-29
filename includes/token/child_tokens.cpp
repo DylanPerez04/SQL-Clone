@@ -94,77 +94,105 @@ void ResultSet::set_intersect(ResultSet o) {
     const bool debug = false;
     if (debug) cout << "set_intersection() : this->_result_set.size() = " << this->_result_set.size() << " | o->_result_set.size() = " << o._result_set.size() << endl;
 
-    // double-pointer method O(n_1 + n_2)
-
     ResultSet* intersect = new ResultSet();
 
-    int index_a = 0, index_b = 0;
-    while (index_a < this->_result_set.size() && index_b < o._result_set.size()) {
-        long recnum_a = this->_result_set[index_a], recnum_b = o._result_set[index_b];
-        if (recnum_a == recnum_b) {
-            intersect->add(recnum_a);
-            index_a++;
-            index_b++;
+    for (int i = 0; i < this->_result_set.size(); i++) {
+        for (int j = 0; j < o._result_set.size(); j++) {
+            if (this->_result_set[i] == o._result_set[j]) {
+                intersect->add(this->_result_set[i]);
+                break;
+            }
         }
-        else if (recnum_a < recnum_b) {
-            index_a++;
-        }
-        else { // if(recnum_a > recnum_b)
-            index_b++;
-        }
-    }
-
-    if (debug) {
-        cout << "set_intersection() : intersect = [";
-        for (int i = 0; i < intersect->vector_recnos().size(); i++)
-            cout << intersect->vector_recnos().at(i) << " ";
-        cout << "]" << endl;
     }
 
     this->_result_set = intersect->_result_set;
     delete intersect;
+
+    /// double-pointer method O(n_1 + n_2)
+
+    //ResultSet* intersect = new ResultSet();
+
+    //int index_a = 0, index_b = 0;
+    //while (index_a < this->_result_set.size() && index_b < o._result_set.size()) {
+    //    long recnum_a = this->_result_set[index_a], recnum_b = o._result_set[index_b];
+    //    if (recnum_a == recnum_b) {
+    //        intersect->add(recnum_a);
+    //        index_a++;
+    //        index_b++;
+    //    }
+    //    else if (recnum_a < recnum_b) {
+    //        index_a++;
+    //    }
+    //    else { // if(recnum_a > recnum_b)
+    //        index_b++;
+    //    }
+    //}
+
+    //if (debug) {
+    //    cout << "set_intersection() : intersect = [";
+    //    for (int i = 0; i < intersect->vector_recnos().size(); i++)
+    //        cout << intersect->vector_recnos().at(i) << " ";
+    //    cout << "]" << endl;
+    //}
+
+    //this->_result_set = intersect->_result_set;
+    //delete intersect;
 }
 
 void ResultSet::set_union(ResultSet o) {
     const bool debug = false;
     if (debug) cout << "set_union() : this->_result_set.size() = " << this->_result_set.size() << " | o->_result_set.size() = " << o._result_set.size() <<  endl;
-    vector<long> _union;
 
-    size_t index_a = 0, index_b = 0;
-    long recno_a = 0, recno_b = 0;
-    long to_insert = 0;
-    while (index_a < this->_result_set.size() && index_b < o._result_set.size()) {
-        recno_a = this->_result_set[index_a]; recno_b = o._result_set[index_b];
-        if (recno_a == recno_b) {
-            to_insert = recno_a; // eliminate duplicate values (O(n_1 + n_2))
-            index_a++;
-            index_b++;
+    for (int i = 0; i < o._result_set.size(); i++) {
+        bool dup_found = false;
+        for (int j = 0; j < this->_result_set.size(); j++) {
+            if (o._result_set[i] == this->_result_set[j]) {
+                dup_found = true;
+                break;
+            }
         }
-        else if (recno_a < recno_b) {
-            to_insert = recno_a;
-            index_a++;
-        }
-        else { // if (recno_a > recno_b)
-            to_insert = recno_b;
-            index_b++;
-        }
-        _union.push_back(to_insert);
+        if (!dup_found) this->add(o._result_set[i]);
     }
 
-    /// Add remaining recnos 
-    int i = (index_a < this->_result_set.size() ? index_a : index_b);
-    const vector<long>& remaining = (index_a < this->_result_set.size() ? this->_result_set : o._result_set);
-    for (i; i < remaining.size(); i++) {
-        _union.push_back(remaining.at(i));
-    }
+    /// double-pointer method O(n_1 + n_2)
 
-    if (debug) {
-        cout << "set_union() : _union = [";
-        for (int i = 0; i < _union.size(); i++)
-            cout << _union[i] << " ";
-        cout << "]" << endl;
-    }
-    this->_result_set = _union;
+    //vector<long> _union;
+
+    //size_t index_a = 0, index_b = 0;
+    //long recno_a = 0, recno_b = 0;
+    //long to_insert = 0;
+    //while (index_a < this->_result_set.size() && index_b < o._result_set.size()) {
+    //    recno_a = this->_result_set[index_a]; recno_b = o._result_set[index_b];
+    //    if (recno_a == recno_b) {
+    //        to_insert = recno_a; // eliminate duplicate values (O(n_1 + n_2))
+    //        index_a++;
+    //        index_b++;
+    //    }
+    //    else if (recno_a < recno_b) {
+    //        to_insert = recno_a;
+    //        index_a++;
+    //    }
+    //    else { // if (recno_a > recno_b)
+    //        to_insert = recno_b;
+    //        index_b++;
+    //    }
+    //    _union.push_back(to_insert);
+    //}
+
+    ///// Add remaining recnos 
+    //int i = (index_a < this->_result_set.size() ? index_a : index_b);
+    //const vector<long>& remaining = (index_a < this->_result_set.size() ? this->_result_set : o._result_set);
+    //for (i; i < remaining.size(); i++) {
+    //    _union.push_back(remaining.at(i));
+    //}
+
+    //if (debug) {
+    //    cout << "set_union() : _union = [";
+    //    for (int i = 0; i < _union.size(); i++)
+    //        cout << _union[i] << " ";
+    //    cout << "]" << endl;
+    //}
+    //this->_result_set = _union;
 }
 
 std::vector<long> ResultSet::vector_recnos() {
