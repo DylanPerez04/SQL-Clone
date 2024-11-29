@@ -149,7 +149,7 @@ bool Parser::get_parse_tree(Queue<string> q) {
             case 40: ///< make
             case 20: ///< insert
             case 1: ///< select
-                ptree.get("command").push_back(token);
+                ptree.get("command").push_back(token); 
                 break;
             case 42: ///< make table <symbol>
             case 22: ///< insert into <symbol>
