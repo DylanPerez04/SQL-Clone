@@ -993,14 +993,14 @@ public:
     //return first that goes NOT BEFORE
     Iterator lower_bound(const T& key) {
         Iterator i;
-        for (i = this->begin(); i != this->end() && *i < key; i++) {}
+        for (i = this->begin(); i != this->end() && (*i) < key; i++) {}
         return i;
     }
 
     //return first that goes AFTER key
     Iterator upper_bound(const T& key) {
         Iterator i;
-        for (i = this->begin(); i != this->end() && *i <= key; i++) {}
+        for (i = this->begin(); i != this->end() && (*i) <= key; i++) {}
         return i;
     }
     //exist or not, the next entry  >entry

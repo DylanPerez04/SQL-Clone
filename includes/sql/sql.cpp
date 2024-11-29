@@ -37,7 +37,7 @@ Table SQL::command(string query) {
         to_return = Table(table_name, fields);
     }
     else if (cmd == "insert") {
-        if (!file_exists(file_name.c_str())) return to_return;
+        if (!file_exists(file_name.c_str())) return _select_table;
         if (debug) cout << "command() : insert command called." << endl;
         to_return = Table(table_name);
         fields = ptree.get("values");
@@ -45,7 +45,7 @@ Table SQL::command(string query) {
         to_return.insert_into(fields);
     }
     else if (cmd == "select") {
-        if (!file_exists(file_name.c_str())) return to_return;
+        if (!file_exists(file_name.c_str())) return _select_table;
         _select_table = Table(table_name);
         fields = ptree.get("fields");
         if (debug) cout << "command() : select | fields = " << fields << endl;
