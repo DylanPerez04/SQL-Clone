@@ -141,7 +141,7 @@ bool Parser::get_parse_tree(Queue<string> q) {
         state = adj_table[state][key_type];
 
         if (state == -1)
-            assert(key_type != SYMBOL && prev_state != 10);    
+            assert(key_type != SYMBOL && prev_state != 9);    
 
         if (debug) cout << "get_parse_tree() : token = " << token << " | state = " << state << endl;
 
