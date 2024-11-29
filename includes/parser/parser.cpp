@@ -187,6 +187,7 @@ bool Parser::get_parse_tree(Queue<string> q) {
                     parenth_check.push_back(token.front());
                 else if(token == ")") {
                     if (parenth_check.empty()) {
+                        assert(!parenth_check.empty());
                         /// Invalid command if parenthesis are out of whack | ex. ... where )(fname = first)
                         if (debug) cout << "get_parse_tree() : Invalid number of RPARENS for _buffer = " << _buffer << endl;
                         state = -1;
@@ -200,7 +201,7 @@ bool Parser::get_parse_tree(Queue<string> q) {
         }
     }
 
-    assert(is_success(adj_table, state));
+    //assert(is_success(adj_table, state));
     invalid_query = parenth_check.size() != 0 || !is_success(adj_table, state);
     if (invalid_query) {
         if (debug && parenth_check.size() != 0) cout << "get_parse_tree() : Invalid number of parenthesis for _buffer = " << _buffer << endl;
