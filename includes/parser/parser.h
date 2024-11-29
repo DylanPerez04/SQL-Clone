@@ -34,7 +34,7 @@ private:
     MMap<string, string> ptree;
     Queue<string> input_q;
 
-    char _buffer[MAX_BUFFER + 1]; // no limit to command length
+    char _buffer[MAX_BUFFER + 1];
     static int adj_table[MAX_ROWS][MAX_COLUMNS];
 
     bool invalid_query;
