@@ -202,7 +202,8 @@ bool Parser::get_parse_tree(Queue<string> q) {
 
     invalid_query = parenth_check.size() != 0 || !is_success(adj_table, state);
     if (invalid_query) {
-        assert(state != 14);
+        cout << "query failed at state " << state << endl;
+        assert(state != 15);
 
         if (debug && parenth_check.size() != 0) cout << "get_parse_tree() : Invalid number of parenthesis for _buffer = " << _buffer << endl;
         ptree.clear();
@@ -231,7 +232,7 @@ Parser::Parser(const char* s) : invalid_query(false) {
 }
 
 void Parser::set_string(const char* s) {
-    const bool debug = true;
+    const bool debug = false;
     /// Init Parser::_buffer
     strncpy(_buffer, s, MAX_BUFFER);
     _buffer[MAX_BUFFER] = '\0';
