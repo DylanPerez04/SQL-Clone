@@ -113,6 +113,7 @@ void Parser::make_table(int _table[][MAX_COLUMNS]) {
 
 
         mark_cell(5, _table, LPARENT, 9);
+        mark_cell(9, _table, LPARENT, 9);
         mark_cell(9, _table, SYMBOL, 10);
         mark_cell(10, _table, RELATIONAL_OPERATOR, 11);
         mark_cell(11, _table, SYMBOL, 12);
