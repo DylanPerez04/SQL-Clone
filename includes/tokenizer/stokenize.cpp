@@ -11,7 +11,7 @@ STokenizer::STokenizer() : _buffer(""), _pos(0), _done(true) {
         make_table(_table);
     }
 
-    if (debug) print_table(_table);
+    //if (debug) print_table(_table);
 }
 
 STokenizer::STokenizer(char str[]) : STokenizer() {

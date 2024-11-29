@@ -6,7 +6,7 @@ TokenStr::TokenStr(string _token) : Token(_token, STRING) {}
 
 // Operators
 
-Map<string, long> Operator::OPERATOR_CODES{};
+Map<string, long> Operator::OPERATOR_CODES = Map<string, long>();
 
 Operator::Operator(string _token, TokenType _type) : Token(_token, _type) {
     this->_op_type = get_operator(_token);
