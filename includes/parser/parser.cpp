@@ -129,7 +129,7 @@ void Parser::make_table(int _table[][MAX_COLUMNS]) {
 }
 
 bool Parser::get_parse_tree(Queue<string> q) {
-    const bool debug = false;
+    const bool debug = true;
     if (debug) cout << "get_parse_tree() q = " << q << endl;
 
     /*
@@ -142,10 +142,11 @@ bool Parser::get_parse_tree(Queue<string> q) {
     while (!q.empty() && state != -1) {
         string token = q.pop();
         Keyword key_type = get_column(token);
+        size_t prev_state = state;
         state = adj_table[state][key_type];
 
         if (state == -1)
-            assert(key_type != SYMBOL);
+            assert(key_type != SYMBOL && prev_state != 12);
 
         if (debug) cout << "get_parse_tree() : token = " << token << " | state = " << state << endl;
 
