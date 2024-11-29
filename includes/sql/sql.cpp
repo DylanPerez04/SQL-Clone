@@ -19,7 +19,7 @@ Table SQL::command(string query) {
     if (parsed_query.fail()) {
         //assert(ptree.empty());
         if (debug) cout << "command() : Invalid query!" << endl;
-        _select_table = Table();
+        //_select_table = Table();
         return _select_table;
     }
 
