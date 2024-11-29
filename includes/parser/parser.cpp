@@ -8,16 +8,15 @@ Map<string, long> Parser::_keywords;
 void Parser::build_keyword_list() {
     if (_keywords.empty()) {
         string standard[] = { "select", "from", "where", "insert", "into",
-            "make", "table", "*", "\"", "," };
+            "make", "table", "*", "," };
         for (long k = SELECT; k <= COMMA; k++)
             _keywords.insert(standard[k - 1], k);
-        _keywords.insert("\'", QUOTE);
 
         string relational[] = { "=", "<", ">", "<=", ">=", "!=" };
         for (string r : relational)
             _keywords.insert(r, RELATIONAL_OPERATOR);
 
-        string logical[] = { "and", "or", "AND", "OR"};
+        string logical[] = { "and", "or", "not", "AND", "OR", "NOT"};
         for (string l : logical)
             _keywords.insert(l, LOGICAL_OPERATOR);
 
@@ -132,10 +131,6 @@ bool Parser::get_parse_tree(Queue<string> q) {
     const bool debug = true;
     if (debug) cout << "get_parse_tree() q = " << q << endl;
 
-    /*
-    * push_back parenthesis but do not consider them during the adjacency table; keep track of string to insert when finding QUOTE (")
-    */
-
     int state = 0;
     vector<char> parenth_check;
 
@@ -206,8 +201,6 @@ bool Parser::get_parse_tree(Queue<string> q) {
 
     invalid_query = parenth_check.size() != 0 || !is_success(adj_table, state);
     if (invalid_query) {
-        assert(state != -1);
-
         if (debug && parenth_check.size() != 0) cout << "get_parse_tree() : Invalid number of parenthesis for _buffer = " << _buffer << endl;
         ptree.clear();
     }

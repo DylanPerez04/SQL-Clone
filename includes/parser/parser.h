@@ -16,7 +16,6 @@ enum Keyword {
     //CREATE,
     TABLE,
     ASTERIK,
-    QUOTE,
     COMMA,
     RELATIONAL_OPERATOR, // <, >, <=, >=, etc
     LOGICAL_OPERATOR, // and, or, etc
