@@ -23,7 +23,7 @@ public:
     */
     ShuntingYard(Queue<Token*>& infix);
 
-    Queue<Token*>& postfix();
+    const Queue<Token*>& postfix();
 
 };
 

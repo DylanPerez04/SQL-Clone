@@ -65,6 +65,6 @@ ShuntingYard::ShuntingYard(Queue<Token*>& infix) {
     this->_postfix = output_queue;
 }
 
-Queue<Token*>& ShuntingYard::postfix() {
+const Queue<Token*>& ShuntingYard::postfix() {
     return this->_postfix;
 }
