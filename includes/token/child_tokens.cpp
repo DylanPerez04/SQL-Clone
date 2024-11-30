@@ -38,56 +38,89 @@ RightParen::RightParen() : Token(")", RPAREN) {}
 ResultSet::ResultSet() : Token("", RESULT) {}
 
 ResultSet::ResultSet(const vector<long> set) : Token("", RESULT) {
+    const bool debug = false;
+    
+    if(debug) cout << "ResultSet() : Start | set = " << set << endl;
+
     _result_set = set;
 
-    /// Check if #param set is sorted, if not, run insertion sort (O(n))
-    bool is_sorted = true;
-    for(size_t i = 1; i < _result_set.size() && is_sorted; i++)
-        is_sorted = _result_set[i] >= _result_set[i - 1];
-
-    if (!is_sorted) {
-        // insertion sort
-        for (size_t i = 1; i < _result_set.size(); i++) {
-            size_t swap_index = i;
-            for (size_t j = i - 1; j >= 0 && _result_set[i] < _result_set[j]; j--)
-                swap_index = j;
-            if (i != swap_index) {
-                int temp = _result_set[i];
-                _result_set[i] = _result_set[swap_index];
-                _result_set[swap_index] = temp;
+    // Bubble sort (for debugging purposes)
+    size_t n = _result_set.size();
+    for (size_t i = 1; i < n; i++) { ///< Bubble sort only needs to run n - 1 times
+        bool sorted = true;
+        for (size_t j = 0; j < n - i; j++) {
+            if (_result_set[j] > _result_set[j + 1]) {
+                sorted = false;
+                long temp = _result_set[j];
+                _result_set[j] = _result_set[j + 1];
+                _result_set[j + 1] = temp;
             }
         }
+
+        if (sorted) break;
     }
+
+    if(debug) cout << "ResultSet() : End } _result_set = " << _result_set << endl;
+
+
+    /// Check if #param set is sorted, if not, run insertion sort (O(n))
+    //bool is_sorted = true;
+    //for(size_t i = 1; i < _result_set.size() && is_sorted; i++)
+    //    is_sorted = _result_set[i] >= _result_set[i - 1];
+
+    //if (!is_sorted) {
+    //    // insertion sort
+    //    for (size_t i = 1; i < _result_set.size(); i++) {
+    //        size_t swap_index = i;
+    //        for (size_t j = i - 1; j >= 0 && _result_set[i] < _result_set[j]; j--)
+    //            swap_index = j;
+    //        if (i != swap_index) {
+    //            int temp = _result_set[i];
+    //            _result_set[i] = _result_set[swap_index];
+    //            _result_set[swap_index] = temp;
+    //        }
+    //    }
+    //}
 }
 
 bool ResultSet::add(const long recnum) {
     const bool debug = false;
     if (debug) cout << "add() : Adding " << recnum << " to ResultSet" << endl;
     
+    for (int i = 0; i < _result_set.size(); i++) {
+        if (_result_set[i] == recnum) return false;
+        if (recnum < _result_set[i]) {
+            _result_set.insert(_result_set.begin() + i, recnum);
+            return true;
+        }
+    }
+
+    _result_set.push_back(recnum);
+
     // binary insert
-    int lower_lim = 0, upper_lim = _result_set.size();
-    for (int i = (upper_lim + lower_lim) / 2; lower_lim < upper_lim; i = (upper_lim + lower_lim) / 2) {
-        int current = _result_set[i];
-        if (current == recnum) return false;
-        if (current < recnum) 
-            lower_lim = i + 1;
-        else // if (current > recnum)
-            upper_lim = i;
-    }
+    //int lower_lim = 0, upper_lim = _result_set.size();
+    //for (int i = (upper_lim + lower_lim) / 2; lower_lim < upper_lim; i = (upper_lim + lower_lim) / 2) {
+    //    int current = _result_set[i];
+    //    if (current == recnum) return false;
+    //    if (current < recnum) 
+    //        lower_lim = i + 1;
+    //    else // if (current > recnum)
+    //        upper_lim = i;
+    //}
 
-    if (lower_lim == upper_lim) _result_set.insert(_result_set.begin() + lower_lim, recnum);
-    else if (lower_lim >= _result_set.size()) _result_set.push_back(recnum);
-    else _result_set.insert(_result_set.begin(), recnum);
+    //if (lower_lim == upper_lim) _result_set.insert(_result_set.begin() + lower_lim, recnum);
+    //else if (lower_lim >= _result_set.size()) _result_set.push_back(recnum);
+    //else _result_set.insert(_result_set.begin(), recnum);
 
-    if (debug) {
-        cout << "cond() : _result_set = [";
-        std::vector<long>::iterator it = _result_set.begin();
-        while (it != _result_set.end())
-            cout << *it++ << " ";
-        cout << "]" << endl;
-    }
+    //if (debug) {
+    //    cout << "cond() : _result_set = [";
+    //    std::vector<long>::iterator it = _result_set.begin();
+    //    while (it != _result_set.end())
+    //        cout << *it++ << " ";
+    //    cout << "]" << endl;
+    //}
 
-    return true;
+    //return true;
 }
 
 void ResultSet::set_intersect(ResultSet o) {
