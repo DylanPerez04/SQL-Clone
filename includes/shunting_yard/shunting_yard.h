@@ -22,7 +22,7 @@ public:
     * postfix = "age", "17", "<", "age", "20", ">", "or", "lname", "Jackson", "=", "and"
     */
     ShuntingYard(Queue<Token*>& infix) {
-        const bool debug = false;
+        const bool debug = true;
 
         Queue<Token*> output_queue;
         Stack<Token*> op_stack;
@@ -55,7 +55,8 @@ public:
             case RPAREN:
                 while (!op_stack.empty() && op_stack.top()->type() >= _type) {
                     Token* popped = op_stack.pop();
-                    if(popped->type() != LPAREN) output_queue.push(popped); ///< Ensure ( isn't added to output queue
+                    if (popped->type() == LPAREN) break;
+                    output_queue.push(popped); 
                 }
                 break;
             default:
