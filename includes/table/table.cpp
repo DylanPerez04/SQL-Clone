@@ -350,7 +350,7 @@ vectorlong Table::cond(const Queue<Token*>& post) {
 
             if (DEBUG) cout << "cond() : *lhs = " << *lhs << " | *op = " << *op << " | *rhs = " << *rhs << endl;
 
-            ResultSet* result = op->eval(_indices[_field_map.get(lhs->token_str())], lhs, rhs);
+            ResultSet* result = op->eval(_indices[_field_map.get(lhs->token_str())], lhs, rhs); 
 
             /// Delete post-evaluated ResultSets
             if (rhs->type() == RESULT && lhs->type() == RESULT) {
