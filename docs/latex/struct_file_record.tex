@@ -1,0 +1,191 @@
+\doxysection{File\+Record Struct Reference}
+\hypertarget{struct_file_record}{}\label{struct_file_record}\index{FileRecord@{FileRecord}}
+
+
+{\ttfamily \#include $<$file\+\_\+record.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_file_record_a27f1203f00184f1e2692edef6f4f4318}{File\+Record}} ()
+\item 
+\mbox{\hyperlink{struct_file_record_a2b9bbc6e4cb64a3599906c0b5d712e28}{File\+Record}} (const vector$<$ string $>$ data)
+\item 
+\mbox{\hyperlink{struct_file_record_a15eb69bebc82bf1a0f1390bccc18fd48}{File\+Record}} (string data)
+\item 
+vector$<$ string $>$ \mbox{\hyperlink{struct_file_record_a9477bf80806d6eac86bfdab22eaf0265}{get\+\_\+record}} () const
+\item 
+string \mbox{\hyperlink{struct_file_record_a27602cbb63bfc67f650493529f466e43}{operator\mbox{[}$\,$\mbox{]}}} (int index) const
+\item 
+streampos \mbox{\hyperlink{struct_file_record_a7a9dee0e0f5a1dd5b9ce5bb3b72560ea}{read}} (fstream \&file, const int \&\mbox{\hyperlink{struct_file_record_a1ec025f9fbd4be95d431de59ec5b7c6d}{recno}})
+\item 
+streampos \mbox{\hyperlink{struct_file_record_ad89b0658ea809a1a7f689a68d17a98ce}{write}} (fstream \&file)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{struct_file_record_a1ec025f9fbd4be95d431de59ec5b7c6d}\label{struct_file_record_a1ec025f9fbd4be95d431de59ec5b7c6d} 
+int {\bfseries recno}
+\begin{DoxyCompactList}\small\item\em The last record number read or the record number of the table record last written. \end{DoxyCompactList}\item 
+\Hypertarget{struct_file_record_a35a2bf6f42ef4edf16a11b4e791a4bc9}\label{struct_file_record_a35a2bf6f42ef4edf16a11b4e791a4bc9} 
+char {\bfseries \+\_\+record} \mbox{[}\mbox{\hyperlink{struct_file_record_a03ceed6b89c6e41d62ce3c5af9034016}{\+\_\+num\+\_\+of\+\_\+fields}}\mbox{]}\mbox{[}\mbox{\hyperlink{struct_file_record_abd667b5907ddbdd1ea152712b4b214d2}{MAX}}+1\mbox{]} = \{\}
+\begin{DoxyCompactList}\small\item\em The field values of a single \doxylink{class_s_q_l}{SQL} table record. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const int \mbox{\hyperlink{struct_file_record_a03ceed6b89c6e41d62ce3c5af9034016}{\+\_\+num\+\_\+of\+\_\+fields}} = 10
+\item 
+static const int \mbox{\hyperlink{struct_file_record_abd667b5907ddbdd1ea152712b4b214d2}{MAX}} = 100
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+ostream \& \mbox{\hyperlink{struct_file_record_a76343a16959aead20aad6b9f7948a968}{operator$<$$<$}} (ostream \&outs, const \mbox{\hyperlink{struct_file_record}{File\+Record}} \&file\+\_\+record)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Implementation of a means to quickly read and write indiviudal \doxylink{class_s_q_l}{SQL} table records.
+
+The \doxylink{struct_file_record}{File\+Record} object handles reading and writing from .bin files and .txt files, which act as \doxylink{class_s_q_l}{SQL}\textquotesingle{}s sole means of persistent, long-\/term storage of table records and table field-\/names, respectively.
+
+Each .bin file contains the records for a single table within the database, while each .txt file contains the field-\/names for a single table within the database. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_file_record_a27f1203f00184f1e2692edef6f4f4318}\index{FileRecord@{FileRecord}!FileRecord@{FileRecord}}
+\index{FileRecord@{FileRecord}!FileRecord@{FileRecord}}
+\doxysubsubsection{\texorpdfstring{FileRecord()}{FileRecord()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \label{struct_file_record_a27f1203f00184f1e2692edef6f4f4318} 
+File\+Record\+::\+File\+Record (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Initializes an empty \doxylink{struct_file_record}{File\+Record} object. \Hypertarget{struct_file_record_a2b9bbc6e4cb64a3599906c0b5d712e28}\index{FileRecord@{FileRecord}!FileRecord@{FileRecord}}
+\index{FileRecord@{FileRecord}!FileRecord@{FileRecord}}
+\doxysubsubsection{\texorpdfstring{FileRecord()}{FileRecord()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \label{struct_file_record_a2b9bbc6e4cb64a3599906c0b5d712e28} 
+File\+Record\+::\+File\+Record (\begin{DoxyParamCaption}\item[{const vector$<$ string $>$}]{data}{}\end{DoxyParamCaption})}
+
+Stores the record field values held within {\ttfamily data} in the \doxylink{struct_file_record}{File\+Record} object
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em data} & A vector of a table record field values to store \\
+\hline
+\end{DoxyParams}
+\Hypertarget{struct_file_record_a15eb69bebc82bf1a0f1390bccc18fd48}\index{FileRecord@{FileRecord}!FileRecord@{FileRecord}}
+\index{FileRecord@{FileRecord}!FileRecord@{FileRecord}}
+\doxysubsubsection{\texorpdfstring{FileRecord()}{FileRecord()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \label{struct_file_record_a15eb69bebc82bf1a0f1390bccc18fd48} 
+File\+Record\+::\+File\+Record (\begin{DoxyParamCaption}\item[{string}]{data}{}\end{DoxyParamCaption})}
+
+Stores a single record field value held within {\ttfamily data} in the \doxylink{struct_file_record}{File\+Record} object.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em data} & A record field value to store \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_file_record_a9477bf80806d6eac86bfdab22eaf0265}\index{FileRecord@{FileRecord}!get\_record@{get\_record}}
+\index{get\_record@{get\_record}!FileRecord@{FileRecord}}
+\doxysubsubsection{\texorpdfstring{get\_record()}{get\_record()}}
+{\footnotesize\ttfamily \label{struct_file_record_a9477bf80806d6eac86bfdab22eaf0265} 
+vector$<$ string $>$ File\+Record\+::get\+\_\+record (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+Retrieves the \doxylink{struct_file_record}{File\+Record} object\textquotesingle{}s record field values, in the order they are stored, as a vector of strings.
+
+\begin{DoxyReturn}{Returns}
+A {\ttfamily vector\texorpdfstring{$<$}{<}string\texorpdfstring{$>$}{>}} representaton of \+\_\+record, where each string is a field value 
+\end{DoxyReturn}
+\Hypertarget{struct_file_record_a27602cbb63bfc67f650493529f466e43}\index{FileRecord@{FileRecord}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!FileRecord@{FileRecord}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily \label{struct_file_record_a27602cbb63bfc67f650493529f466e43} 
+string File\+Record\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{index}{}\end{DoxyParamCaption}) const}
+
+Retrieves a record field value at {\ttfamily index}.
+
+\begin{DoxyReturn}{Returns}
+A field value at index {\ttfamily index} within \doxylink{struct_file_record_a35a2bf6f42ef4edf16a11b4e791a4bc9}{File\+Record\+::\+\_\+record} 
+\end{DoxyReturn}
+\Hypertarget{struct_file_record_a7a9dee0e0f5a1dd5b9ce5bb3b72560ea}\index{FileRecord@{FileRecord}!read@{read}}
+\index{read@{read}!FileRecord@{FileRecord}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}}
+{\footnotesize\ttfamily \label{struct_file_record_a7a9dee0e0f5a1dd5b9ce5bb3b72560ea} 
+streampos File\+Record\+::read (\begin{DoxyParamCaption}\item[{fstream \&}]{file}{, }\item[{const int \&}]{recno}{}\end{DoxyParamCaption})}
+
+Reads file record {\ttfamily recno} from {\ttfamily file} and stores the record field values within the \doxylink{struct_file_record}{File\+Record} object. Any record field values previously stored within the \doxylink{struct_file_record}{File\+Record} object will be overwritten.
+
+It is assumed that {\ttfamily file} is openned and in binary mode.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em file} & The {\ttfamily fstream} object to read the \doxylink{class_s_q_l}{SQL} table record from \\
+\hline
+\mbox{\texttt{ in}}  & {\em recno} & The record number to read from {\ttfamily file} \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The number of bytes read 
+\end{DoxyReturn}
+\Hypertarget{struct_file_record_ad89b0658ea809a1a7f689a68d17a98ce}\index{FileRecord@{FileRecord}!write@{write}}
+\index{write@{write}!FileRecord@{FileRecord}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}}
+{\footnotesize\ttfamily \label{struct_file_record_ad89b0658ea809a1a7f689a68d17a98ce} 
+streampos File\+Record\+::write (\begin{DoxyParamCaption}\item[{fstream \&}]{file}{}\end{DoxyParamCaption})}
+
+Appends the record field values stored within the \doxylink{struct_file_record}{File\+Record} object into {\ttfamily file}.
+
+It is assumed that {\ttfamily file} is openned and in binary mode
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em file} & The fstream object to append the table record stored within the \doxylink{struct_file_record}{File\+Record} object \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The record number of the record written within {\ttfamily file} 
+\end{DoxyReturn}
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{struct_file_record_a76343a16959aead20aad6b9f7948a968}\index{FileRecord@{FileRecord}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!FileRecord@{FileRecord}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily \label{struct_file_record_a76343a16959aead20aad6b9f7948a968} 
+ostream \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{ostream \&}]{outs}{, }\item[{const \mbox{\hyperlink{struct_file_record}{File\+Record}} \&}]{file\+\_\+record}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Outputs the \doxylink{struct_file_record}{File\+Record} object\textquotesingle{}s record field values.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em outs} & An ostream object to insert {\ttfamily file\+\_\+record} \textquotesingle{}s record field values for output \\
+\hline
+\mbox{\texttt{ in}}  & {\em file\+\_\+record} & The \doxylink{struct_file_record}{File\+Record} object to be printed out \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An ostream object reference with {\ttfamily file\+\_\+record} \textquotesingle{}s record field values inserted 
+\end{DoxyReturn}
+
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_file_record_a03ceed6b89c6e41d62ce3c5af9034016}\index{FileRecord@{FileRecord}!\_num\_of\_fields@{\_num\_of\_fields}}
+\index{\_num\_of\_fields@{\_num\_of\_fields}!FileRecord@{FileRecord}}
+\doxysubsubsection{\texorpdfstring{\_num\_of\_fields}{\_num\_of\_fields}}
+{\footnotesize\ttfamily \label{struct_file_record_a03ceed6b89c6e41d62ce3c5af9034016} 
+const int File\+Record\+::\+\_\+num\+\_\+of\+\_\+fields = 10\hspace{0.3cm}{\ttfamily [static]}}
+
+The maximum number of field values that a \doxylink{struct_file_record}{File\+Record} object can hold, read, and write as part of a single individual \doxylink{class_s_q_l}{SQL} table record. \Hypertarget{struct_file_record_abd667b5907ddbdd1ea152712b4b214d2}\index{FileRecord@{FileRecord}!MAX@{MAX}}
+\index{MAX@{MAX}!FileRecord@{FileRecord}}
+\doxysubsubsection{\texorpdfstring{MAX}{MAX}}
+{\footnotesize\ttfamily \label{struct_file_record_abd667b5907ddbdd1ea152712b4b214d2} 
+const int File\+Record\+::\+MAX = 100\hspace{0.3cm}{\ttfamily [static]}}
+
+The maximum number of characters an individual field value can have; the number of bytes read or written to a binary file when reading or writing an individual field values. 
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+includes/binary\+\_\+files/\mbox{\hyperlink{file__record_8h}{file\+\_\+record.\+h}}\item 
+includes/binary\+\_\+files/file\+\_\+record.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,40 @@
+\doxysection{sql.\+h}
+\hypertarget{sql_8h_source}{}\label{sql_8h_source}\index{includes/sql/sql.h@{includes/sql/sql.h}}
+\mbox{\hyperlink{sql_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#ifndef\ SQL\_H}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#define\ SQL\_H}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <algorithm>}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ "{}../table/table.h"{}}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}../parser/parser.h"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{utilities_8h}{../binary\_files/utilities.h}}"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00015\ \textcolor{comment}{*\ TODO\ :\ Make\ capital\ keywords\ valid}}
+\DoxyCodeLine{00016\ \textcolor{comment}{*\ TODO\ :\ Refactor\ \_select\_table\ so\ that\ it's\ a\ vector\ of\ recnos}}
+\DoxyCodeLine{00017\ \textcolor{comment}{*\ TODO\ :\ Make\ CREATE\ a\ valid\ command}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00024\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_s_q_l}{SQL}}\ \{}
+\DoxyCodeLine{00025\ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00027\ \ \ \ \ vector<string>\ \_tables\_accessed;}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00030\ \ \ \ \ Table\ \_select\_table;}
+\DoxyCodeLine{00031\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00033\ \ \ \ \ \mbox{\hyperlink{class_s_q_l_ab6a6b70a8fad45c14460c7f8ab2e040b}{SQL}}();}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \ \ }
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{class_s_q_l_a1c65a40213ae07fdd8f25bd292b2a68c}{\string~SQL}}();}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00046\ \ \ \ \ Table\ \mbox{\hyperlink{class_s_q_l_a8ddf73b6fd2cab9b1efbf90d85ec19a0}{command}}(\textcolor{keywordtype}{string}\ query);}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00053\ \ \ \ \ vector<long>\ \mbox{\hyperlink{class_s_q_l_a2ef700810454a34234b91f81e86c36cc}{select\_recnos}}();}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \};}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

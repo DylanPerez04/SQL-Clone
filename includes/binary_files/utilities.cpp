@@ -9,7 +9,6 @@ bool file_exists(const char filename[]) {
 
 void open_fileW(fstream& file, const char filename[]) {
     const bool debug = false;
-
     file.open(filename, ios::binary | ios::out | ios::trunc);
     if (file.fail()) {
         cout << "open_fileW() : Could not open file " << filename << "!" << endl;
@@ -17,16 +16,9 @@ void open_fileW(fstream& file, const char filename[]) {
     }
 }
 
-/*
-* Opens #param file with #param filename.
-*
-* If a file with the name #param filename already, exists, open_fileRW simply
-* opens the file for read and write, and does not overwrite the existing file.
-*
-* If not, opens the file for write and creates a new file.
-*/
-void open_fileRW(fstream& file, const char filename[]) {
 
+void open_fileRW(fstream& file, const char filename[]) {
+    // TODO : See if this conditional statement is necessary
     if (file_exists(filename)) {
         file.open(filename, fstream::in | fstream::out | fstream::binary | fstream::app);
         if (file.fail()) {

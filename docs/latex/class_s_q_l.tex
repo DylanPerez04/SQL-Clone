@@ -1,0 +1,56 @@
+\doxysection{SQL Class Reference}
+\hypertarget{class_s_q_l}{}\label{class_s_q_l}\index{SQL@{SQL}}
+
+
+{\ttfamily \#include $<$sql.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_s_q_l_ab6a6b70a8fad45c14460c7f8ab2e040b}\label{class_s_q_l_ab6a6b70a8fad45c14460c7f8ab2e040b} 
+{\bfseries SQL} ()
+\begin{DoxyCompactList}\small\item\em Initializes a newly created \doxylink{class_s_q_l}{SQL} object. \end{DoxyCompactList}\item 
+\Hypertarget{class_s_q_l_a1c65a40213ae07fdd8f25bd292b2a68c}\label{class_s_q_l_a1c65a40213ae07fdd8f25bd292b2a68c} 
+{\bfseries \texorpdfstring{$\sim$}{\string~}\+SQL} ()
+\begin{DoxyCompactList}\small\item\em Deletes all session binary and .txt files created as a result of session-\/executed select commands. \end{DoxyCompactList}\item 
+Table \mbox{\hyperlink{class_s_q_l_a8ddf73b6fd2cab9b1efbf90d85ec19a0}{command}} (string query)
+\item 
+vector$<$ long $>$ \mbox{\hyperlink{class_s_q_l_a2ef700810454a34234b91f81e86c36cc}{select\+\_\+recnos}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The \doxylink{class_s_q_l}{SQL} object acts an SQL-\/clone, capable of creating a table, inserting records into a table, and selecting records from a table. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_s_q_l_a8ddf73b6fd2cab9b1efbf90d85ec19a0}\index{SQL@{SQL}!command@{command}}
+\index{command@{command}!SQL@{SQL}}
+\doxysubsubsection{\texorpdfstring{command()}{command()}}
+{\footnotesize\ttfamily \label{class_s_q_l_a8ddf73b6fd2cab9b1efbf90d85ec19a0} 
+Table SQL\+::command (\begin{DoxyParamCaption}\item[{string}]{query}{}\end{DoxyParamCaption})}
+
+Executes an \doxylink{class_s_q_l}{SQL} query passed as a string via {\ttfamily query} {\ttfamily }.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em query} & The \doxylink{class_s_q_l}{SQL} query to process \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The resulting table created or accessed as a resort of the query; an empty Table object in the event of an invalid query 
+\end{DoxyReturn}
+\Hypertarget{class_s_q_l_a2ef700810454a34234b91f81e86c36cc}\index{SQL@{SQL}!select\_recnos@{select\_recnos}}
+\index{select\_recnos@{select\_recnos}!SQL@{SQL}}
+\doxysubsubsection{\texorpdfstring{select\_recnos()}{select\_recnos()}}
+{\footnotesize\ttfamily \label{class_s_q_l_a2ef700810454a34234b91f81e86c36cc} 
+vector$<$ long $>$ SQL\+::select\+\_\+recnos (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+Retrieves the previously selected record numbers. \begin{DoxyReturn}{Returns}
+The previously selected record numbers from the last SELECT command; returns an empty {\ttfamily vector\texorpdfstring{$<$}{<}long\texorpdfstring{$>$}{>}} if no select commands have yet been made. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+includes/sql/\mbox{\hyperlink{sql_8h}{sql.\+h}}\item 
+includes/sql/sql.\+cpp\end{DoxyCompactItemize}

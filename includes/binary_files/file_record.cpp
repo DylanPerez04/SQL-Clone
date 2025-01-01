@@ -1,7 +1,5 @@
 #include "file_record.h"
 
-// TODO : Make _num_of_fields DYNAMIC based on data passed in (make _record dynamic)
-
 FileRecord::FileRecord() : recno(-1) {}
 
 FileRecord::FileRecord(const vector<string> data) : FileRecord() {
@@ -27,6 +25,7 @@ FileRecord::FileRecord(string data) : FileRecord() {
 }
 
 vector<string> FileRecord::get_record() const {
+    // TODO : Update implementation to copy the record data non-linearly (potentially with vector constructor)
     vector<string> data;
     for (int i = 0; i < _num_of_fields; i++)
         data.push_back(_record[i]);

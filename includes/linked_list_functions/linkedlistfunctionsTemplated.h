@@ -1,12 +1,19 @@
+/** @file linkedlistfunctionsTemplated.h
+* 
+* Defines linked list helper methods utilized exclusively by the Stack and Queue objects.
+*/
+
 #ifndef LINKED_LIST_FUNCTIONS_TEMPLATED_H
 #define LINKED_LIST_FUNCTIONS_TEMPLATED_H
 
 #include "../node/node.h"
 
 /**
- *   Prints the contents of each node pointer of a linked list
- *
- *   @param head - The head of the linked list to be printed
+* Sequentially prints out the `_item` of each node pointer within a 
+* linked list of nodes.
+*
+* @tparam T The datatype of the value stored in node
+* @param head The head of the linked list to be printed
 */
 template <typename T> void _print_list(node<T>* head) {
     if (head == nullptr || head->_prev == nullptr)
@@ -23,19 +30,14 @@ template <typename T> void _print_list(node<T>* head) {
 }
 
 /**
- *    Prints the contents of each node pointer of a linked list starting
- *    from the last element in the linked list.
- *   
- *    Uses node->_prev to traverse
- *    backwards, so this is a great method for debugging _prev node
- *    insertion.
- *
- *    @param head - The head of the linked list to be printed
+* Sequentially prints the `_item` of each node pointer within a linked list of nodes 
+* from the last element to the first element.
+*
+* @tparam T The datatype of the value stored in node
+* @param head The head of the linked list to be printed
 */
 template <typename T> void _print_list_backwards(node<T>* head) {
     const bool debug = false;
-    // |||<-Head or ||| <-[10]-><-Head
-
     if (debug) {
         node<T>* last_node = nullptr;
         for (node<T>* _next = head; _next != nullptr; _next = _next->_next) {
@@ -64,12 +66,13 @@ template <typename T> void _print_list_backwards(node<T>* head) {
 }
 
 /**
- *    Searches a linked list starting from #param head for a node pointer
- *    with a field _item that is equal to #param key.
- *
- *    @param head - The head of the linked list to be searched
- *    @param key - The value being searched for within each nodes' contents
- *    @returns The address of the node who's field _item == key; nullptr otherwise
+* Sequentially searches a linked list, beginning at @p head, for 
+* a node with an `_item` field equivalent to @p key .
+*
+* @tparam T The datatype of the value stored in node
+* @param head The head of the linked list to be searched
+* @param key The value of the `_item` field of the node being searched for
+* @returns The address of the node whose `_item` field is equal to key; nullptr otherwise
 */
 template <typename T> node<T>* _search_list(node<T>* head, T key) {
     if (head == nullptr) return nullptr;
@@ -78,15 +81,13 @@ template <typename T> node<T>* _search_list(node<T>* head, T key) {
 }
 
 /**
- * 
- *    Inserts #param insert_this--as a new node in the heap--as the new head to 
- *    the linked list #param head.
- *
- *    Head MUST be the actual head of a linked list, ie head->_prev must equal nullptr.
- *
- *    @param head - The head of the linked list to be updated to the new node
- *    @param insert_this - The value to be passed to the new node
- *    @returns The address to the new node in the heap that was inserted
+* Inserts a new node, with `_item` equal to @p insert_this, as the head of the linked list 
+* that begins with @p head. The former head of the mutated linked list becomes the second node. 
+*
+* @tparam T The datatype of the value stored in node
+* @param[in, out] head The head of the linked list to be mutated
+* @param[in] insert_this The item to be passed to the new node
+* @returns The address of the new node inserted
 */
 template <typename T> node<T>* _insert_head(node<T>*& head, T insert_this) {
     bool debug = false;
@@ -103,15 +104,19 @@ template <typename T> node<T>* _insert_head(node<T>*& head, T insert_this) {
 }
 
 /**
+* Inserts a new node, with `_item` equal to @p insert_this, into the linked list that
+* begins with @p head, immediately after the @p after_this. 
 * 
-*    Inserts #param insert_this--as a new node in the heap--in the linked list starting with
-*    the node pointer #param head after the node #param after_this. Calls _insert_head if #param head 
-*    or #param after_this is nullptr
+* If either @p head or @p after_this is `nullptr`, then _insert_head() is simply called,
+* passing @p head and @p insert_this.
+* 
+* @see _insert_head()
 *
-*    @param head - The head of the linked list
-*    @param after_this - The node address that the new node is inserted after
-*    @param insert_this - The value to be passed to the new node
-*    @returns The address of the new node inserted; nullptr if after_this is not found in head linked list
+* @tparam T The datatype of the value stored in node
+* @param[in, out] head The head of the linked list to be mutated
+* @param[in] after_this A pointer to the node that the new node will be inserted after
+* @param[in] insert_this The item to be passed to the new node
+* @returns The address of the new node inserted; nullptr if after_this is not found in head linked list
 */
 template <typename T> node<T>* _insert_after(node<T>*& head, node<T>* after_this, T insert_this) {
     
@@ -129,17 +134,21 @@ template <typename T> node<T>* _insert_after(node<T>*& head, node<T>* after_this
     return _node;
 }
 
-//insert before ptr: insert head if marker null
-
+/// insert before ptr: insert head if marker null
 /**
-*    Inserts #param insert_this--as a new node in the heap--in the linked list starting with
-*    the node pointer #param head before the node #param before_this. Calls _insert_head if #param head
-*    or #param before_this is nullptr
+* Inserts a new node, with `_item` equal to @p insert_this, into the linked list that
+* begins with @p head, immediately before @p before_this.
 *
-*    @param head - The head of the linked list
-*    @param before_this - The node address that the new node is inserted before
-*    @param insert_this - The value to be passed to the new node
-*    @returns The address of the new node inserted; nullptr if before_this is not found in head linked list
+* If either @p head or @p before_this is `nullptr`, then _insert_head() is simply called,
+* passing @p head and @p insert_this.
+*
+* @see _insert_head()
+*
+* @tparam T The datatype of the value stored in node
+* @param[in, out] head The head of the linked list to be mutated
+* @param[in] before_this A pointer to the node that the new node will be inserted before
+* @param[in] insert_this The item to be passed to the new node
+* @returns The address of the new node inserted; nullptr if before_this is not found in head linked list
 */
 template <typename T> node<T>* _insert_before(node<T>*& head, node<T>* before_this, T insert_this) {
     
@@ -157,40 +166,30 @@ template <typename T> node<T>* _insert_before(node<T>*& head, node<T>* before_th
     if (head == before_this) head = _node;
 
     return _node;
-    
-    //bool debug = false;
-    //if (head == nullptr || before_this == nullptr) return _insert_head(head, insert_this);
-
-    //if (debug) cout << "_insert_before() : Pointing to " << *head << endl;
-    //if (head == before_this) {
-    //    if (debug) cout << "_insert_before() : Inserting " << insert_this << endl;
-    //    return _insert_head(head, insert_this);
-    //}
-    //return _insert_before(head->_next, before_this, insert_this);
 }
 
-//ptr to previous node
+/// ptr to previous node
 /**
+* Retrieves a pointer to the node immediately before @p prev_to_this
+* (`prev_to_this->_prev` is often simpler to use as node is doubly-linked and a struct with no private members)
 * 
-* @tparam T - The type of value stored by node
-* @tparam prev_to_this - The node address used to return the address to the node before it in the linked list
-* 
-* @returns The address to the previous node of #param prev_to_this; nullptr if #param prev_to_this is nullptr
+* @tparam T The datatype of the value stored in node
+* @param prev_to_this A pointer to the node whose `_prev` field is being retrieved.
+* @returns The address of the node immediately before @p prev_to_this; nullptr if @p prev_to_this is nullptr
 */
 template <typename T> node<T>* _previous_node(node<T>* prev_to_this) {
     if (prev_to_this == nullptr) return nullptr;
     return prev_to_this->_prev;
 }
 
-//delete, return item
+/// delete, return item
 /**
-* 
-* Removes the address #param delete_this from the linked list that begins with the value held in #param head.
+* Removes @p delete_this from the linked list that begins with @p head . 
 *
-* @tparam T - The type of value stored by node
-* @tparam prev_to_this - The node address used to return the address to the node before it in the linked list
-*
-* @returns The address to the previous node of #param prev_to_this; nullptr if #param prev_to_this is nullptr
+* @tparam T The datatype of the value stored in node
+* @param[in, out] head The head of the linked list to be mutated
+* @param[in] delete_this A pointer to the node being removed from the linked list
+* @returns The value of `_item` held by the removed node
 */
 template <typename T> T _delete_node(node<T>*& head, node<T>* delete_this) {
     const bool debug = false;
@@ -242,9 +241,15 @@ template <typename T> T _delete_node(node<T>*& head, node<T>* delete_this) {
     return _return_item;
 }
 
-//duplicate the list...
-template <typename T>
-node<T>* _copy_list(node<T>* head) {
+/// duplicate the list
+/**
+* Creates a deep copy of the linked list that begins with @p head.
+* 
+* @tparam T The datatype of the value stored in node
+* @param head The head of the linked list being copied
+* @returns A pointer to the head node of a deep-copy linked list of @p head
+*/
+template <typename T> node<T>* _copy_list(node<T>* head) {
     const bool debug = false;
     if (head == nullptr) return nullptr;
 
@@ -266,8 +271,16 @@ node<T>* _copy_list(node<T>* head) {
     return _copy_head;
 }
 
-//duplicate the list, return pointer to last node in dest... 
-//     use this function in your queue big three 
+/// duplicates the list, returns pointer to last node in dest...
+/**
+* Creates a deep copy of the linked list that begins with @p src and sets @p dest equal to the head node
+* of the copy.
+*
+* @tparam T The datatype of the value stored in node
+* @param[in, out] dest The pointer reference to set equal to the address of the head node of the copy
+* @param[in] src A pointer to the head of the linked list to copy
+* @returns A pointer to the last node of the deep copy; nullptr if @p dest is not equal to `nullptr`, or if @p src is equal to `nullptr`
+*/
 template <typename T> node<T>* _copy_list(node<T>*& dest, node<T>* src) {
     if (dest != nullptr || src == nullptr) return nullptr;
 
@@ -278,14 +291,29 @@ template <typename T> node<T>* _copy_list(node<T>*& dest, node<T>* src) {
     return last_node;
 }
 
-//delete all the nodes
+/// delete all the nodes
+/**
+* Clears all nodes within the linked list that begins with @p head.
+* 
+* @tparam T The datatype of the value stored in node
+* @param[in, out] head The head of the linked list to be cleared
+*/
 template <typename T> void _clear_list(node<T>*& head) {
     if (head == nullptr) return;
     _delete_node<T>(head, head);
     _clear_list<T>(head);
 }
 
-//_item at this position
+/// _item at this position
+/**
+* Retrieves a reference to the value held by the node within the linked list that begins with @p head
+* at index @p pos within the linked list.
+* 
+* @tparam T The datatype of the value stored in node
+* @param head The head of the linked list being searched
+* @param pos The index of the desired node within the linked list
+* @returns A reference to the `_item` field of the node at index @p pos
+*/
 template <typename T> T& _at(node<T>* head, int pos) {
     assert(head != nullptr);
     assert(pos >= 0); // Assert pos isn't negative

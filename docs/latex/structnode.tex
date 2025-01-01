@@ -1,0 +1,88 @@
+\doxysection{node\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Struct Template Reference}
+\hypertarget{structnode}{}\label{structnode}\index{node$<$ T $>$@{node$<$ T $>$}}
+
+
+{\ttfamily \#include $<$node.\+h$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structnode_a46066d957c5fa64035fb2cf2eba11ea0}{node}} (const T \&item=T(), \mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}next=NULL, \mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}prev=NULL)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{structnode_a989caa73c5e3112db0a021cc1a9f4127}\label{structnode_a989caa73c5e3112db0a021cc1a9f4127} 
+T {\bfseries \+\_\+item}
+\begin{DoxyCompactList}\small\item\em The value stored by the node. \end{DoxyCompactList}\item 
+\Hypertarget{structnode_af31634d3bcbc2970d08831399125b762}\label{structnode_af31634d3bcbc2970d08831399125b762} 
+\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+next}
+\begin{DoxyCompactList}\small\item\em A pointer to the next node in the linked list. \end{DoxyCompactList}\item 
+\Hypertarget{structnode_afef72957dda19d7a9902edcb26686d71}\label{structnode_afef72957dda19d7a9902edcb26686d71} 
+\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*} {\bfseries \+\_\+prev}
+\begin{DoxyCompactList}\small\item\em A pointer to the previous node in the linked list. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+ostream \& \mbox{\hyperlink{structnode_aa3288d9c65b5cda9177fc61a2f064755}{operator$<$$<$}} (ostream \&outs, const \mbox{\hyperlink{structnode}{node}}$<$ T $>$ \&print\+\_\+me)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$class T$>$\newline
+struct node$<$ T $>$}
+Doubly-\/linked node object exclusively utilized by Stack and Queue
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & -\/ The datatype of the value stored in the node \\
+\hline
+\end{DoxyTemplParams}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{structnode_a46066d957c5fa64035fb2cf2eba11ea0}\index{node$<$ T $>$@{node$<$ T $>$}!node@{node}}
+\index{node@{node}!node$<$ T $>$@{node$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{node()}{node()}}
+{\footnotesize\ttfamily \label{structnode_a46066d957c5fa64035fb2cf2eba11ea0} 
+template$<$class T $>$ \\
+\mbox{\hyperlink{structnode}{node}}$<$ T $>$\mbox{\hyperlink{structnode}{\+::node}} (\begin{DoxyParamCaption}\item[{const T \&}]{item}{ = {\ttfamily T()}, }\item[{\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{next}{ = {\ttfamily NULL}, }\item[{\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{prev}{ = {\ttfamily NULL}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Constructs a new node object that holds {\ttfamily item} as the stored value, setting {\ttfamily next} as the next node and {\ttfamily prev} as the previous node.
+
+
+\begin{DoxyParams}{Parameters}
+{\em item} & The value for the node to store \\
+\hline
+{\em next} & The next node in the linked list \\
+\hline
+{\em prev} & The previous node in the linked list \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Friends And Related Symbol Documentation}
+\Hypertarget{structnode_aa3288d9c65b5cda9177fc61a2f064755}\index{node$<$ T $>$@{node$<$ T $>$}!operator$<$$<$@{operator$<$$<$}}
+\index{operator$<$$<$@{operator$<$$<$}!node$<$ T $>$@{node$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator$<$$<$}{operator<<}}
+{\footnotesize\ttfamily \label{structnode_aa3288d9c65b5cda9177fc61a2f064755} 
+template$<$class T $>$ \\
+ostream \& operator$<$$<$ (\begin{DoxyParamCaption}\item[{ostream \&}]{outs}{, }\item[{const \mbox{\hyperlink{structnode}{node}}$<$ T $>$ \&}]{print\+\_\+me}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+Outputs the contents of the linked list beginning with {\ttfamily print\+\_\+me} into {\ttfamily outs}.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em outs} & The ostream object to insert the output \\
+\hline
+\mbox{\texttt{ in}}  & {\em print\+\_\+me} & The head of the linked list to output \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+An ostream object with the formatted values of the entire linked list inserted 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+includes/node/\mbox{\hyperlink{node_8h}{node.\+h}}\end{DoxyCompactItemize}

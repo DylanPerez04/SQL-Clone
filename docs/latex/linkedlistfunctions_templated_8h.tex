@@ -1,0 +1,347 @@
+\doxysection{includes/linked\+\_\+list\+\_\+functions/linkedlistfunctions\+Templated.h File Reference}
+\hypertarget{linkedlistfunctions_templated_8h}{}\label{linkedlistfunctions_templated_8h}\index{includes/linked\_list\_functions/linkedlistfunctionsTemplated.h@{includes/linked\_list\_functions/linkedlistfunctionsTemplated.h}}
+{\ttfamily \#include "{}../node/node.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{linkedlistfunctions_templated_8h_af113ba6a67ef6a84a06536defdc64f9c}{\+\_\+print\+\_\+list}} (\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}head)
+\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{linkedlistfunctions_templated_8h_aa6d3d4d4c0c1d9c4350ae6a386bca767}{\+\_\+print\+\_\+list\+\_\+backwards}} (\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}head)
+\item 
+{\footnotesize template$<$typename T $>$ }\\\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{linkedlistfunctions_templated_8h_acc32ce2d3860c2356d7be394d1923011}{\+\_\+search\+\_\+list}} (\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}head, T key)
+\item 
+{\footnotesize template$<$typename T $>$ }\\\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{linkedlistfunctions_templated_8h_a5f2e7a1140f91989ff1f283ca6ca6f29}{\+\_\+insert\+\_\+head}} (\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}\&head, T insert\+\_\+this)
+\item 
+{\footnotesize template$<$typename T $>$ }\\\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{linkedlistfunctions_templated_8h_a65449f502b44df207168f83dc438ccbc}{\+\_\+insert\+\_\+after}} (\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}\&head, \mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}after\+\_\+this, T insert\+\_\+this)
+\item 
+{\footnotesize template$<$typename T $>$ }\\\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{linkedlistfunctions_templated_8h_a9968148e093bce4b8662493ce5d03d42}{\+\_\+insert\+\_\+before}} (\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}\&head, \mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}before\+\_\+this, T insert\+\_\+this)
+\begin{DoxyCompactList}\small\item\em insert before ptr\+: insert head if marker null \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{linkedlistfunctions_templated_8h_ad996ad1bf3a606180c6f8e5f51adf207}{\+\_\+previous\+\_\+node}} (\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}prev\+\_\+to\+\_\+this)
+\begin{DoxyCompactList}\small\item\em ptr to previous node \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\T \mbox{\hyperlink{linkedlistfunctions_templated_8h_a3f63698a8fc1ed9903ee31048910310f}{\+\_\+delete\+\_\+node}} (\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}\&head, \mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}delete\+\_\+this)
+\begin{DoxyCompactList}\small\item\em delete, return item \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{linkedlistfunctions_templated_8h_ab4368ec8876fd6b14e437d77cb276ab8}{\+\_\+copy\+\_\+list}} (\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}head)
+\begin{DoxyCompactList}\small\item\em duplicate the list \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{linkedlistfunctions_templated_8h_aaacf64e7229d8d46f1fe1d37efdbbebd}{\+\_\+copy\+\_\+list}} (\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}\&dest, \mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}src)
+\begin{DoxyCompactList}\small\item\em duplicates the list, returns pointer to last node in dest... \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\void \mbox{\hyperlink{linkedlistfunctions_templated_8h_a3dc03e9d2cbc136d84ed812416d7b824}{\+\_\+clear\+\_\+list}} (\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}\&head)
+\begin{DoxyCompactList}\small\item\em delete all the nodes \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T $>$ }\\T \& \mbox{\hyperlink{linkedlistfunctions_templated_8h_a9e104957a0e96d3da09fefc93a4c20b3}{\+\_\+at}} (\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}head, int pos)
+\begin{DoxyCompactList}\small\item\em \+\_\+item at this position \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines linked list helper methods utilized exclusively by the Stack and Queue objects. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{linkedlistfunctions_templated_8h_a9e104957a0e96d3da09fefc93a4c20b3}\index{linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}!\_at@{\_at}}
+\index{\_at@{\_at}!linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}}
+\doxysubsubsection{\texorpdfstring{\_at()}{\_at()}}
+{\footnotesize\ttfamily \label{linkedlistfunctions_templated_8h_a9e104957a0e96d3da09fefc93a4c20b3} 
+template$<$typename T $>$ \\
+T \& \+\_\+at (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{head}{, }\item[{int}]{pos}{}\end{DoxyParamCaption})}
+
+
+
+\+\_\+item at this position 
+
+Retrieves a reference to the value held by the node within the linked list that begins with {\ttfamily head} at index {\ttfamily pos} within the linked list.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The datatype of the value stored in node \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em head} & The head of the linked list being searched \\
+\hline
+{\em pos} & The index of the desired node within the linked list \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A reference to the {\ttfamily \+\_\+item} field of the node at index {\ttfamily pos} 
+\end{DoxyReturn}
+\Hypertarget{linkedlistfunctions_templated_8h_a3dc03e9d2cbc136d84ed812416d7b824}\index{linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}!\_clear\_list@{\_clear\_list}}
+\index{\_clear\_list@{\_clear\_list}!linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}}
+\doxysubsubsection{\texorpdfstring{\_clear\_list()}{\_clear\_list()}}
+{\footnotesize\ttfamily \label{linkedlistfunctions_templated_8h_a3dc03e9d2cbc136d84ed812416d7b824} 
+template$<$typename T $>$ \\
+void \+\_\+clear\+\_\+list (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}\&}]{head}{}\end{DoxyParamCaption})}
+
+
+
+delete all the nodes 
+
+Clears all nodes within the linked list that begins with {\ttfamily head}.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The datatype of the value stored in node \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em head} & The head of the linked list to be cleared \\
+\hline
+\end{DoxyParams}
+\Hypertarget{linkedlistfunctions_templated_8h_aaacf64e7229d8d46f1fe1d37efdbbebd}\index{linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}!\_copy\_list@{\_copy\_list}}
+\index{\_copy\_list@{\_copy\_list}!linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}}
+\doxysubsubsection{\texorpdfstring{\_copy\_list()}{\_copy\_list()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{linkedlistfunctions_templated_8h_aaacf64e7229d8d46f1fe1d37efdbbebd} 
+template$<$typename T $>$ \\
+\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*} \+\_\+copy\+\_\+list (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}\&}]{dest}{, }\item[{\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{src}{}\end{DoxyParamCaption})}
+
+
+
+duplicates the list, returns pointer to last node in dest... 
+
+Creates a deep copy of the linked list that begins with {\ttfamily src} and sets {\ttfamily dest} equal to the head node of the copy.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The datatype of the value stored in node \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em dest} & The pointer reference to set equal to the address of the head node of the copy \\
+\hline
+\mbox{\texttt{ in}}  & {\em src} & A pointer to the head of the linked list to copy \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the last node of the deep copy; nullptr if {\ttfamily dest} is not equal to {\ttfamily nullptr}, or if {\ttfamily src} is equal to {\ttfamily nullptr} 
+\end{DoxyReturn}
+\Hypertarget{linkedlistfunctions_templated_8h_ab4368ec8876fd6b14e437d77cb276ab8}\index{linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}!\_copy\_list@{\_copy\_list}}
+\index{\_copy\_list@{\_copy\_list}!linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}}
+\doxysubsubsection{\texorpdfstring{\_copy\_list()}{\_copy\_list()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{linkedlistfunctions_templated_8h_ab4368ec8876fd6b14e437d77cb276ab8} 
+template$<$typename T $>$ \\
+\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*} \+\_\+copy\+\_\+list (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{head}{}\end{DoxyParamCaption})}
+
+
+
+duplicate the list 
+
+Creates a deep copy of the linked list that begins with {\ttfamily head}.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The datatype of the value stored in node \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em head} & The head of the linked list being copied \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A pointer to the head node of a deep-\/copy linked list of {\ttfamily head} 
+\end{DoxyReturn}
+\Hypertarget{linkedlistfunctions_templated_8h_a3f63698a8fc1ed9903ee31048910310f}\index{linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}!\_delete\_node@{\_delete\_node}}
+\index{\_delete\_node@{\_delete\_node}!linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}}
+\doxysubsubsection{\texorpdfstring{\_delete\_node()}{\_delete\_node()}}
+{\footnotesize\ttfamily \label{linkedlistfunctions_templated_8h_a3f63698a8fc1ed9903ee31048910310f} 
+template$<$typename T $>$ \\
+T \+\_\+delete\+\_\+node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}\&}]{head}{, }\item[{\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{delete\+\_\+this}{}\end{DoxyParamCaption})}
+
+
+
+delete, return item 
+
+Removes {\ttfamily delete\+\_\+this} from the linked list that begins with {\ttfamily head} .
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The datatype of the value stored in node \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em head} & The head of the linked list to be mutated \\
+\hline
+\mbox{\texttt{ in}}  & {\em delete\+\_\+this} & A pointer to the node being removed from the linked list \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The value of {\ttfamily \+\_\+item} held by the removed node 
+\end{DoxyReturn}
+\Hypertarget{linkedlistfunctions_templated_8h_a65449f502b44df207168f83dc438ccbc}\index{linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}!\_insert\_after@{\_insert\_after}}
+\index{\_insert\_after@{\_insert\_after}!linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}}
+\doxysubsubsection{\texorpdfstring{\_insert\_after()}{\_insert\_after()}}
+{\footnotesize\ttfamily \label{linkedlistfunctions_templated_8h_a65449f502b44df207168f83dc438ccbc} 
+template$<$typename T $>$ \\
+\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*} \+\_\+insert\+\_\+after (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}\&}]{head}{, }\item[{\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{after\+\_\+this}{, }\item[{T}]{insert\+\_\+this}{}\end{DoxyParamCaption})}
+
+Inserts a new node, with {\ttfamily \+\_\+item} equal to {\ttfamily insert\+\_\+this}, into the linked list that begins with {\ttfamily head}, immediately after the {\ttfamily after\+\_\+this}.
+
+If either {\ttfamily head} or {\ttfamily after\+\_\+this} is {\ttfamily nullptr}, then \doxylink{linkedlistfunctions_templated_8h_a5f2e7a1140f91989ff1f283ca6ca6f29}{\+\_\+insert\+\_\+head()} is simply called, passing {\ttfamily head} and {\ttfamily insert\+\_\+this}.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{linkedlistfunctions_templated_8h_a5f2e7a1140f91989ff1f283ca6ca6f29}{\+\_\+insert\+\_\+head()}
+\end{DoxySeeAlso}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The datatype of the value stored in node \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em head} & The head of the linked list to be mutated \\
+\hline
+\mbox{\texttt{ in}}  & {\em after\+\_\+this} & A pointer to the node that the new node will be inserted after \\
+\hline
+\mbox{\texttt{ in}}  & {\em insert\+\_\+this} & The item to be passed to the new node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The address of the new node inserted; nullptr if after\+\_\+this is not found in head linked list 
+\end{DoxyReturn}
+\Hypertarget{linkedlistfunctions_templated_8h_a9968148e093bce4b8662493ce5d03d42}\index{linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}!\_insert\_before@{\_insert\_before}}
+\index{\_insert\_before@{\_insert\_before}!linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}}
+\doxysubsubsection{\texorpdfstring{\_insert\_before()}{\_insert\_before()}}
+{\footnotesize\ttfamily \label{linkedlistfunctions_templated_8h_a9968148e093bce4b8662493ce5d03d42} 
+template$<$typename T $>$ \\
+\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*} \+\_\+insert\+\_\+before (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}\&}]{head}{, }\item[{\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{before\+\_\+this}{, }\item[{T}]{insert\+\_\+this}{}\end{DoxyParamCaption})}
+
+
+
+insert before ptr\+: insert head if marker null 
+
+Inserts a new node, with {\ttfamily \+\_\+item} equal to {\ttfamily insert\+\_\+this}, into the linked list that begins with {\ttfamily head}, immediately before {\ttfamily before\+\_\+this}.
+
+If either {\ttfamily head} or {\ttfamily before\+\_\+this} is {\ttfamily nullptr}, then \doxylink{linkedlistfunctions_templated_8h_a5f2e7a1140f91989ff1f283ca6ca6f29}{\+\_\+insert\+\_\+head()} is simply called, passing {\ttfamily head} and {\ttfamily insert\+\_\+this}.
+
+\begin{DoxySeeAlso}{See also}
+\doxylink{linkedlistfunctions_templated_8h_a5f2e7a1140f91989ff1f283ca6ca6f29}{\+\_\+insert\+\_\+head()}
+\end{DoxySeeAlso}
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The datatype of the value stored in node \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em head} & The head of the linked list to be mutated \\
+\hline
+\mbox{\texttt{ in}}  & {\em before\+\_\+this} & A pointer to the node that the new node will be inserted before \\
+\hline
+\mbox{\texttt{ in}}  & {\em insert\+\_\+this} & The item to be passed to the new node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The address of the new node inserted; nullptr if before\+\_\+this is not found in head linked list 
+\end{DoxyReturn}
+\Hypertarget{linkedlistfunctions_templated_8h_a5f2e7a1140f91989ff1f283ca6ca6f29}\index{linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}!\_insert\_head@{\_insert\_head}}
+\index{\_insert\_head@{\_insert\_head}!linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}}
+\doxysubsubsection{\texorpdfstring{\_insert\_head()}{\_insert\_head()}}
+{\footnotesize\ttfamily \label{linkedlistfunctions_templated_8h_a5f2e7a1140f91989ff1f283ca6ca6f29} 
+template$<$typename T $>$ \\
+\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*} \+\_\+insert\+\_\+head (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}\&}]{head}{, }\item[{T}]{insert\+\_\+this}{}\end{DoxyParamCaption})}
+
+Inserts a new node, with {\ttfamily \+\_\+item} equal to {\ttfamily insert\+\_\+this}, as the head of the linked list that begins with {\ttfamily head}. The former head of the mutated linked list becomes the second node.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The datatype of the value stored in node \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em head} & The head of the linked list to be mutated \\
+\hline
+\mbox{\texttt{ in}}  & {\em insert\+\_\+this} & The item to be passed to the new node \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The address of the new node inserted 
+\end{DoxyReturn}
+\Hypertarget{linkedlistfunctions_templated_8h_ad996ad1bf3a606180c6f8e5f51adf207}\index{linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}!\_previous\_node@{\_previous\_node}}
+\index{\_previous\_node@{\_previous\_node}!linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}}
+\doxysubsubsection{\texorpdfstring{\_previous\_node()}{\_previous\_node()}}
+{\footnotesize\ttfamily \label{linkedlistfunctions_templated_8h_ad996ad1bf3a606180c6f8e5f51adf207} 
+template$<$typename T $>$ \\
+\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*} \+\_\+previous\+\_\+node (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{prev\+\_\+to\+\_\+this}{}\end{DoxyParamCaption})}
+
+
+
+ptr to previous node 
+
+Retrieves a pointer to the node immediately before {\ttfamily prev\+\_\+to\+\_\+this} ({\ttfamily prev\+\_\+to\+\_\+this-\/\texorpdfstring{$>$}{>}\+\_\+prev} is often simpler to use as node is doubly-\/linked and a struct with no private members)
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The datatype of the value stored in node \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em prev\+\_\+to\+\_\+this} & A pointer to the node whose {\ttfamily \+\_\+prev} field is being retrieved. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The address of the node immediately before {\ttfamily prev\+\_\+to\+\_\+this}; nullptr if {\ttfamily prev\+\_\+to\+\_\+this} is nullptr 
+\end{DoxyReturn}
+\Hypertarget{linkedlistfunctions_templated_8h_af113ba6a67ef6a84a06536defdc64f9c}\index{linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}!\_print\_list@{\_print\_list}}
+\index{\_print\_list@{\_print\_list}!linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}}
+\doxysubsubsection{\texorpdfstring{\_print\_list()}{\_print\_list()}}
+{\footnotesize\ttfamily \label{linkedlistfunctions_templated_8h_af113ba6a67ef6a84a06536defdc64f9c} 
+template$<$typename T $>$ \\
+void \+\_\+print\+\_\+list (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{head}{}\end{DoxyParamCaption})}
+
+Sequentially prints out the {\ttfamily \+\_\+item} of each node pointer within a linked list of nodes.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The datatype of the value stored in node \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em head} & The head of the linked list to be printed \\
+\hline
+\end{DoxyParams}
+\Hypertarget{linkedlistfunctions_templated_8h_aa6d3d4d4c0c1d9c4350ae6a386bca767}\index{linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}!\_print\_list\_backwards@{\_print\_list\_backwards}}
+\index{\_print\_list\_backwards@{\_print\_list\_backwards}!linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}}
+\doxysubsubsection{\texorpdfstring{\_print\_list\_backwards()}{\_print\_list\_backwards()}}
+{\footnotesize\ttfamily \label{linkedlistfunctions_templated_8h_aa6d3d4d4c0c1d9c4350ae6a386bca767} 
+template$<$typename T $>$ \\
+void \+\_\+print\+\_\+list\+\_\+backwards (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{head}{}\end{DoxyParamCaption})}
+
+Sequentially prints the {\ttfamily \+\_\+item} of each node pointer within a linked list of nodes from the last element to the first element.
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The datatype of the value stored in node \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em head} & The head of the linked list to be printed \\
+\hline
+\end{DoxyParams}
+\Hypertarget{linkedlistfunctions_templated_8h_acc32ce2d3860c2356d7be394d1923011}\index{linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}!\_search\_list@{\_search\_list}}
+\index{\_search\_list@{\_search\_list}!linkedlistfunctionsTemplated.h@{linkedlistfunctionsTemplated.h}}
+\doxysubsubsection{\texorpdfstring{\_search\_list()}{\_search\_list()}}
+{\footnotesize\ttfamily \label{linkedlistfunctions_templated_8h_acc32ce2d3860c2356d7be394d1923011} 
+template$<$typename T $>$ \\
+\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*} \+\_\+search\+\_\+list (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structnode}{node}}$<$ T $>$ \texorpdfstring{$\ast$}{*}}]{head}{, }\item[{T}]{key}{}\end{DoxyParamCaption})}
+
+Sequentially searches a linked list, beginning at {\ttfamily head}, for a node with an {\ttfamily \+\_\+item} field equivalent to {\ttfamily key} .
+
+
+\begin{DoxyTemplParams}{Template Parameters}
+{\em T} & The datatype of the value stored in node \\
+\hline
+\end{DoxyTemplParams}
+
+\begin{DoxyParams}{Parameters}
+{\em head} & The head of the linked list to be searched \\
+\hline
+{\em key} & The value of the {\ttfamily \+\_\+item} field of the node being searched for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The address of the node whose {\ttfamily \+\_\+item} field is equal to key; nullptr otherwise 
+\end{DoxyReturn}

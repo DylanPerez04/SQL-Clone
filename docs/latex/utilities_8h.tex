@@ -1,0 +1,116 @@
+\doxysection{includes/binary\+\_\+files/utilities.h File Reference}
+\hypertarget{utilities_8h}{}\label{utilities_8h}\index{includes/binary\_files/utilities.h@{includes/binary\_files/utilities.h}}
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include "{}file\+\_\+record.\+h"{}}\newline
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{utilities_8h_aa401f67c6faba3355132c970a1158526}{file\+\_\+exists}} (const char filename\mbox{[}$\,$\mbox{]})
+\item 
+void \mbox{\hyperlink{utilities_8h_a46ce519c9f812c483ffeeefe3bea1010}{open\+\_\+fileW}} (fstream \&file, const char filename\mbox{[}$\,$\mbox{]})
+\item 
+void \mbox{\hyperlink{utilities_8h_a051837479c13fbc5f142f7ef74663c4b}{open\+\_\+file\+RW}} (fstream \&file, const char filename\mbox{[}$\,$\mbox{]})
+\item 
+int \mbox{\hyperlink{utilities_8h_a6eadec1a1ca499aa5fecb260f7a24a8f}{write\+\_\+info}} (const vector$<$ string $>$ \&data, const string bin)
+\item 
+void \mbox{\hyperlink{utilities_8h_a883446a483f58ac38714c84341472d00}{read\+\_\+info}} (const string txt, vector$<$ string $>$ \&data)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Defines the methods that \doxylink{file__record_8h}{file\+\_\+record.\+h} utilizes to directly read and write from .bin and .txt files used to store \doxylink{class_s_q_l}{SQL} table records. 
+
+\doxysubsection{Function Documentation}
+\Hypertarget{utilities_8h_aa401f67c6faba3355132c970a1158526}\index{utilities.h@{utilities.h}!file\_exists@{file\_exists}}
+\index{file\_exists@{file\_exists}!utilities.h@{utilities.h}}
+\doxysubsubsection{\texorpdfstring{file\_exists()}{file\_exists()}}
+{\footnotesize\ttfamily \label{utilities_8h_aa401f67c6faba3355132c970a1158526} 
+bool file\+\_\+exists (\begin{DoxyParamCaption}\item[{const char}]{filename}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
+
+Checks if a file within the project\textquotesingle{}s out/build/x64-\/\+Debug/bin/ folder exists with the name {\ttfamily filename}.
+
+If a file named {\ttfamily filename} already exists, the file won\textquotesingle{}t be truncated.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em filename} & The name of the file being searched for \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Whether a file with the name {\ttfamily filename} exists 
+\end{DoxyReturn}
+\Hypertarget{utilities_8h_a051837479c13fbc5f142f7ef74663c4b}\index{utilities.h@{utilities.h}!open\_fileRW@{open\_fileRW}}
+\index{open\_fileRW@{open\_fileRW}!utilities.h@{utilities.h}}
+\doxysubsubsection{\texorpdfstring{open\_fileRW()}{open\_fileRW()}}
+{\footnotesize\ttfamily \label{utilities_8h_a051837479c13fbc5f142f7ef74663c4b} 
+void open\+\_\+file\+RW (\begin{DoxyParamCaption}\item[{fstream \&}]{file}{, }\item[{const char}]{filename}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
+
+Opens a file named {\ttfamily filename} for reading and writing using the passed in fstream parameter {\ttfamily file}.
+
+The passed in fstream instance, {\ttfamily file}, is closed if open at the time of being passed as an actual parameter.
+
+If a file with the name {\ttfamily filename} already, exists, open\+\_\+file\+RW simply opens the file for read and write, and does not overwrite the existing file. If not, opens the file for write and creates a new file.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em file} & An fstream instance to be used to open a file with the named {\ttfamily filename} for writing \\
+\hline
+\mbox{\texttt{ in}}  & {\em filename} & The name of the file to open for writing \\
+\hline
+\end{DoxyParams}
+\Hypertarget{utilities_8h_a46ce519c9f812c483ffeeefe3bea1010}\index{utilities.h@{utilities.h}!open\_fileW@{open\_fileW}}
+\index{open\_fileW@{open\_fileW}!utilities.h@{utilities.h}}
+\doxysubsubsection{\texorpdfstring{open\_fileW()}{open\_fileW()}}
+{\footnotesize\ttfamily \label{utilities_8h_a46ce519c9f812c483ffeeefe3bea1010} 
+void open\+\_\+fileW (\begin{DoxyParamCaption}\item[{fstream \&}]{file}{, }\item[{const char}]{filename}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
+
+Opens a file named {\ttfamily filename} for writing using the passed in fstream parameter {\ttfamily file}.
+
+The passed in fstream instance, {\ttfamily file}, is closed if open at the time of being passed as an actual parameter.
+
+Being openned for writing, any file that currently exists with the name {\ttfamily filename} will be truncated (wiped); if no file with the name {\ttfamily filename} exists, the method will create one.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in,out}}  & {\em file} & An fstream instance to be used to open a file with the named {\ttfamily filename} for writing \\
+\hline
+\mbox{\texttt{ in}}  & {\em filename} & The name of the file to open for writing \\
+\hline
+\end{DoxyParams}
+\Hypertarget{utilities_8h_a883446a483f58ac38714c84341472d00}\index{utilities.h@{utilities.h}!read\_info@{read\_info}}
+\index{read\_info@{read\_info}!utilities.h@{utilities.h}}
+\doxysubsubsection{\texorpdfstring{read\_info()}{read\_info()}}
+{\footnotesize\ttfamily \label{utilities_8h_a883446a483f58ac38714c84341472d00} 
+void read\+\_\+info (\begin{DoxyParamCaption}\item[{const string}]{txt}{, }\item[{vector$<$ string $>$ \&}]{data}{}\end{DoxyParamCaption})}
+
+Reads an \doxylink{class_s_q_l}{SQL} table\textquotesingle{}s field names from the file with the filename {\ttfamily txt}, and inputs the field names into {\ttfamily data}.
+
+It is assumed that the file name passed in via {\ttfamily txt} ends with .txt.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em txt} & The file name of the .txt file to read the \doxylink{class_s_q_l}{SQL} table field names from \\
+\hline
+\mbox{\texttt{ in,out}}  & {\em data} & The {\ttfamily vector\texorpdfstring{$<$}{<}string\texorpdfstring{$>$}{>}} object to store the \doxylink{class_s_q_l}{SQL} table field names in \\
+\hline
+\end{DoxyParams}
+\Hypertarget{utilities_8h_a6eadec1a1ca499aa5fecb260f7a24a8f}\index{utilities.h@{utilities.h}!write\_info@{write\_info}}
+\index{write\_info@{write\_info}!utilities.h@{utilities.h}}
+\doxysubsubsection{\texorpdfstring{write\_info()}{write\_info()}}
+{\footnotesize\ttfamily \label{utilities_8h_a6eadec1a1ca499aa5fecb260f7a24a8f} 
+int write\+\_\+info (\begin{DoxyParamCaption}\item[{const vector$<$ string $>$ \&}]{data}{, }\item[{const string}]{bin}{}\end{DoxyParamCaption})}
+
+Writes {\ttfamily data} into a file with the filename {\ttfamily bin} via a \doxylink{struct_file_record}{File\+Record}.
+
+It is assumed that the file name passed in via {\ttfamily bin} ends with .bin.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em data} & The data to be passed into the \doxylink{struct_file_record}{File\+Record} as entries to an \doxylink{class_s_q_l}{SQL} field \\
+\hline
+\mbox{\texttt{ in}}  & {\em bin} & The name of the .bin file to write {\ttfamily data} to \\
+\hline
+\end{DoxyParams}

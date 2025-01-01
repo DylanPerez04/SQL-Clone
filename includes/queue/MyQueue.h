@@ -1,14 +1,26 @@
+/** @file MyQueue.h
+* 
+* Defines the Queue datastructure utilizing node. 
+*/
+
 #ifndef MY_QUEUE_H
 #define MY_QUEUE_H
 
 #include "../linked_list_functions/linkedlistfunctionsTemplated.h"
 
+/**
+* Implements the Queue datastructure, withholding any relative operator overloads 
+* (therefore, it is HIGHLY recommended to use the C++ STL queue instead in all cases).
+*/
 template <typename T> class Queue {
 private:
-    node<T>* _front;
-    node<T>* _rear;
-    int _size;
+    node<T>* _front; ///< The node at the front of the Queue
+    node<T>* _rear; ///< The node at the end of the Queue
+    int _size; ///< The number of nodes within the Queue
 public:
+    /**
+    * Implements an iterator tailored specifically for the Queue object
+    */
     class Iterator {
     private:
         node<T>* _ptr;                          //pointer being encapsulated

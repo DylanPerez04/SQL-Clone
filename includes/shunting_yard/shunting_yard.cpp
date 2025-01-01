@@ -1,7 +1,7 @@
 #include "shunting_yard.h"
 
 ShuntingYard::ShuntingYard(Queue<Token*>& infix) {
-    const bool debug = false;
+    const bool debug = true;
 
     Queue<Token*> output_queue;
     Stack<Token*> op_stack;
@@ -9,7 +9,7 @@ ShuntingYard::ShuntingYard(Queue<Token*>& infix) {
     for (Queue<Token*>::Iterator it = infix.begin(); it != infix.end(); it++) {
         TokenType _type = (*it)->type();
 
-        if (debug) cout << "ShuntingYard() : _token = " << (*it)->token_str() << " | TokenType _type = " << _type << endl;
+        // if (debug) cout << "ShuntingYard() : _token = " << (*it)->token_str() << " | TokenType _type = " << _type << endl;
 
         switch (_type) {
         case STRING:
@@ -41,14 +41,14 @@ ShuntingYard::ShuntingYard(Queue<Token*>& infix) {
         default:
             break;
         }
-        if (debug) {
-            cout << "ShuntingYard() : op_stack = Head-> ";
-            Stack<Token*>::Iterator it = op_stack.begin();
-            while (it != op_stack.end()) {
-                cout << **it << " ";
-                it++;
-            } cout << "|||" << endl;
-        }
+        //if (debug) {
+        //    cout << "ShuntingYard() : op_stack = Head-> ";
+        //    Stack<Token*>::Iterator it = op_stack.begin();
+        //    while (it != op_stack.end()) {
+        //        cout << **it << " ";
+        //        it++;
+        //    } cout << "|||" << endl;
+        //}
     }
 
     while (op_stack.size() > 0) {
